@@ -1,0 +1,64 @@
+
+- Top page
+  http://localhost:8888
+  (http://localhost:8888/index.html)
+  
+
+- DTO / Database entities
+ User
+   -key
+   -id (userid)
+   -name (username)
+   -token
+   -timestamp
+   
+ Event
+   -key
+   -id (eventid)
+   -subject
+   -place
+   -eventDate
+   -registeredDate
+   -expiredDate
+   -number
+   -comment
+   -owner (ownerRef --> User)
+   -participants (participantsRef --> User) 
+   -timestamp
+
+
+- Web services
+  *root: http://localhost:8888/api/v1/
+
+ me/get
+   service=me
+   service=my_friends
+ 
+ 
+ me/update
+   
+   
+ event/get
+   service=all_events
+   service=my_events
+   #service=search
+   
+   offset=int(first position)
+   limit=int(last position)
+   withHistory=true/false
+   
+
+ event/update
+   service=create
+   service=delete
+   #service=add_participant
+
+
+
+- Change project name.
+war/WEB-INF/web.xml
+	<context-param>
+        <param-name>slim3.rootPackage</param-name>
+        <param-value>com.placeholder</param-value>
+    </context-param>
+       
