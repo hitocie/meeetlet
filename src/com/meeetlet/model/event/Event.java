@@ -12,7 +12,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.repackaged.org.json.JSONArray;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.meeetlet.common.DateUtil;
+import com.meeetlet.common.utils.DateUtil;
 import com.meeetlet.meta.common.UserMeta;
 import com.meeetlet.model.common.User;
 

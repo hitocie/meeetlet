@@ -10,7 +10,7 @@ import org.slim3.datastore.ModelRef;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.meeetlet.common.DateUtil;
+import com.meeetlet.common.utils.DateUtil;
 import com.meeetlet.model.event.Event;
 
 @Model(schemaVersion = 1)
