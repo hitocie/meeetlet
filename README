@@ -23,13 +23,25 @@
    -number
    -comment
    -owner (ownerRef --> User)
-   -participants (participantsRef --> User) 
+   -participants (participantsRef --> Participant) 
    -timestamp
 
+ Participant
+   -key
+   -user (userRef --> User)
+   -comment
+   
 
 - Web services
   *root: http://localhost:8888/api/v1/
 
+ auth/facebook/
+ auth/facebook/token
+ 
+ auth/facebook/check
+   service=login
+ 
+ 
  me/get
    service=me
    service=my_friends
@@ -51,14 +63,6 @@
  event/update
    service=create
    service=delete
-   #service=add_participant
+   service=add_participant
 
-
-
-- Change project name.
-war/WEB-INF/web.xml
-	<context-param>
-        <param-name>slim3.rootPackage</param-name>
-        <param-value>com.placeholder</param-value>
-    </context-param>
-       
+   

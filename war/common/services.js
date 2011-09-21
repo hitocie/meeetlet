@@ -51,15 +51,15 @@ function sync_request(args) {
 
 
 // auth
-function login_local(userid) {
-	// FIXME: this is a test. Should remove it.
-	async_request({
-			url: '/api/v1/test/?service=login&userid=' + userid,
-			success_handler: function(data, status) {
-				//alert(status);
-			}
-	});
-}
+//function login_local(userid) {
+//	// FIXME: this is a test. Should remove it.
+//	async_request({
+//			url: '/api/v1/test/?service=login&userid=' + userid,
+//			success_handler: function(data, status) {
+//				//alert(status);
+//			}
+//	});
+//}
 function isLogin() {
 	return sync_request({
 		url: '/api/v1/auth/facebook/check?service=login'
@@ -72,7 +72,6 @@ function get_me(p) {
 	async_request({
 			url: '/api/v1/me/get?service=me', 
 			success_handler: function(data, status) {
-				//alert(JSON.stringify(data));
 				p(data);
 			}
 	});
@@ -91,7 +90,6 @@ function get_my_events(p) {
 	async_request({
 			url: '/api/v1/event/get?service=my_events',
 			success_handler: function(data, status) {
-				//alert(JSON.stringify(data));
 				p(data);
 			}
 	});
@@ -110,10 +108,18 @@ function create_event(
 	});
 	return response;
 }
-function add_participant(eventid) {
+function add_participant(eventid, comment) {
 	
 	var response = sync_request({
 			url: '/api/v1/event/update?service=add_participant',
+			data: {eventid: eventid, comment: comment}
+	});
+	return response;
+}
+function delete_event(eventid) {
+	
+	var response = sync_request({
+			url: '/api/v1/event/update?service=delete',
 			data: {eventid: eventid}
 	});
 	return response;

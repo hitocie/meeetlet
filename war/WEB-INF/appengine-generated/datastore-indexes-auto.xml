@@ -1,8 +1,8 @@
-<!-- Indices written at Wed, 21 Sep 2011 10:21:58 UTC -->
+<!-- Indices written at Wed, 21 Sep 2011 13:40:21 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 5 times in query history -->
+    <!-- Used 4 times in query history -->
     <datastore-index kind="Event" ancestor="false" source="auto">
         <property name="ownerRef" direction="asc"/>
         <property name="expiredDate" direction="desc"/>

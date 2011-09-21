@@ -49,6 +49,7 @@ public class UpdateController extends Controller {
                     
                     Participant p = new Participant();
                     p.getUserRef().setModel(me.getUser());
+                    p.setComment(asString("comment"));
                     
                     e = es.addParticipant(p, e);
                     e.toJSONObject().write(response.getWriter());
@@ -56,7 +57,10 @@ public class UpdateController extends Controller {
                     return null;
                     
                 } else if (service.equals("delete")) {
-
+                    // service=delete
+                    es.deleteEvent(asString("eventid"));
+                    response.getWriter().write("");
+                    
                     return null;
                 }
             }

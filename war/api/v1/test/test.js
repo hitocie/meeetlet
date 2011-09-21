@@ -10,19 +10,14 @@ $(function() {
 
 		// get my info.
 		get_me(function(user) {
-			console.log(
-					' id=' + user.id + 
-					' name=' + user.name + 
-					//' token=' + user.token + 
-					' timestamp=' + user.timestamp
-			);
+			dump_user(user, '[me]');
 		});
 		
 		// get my friends
 		get_my_friends(function(friends) {
 			for (var i in friends) {
 				var f = friends[i];
-				console.log(f.id + ' ' + f.name);
+				dump_user(f, '[friends]');
 			}
 		});
 	});
@@ -34,20 +29,7 @@ $(function() {
 		get_my_events(function(events) {
 			for (var i in events) {
 				var e = events[i];
-				console.log(
-						' id= ' + e.id + 
-						' subject=' + e.subject +
-						' place=' + e.place +
-						' eventDate=' + e.eventDate +
-						' registeredDate=' + e.registeredDate +
-						' expiredDate=' + e.expiredDate +
-						' number=' + e.number +
-						' comment=' + e.comment +
-						' owner=' + e.owner.name +
-						' participants=' + JSON.stringify(e.participants) +
-						' timestamp=' + e.timestamp 
-				);
-
+				dump_event(e, '[my events]');
 			}
 		});
 		
@@ -65,12 +47,28 @@ $(function() {
 				20, // max number of participants
 				'This is a great of 2011 party.' // comment
 		);
-		console.log('[Created!]' + event.id + ' ' + event.subject);
+		dump_event(event, '[Created event!]');
 
 		// add one participant.
-		event = add_participant(event.id); // 1
-		event = add_participant(event.id); // 2
-		console.log('[Added!]' + event.id  + ' ' + JSON.stringify(event.participants));
+		event = add_participant(
+				event.id,
+				'This is a comment1.'
+		); // 1
+		event = add_participant(
+				event.id,
+				'This is a comment2.'
+		); // 2
+		dump_event(event, '[Added participant!]');
 	});	
 });
 
+$(function() {
+	$('#delete_event').click(function() {
+
+		get_my_events(function(events) {
+			var e = events[0];
+			delete_event(e.id);
+		});
+		
+	});	
+});

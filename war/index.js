@@ -5,6 +5,6 @@ $(window).load(function(){
 		console.log('You have already logged in.');
 		document.getElementById('login').innerText = "";
 	} else {
-		alert('Cannot logged in.');
+		console.log('Cannot logged in.');
 	}
 });
