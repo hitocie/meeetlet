@@ -18,6 +18,8 @@ $(function() {
 			for (var i in friends) {
 				var f = friends[i];
 				dump_user(f, '[friends]');
+				var v = document.getElementById('result');
+				v.innerText = v.innerText + ' ' + f.name
 			}
 		});
 	});

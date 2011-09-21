@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.meeetlet.common.Const;
 import com.meeetlet.common.Me;
 
 public class CheckController extends Controller {
@@ -15,6 +16,8 @@ public class CheckController extends Controller {
     @Override
     public Navigation run() throws Exception {
         
+        response.setContentType(Const.charEncoding);
+
         String service = asString("service");
         if (service != null) {
             log.info("service=" + service);

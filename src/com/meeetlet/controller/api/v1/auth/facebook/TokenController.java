@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.meeetlet.common.Const;
 import com.meeetlet.common.Me;
 import com.meeetlet.common.facebook.App;
 import com.meeetlet.common.facebook.MeForFacebook;
@@ -28,6 +29,8 @@ public class TokenController extends Controller {
     @Override
     public Navigation run() throws Exception {
         
+        response.setContentType(Const.charEncoding);
+
         String validationCode = asString("code");
         log.info("validation code=" + validationCode);
 
@@ -64,7 +67,7 @@ public class TokenController extends Controller {
                 // for web page
                 writer.write("Top page: " + me.getUser().getUsername()); // TODO: HTML
                 
-                return redirect(App.topPageUrl);
+                return redirect(Const.topPageUrl);
             }
         }
         

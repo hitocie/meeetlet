@@ -7,6 +7,7 @@ import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
 import com.google.appengine.repackaged.org.json.JSONArray;
+import com.meeetlet.common.Const;
 import com.meeetlet.common.Me;
 import com.meeetlet.model.common.User;
 
@@ -17,6 +18,8 @@ public class GetController extends Controller {
 
     @Override
     public Navigation run() throws Exception {
+
+        response.setContentType(Const.charEncoding);
 
         String service = asString("service");
         log.info("/api/v1/me/get?service=" + service);
@@ -35,9 +38,11 @@ public class GetController extends Controller {
                     // service=my_friends
                     List<User> friends = me.getFriends();
                     JSONArray out = new JSONArray();
-                    for (User u : friends) 
+                    for (User u : friends) {
                         out.put(u.toJSONObject());
+                    }
                     out.write(response.getWriter());
+
                     return null;
                 }
             }

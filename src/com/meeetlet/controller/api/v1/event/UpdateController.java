@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.meeetlet.common.Const;
 import com.meeetlet.common.Me;
 import com.meeetlet.model.event.Event;
 import com.meeetlet.model.event.Participant;
@@ -18,6 +19,7 @@ public class UpdateController extends Controller {
     @Override
     public Navigation run() throws Exception {
 
+        response.setContentType(Const.charEncoding);
 
         String service = asString("service");
         log.info("/api/v1/event/update?service=" + service);
