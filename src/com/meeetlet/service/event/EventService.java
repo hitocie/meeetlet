@@ -8,8 +8,10 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.meeetlet.meta.event.EventMeta;
+import com.meeetlet.meta.event.ParticipantMeta;
 import com.meeetlet.model.common.User;
 import com.meeetlet.model.event.Event;
+import com.meeetlet.model.event.Participant;
 
 
 public class EventService {
@@ -85,15 +87,21 @@ public class EventService {
         return event;
     }
     
-    public void addParticipant(User participant, Event event) throws Exception {
+    public Event addParticipant(Participant participant, Event event) throws Exception {
         
         event.setTimestamp(new Date());
-
+        
+        Key pKey = 
+                Datastore.createKey(
+                    event.getKey(), 
+                    ParticipantMeta.get(), 
+                    event.getParticipantsRef().getModelList().size() + 1);
+        participant.setKey(pKey);
         participant.getEventRef().setModel(event);
         
         Transaction tx = Datastore.beginTransaction();
         try {
-            Datastore.put(tx, participant);
+            Datastore.put(tx, event, participant);
             tx.commit();
         } catch (Exception e) {
             if (tx.isActive()) {
@@ -101,6 +109,7 @@ public class EventService {
             }
             throw e;
         }
+        return getEvent(event.getEventid());
     }
 
 }

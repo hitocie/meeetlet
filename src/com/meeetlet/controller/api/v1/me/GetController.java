@@ -27,7 +27,7 @@ public class GetController extends Controller {
 
                 if (service.equals("me")) {
                     // service=me
-                    User user = me.user;
+                    User user = me.getUser();
                     user.toJSONObject().write(response.getWriter());
                     return null;
 

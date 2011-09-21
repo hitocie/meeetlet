@@ -2,26 +2,30 @@
 // loaded
 $(window).load(function(){
 	console.log('Loaded /api/v1/test/test.html');
-
-	// login
-	login('100000');
-	
 });
 
 // event handlers
 $(function() {
-	$('#get_me').click(function() {
+	$('#me').click(function() {
 
+		// get my info.
 		get_me(function(user) {
 			console.log(
 					' id=' + user.id + 
 					' name=' + user.name + 
-					' token=' + user.token + 
+					//' token=' + user.token + 
 					' timestamp=' + user.timestamp
 			);
 		});
-
-	});	
+		
+		// get my friends
+		get_my_friends(function(friends) {
+			for (var i in friends) {
+				var f = friends[i];
+				console.log(f.id + ' ' + f.name);
+			}
+		});
+	});
 });
 
 $(function() {
@@ -40,7 +44,7 @@ $(function() {
 						' number=' + e.number +
 						' comment=' + e.comment +
 						' owner=' + e.owner.name +
-						' participants=' + e.participants +
+						' participants=' + JSON.stringify(e.participants) +
 						' timestamp=' + e.timestamp 
 				);
 
@@ -53,20 +57,20 @@ $(function() {
 $(function() {
 	$('#create_event').click(function() {
 
-		create_event(
+		var event = create_event(
 				'Great Event2011', // subject
 				'2011-12-25 10:30', // event date
 				'2011-12-20 19:30', // expired date
 				'Tokyo, Japan', // place
 				20, // max number of participants
-				'This is a great of 2011 party.', // comment
-				function(event) {
-					alert('[created!]' + event.id + ' ' + event.subject);
-					// add one participant.
-					add_participant(event.id);
-				}
+				'This is a great of 2011 party.' // comment
 		);
-		
+		console.log('[Created!]' + event.id + ' ' + event.subject);
+
+		// add one participant.
+		event = add_participant(event.id); // 1
+		event = add_participant(event.id); // 2
+		console.log('[Added!]' + event.id  + ' ' + JSON.stringify(event.participants));
 	});	
 });
 

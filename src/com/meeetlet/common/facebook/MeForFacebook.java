@@ -6,29 +6,41 @@ import java.util.List;
 
 import com.meeetlet.common.Me;
 import com.meeetlet.model.common.User;
+import com.meeetlet.service.common.UserService;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 
-public class MeForFacebook extends Me implements Serializable {
+public class MeForFacebook implements Me, Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private User user;
+    public User getUser() {
+        return user;
+    }
+    
     private List<User> friends;
     public List<User> getFriends() {
         return friends;
     }
     
 
-    public MeForFacebook(String accessToken) {
+    public MeForFacebook(String token) throws Exception {
         
-        super(accessToken);
-        
-        FacebookClient client = new DefaultFacebookClient(accessToken);
-        user = new User();
+        FacebookClient client = new DefaultFacebookClient(token);
         com.restfb.types.User fbUser = 
                 client.fetchObject("me", com.restfb.types.User.class);
-        user.setUserid(fbUser.getId());
-        user.setUsername(fbUser.getName());
+        
+        UserService us = new UserService();
+        String userid = fbUser.getId();
+        user = us.getUser(userid);
+        if (user == null) {
+            user = new User();
+            user.setUserid(userid);
+            user.setUsername(fbUser.getName());
+            user.setToken(token);
+            us.createUser(user);
+        }
 
         List<com.restfb.types.User> fbFriends = 
                 client.fetchConnection("me/friends", com.restfb.types.User.class).getData();

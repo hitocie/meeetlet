@@ -1,4 +1,4 @@
-package com.meeetlet.controller.api.v1.auth;
+package com.meeetlet.controller.api.v1.auth.facebook;
 
 import java.io.Writer;
 import java.net.HttpURLConnection;
@@ -12,17 +12,16 @@ import com.meeetlet.common.Me;
 import com.meeetlet.common.facebook.App;
 import com.meeetlet.common.facebook.MeForFacebook;
 
-/*/api/v1/auth/ */
-public class IndexController extends Controller {
+public class TokenController extends Controller {
 
     private Logger log = Logger.getLogger(getClass().getName());
+
     
-    
-    private Me login(String accessToken) {
+    private Me login(String accessToken) throws Exception {
         // TODO: switch facebook/google+
         Me me = new MeForFacebook(accessToken);
         sessionScope("me", me);
-        log.info(me.user.getUsername() + " logged in");
+        log.info(me.getUser().getUsername() + " logged in");
         return me;
     }
     
@@ -34,7 +33,7 @@ public class IndexController extends Controller {
 
         String uri = 
                 "https://graph.facebook.com/oauth/access_token?client_id=" + App.appId + 
-                "&redirect_uri=" + App.siteUrl +
+                "&redirect_uri=" + App.authSitePage +
                 "&client_secret=" + App.appSecret + 
                 "&code=" + validationCode;
 
@@ -53,18 +52,23 @@ public class IndexController extends Controller {
 
             Me me = login(buf.substring("access_token=".length()));
 
-            boolean isMobile = true;
+            boolean isMobile = false;
             Writer writer = this.response.getWriter();
             if (isMobile) {
                 // for mobile
                 writer.write("");
-                
+
+                return null;
+
             } else {
                 // for web page
-                writer.write("Top page: " + me.user.getUsername()); // TODO: HTML
+                writer.write("Top page: " + me.getUser().getUsername()); // TODO: HTML
+                
+                return redirect(App.topPageUrl);
             }
         }
         
         return null;
     }
+
 }

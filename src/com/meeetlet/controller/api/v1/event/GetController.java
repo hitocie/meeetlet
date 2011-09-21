@@ -45,7 +45,7 @@ public class GetController extends Controller {
                 if (service.equals("my_events")) {
                     EventService es = new EventService();
                     List<Event> events =
-                            (withHistory ? es.getMyEventsWithHistory(me.user.getKey(), offset, limit) : es.getMyEvents(me.user.getKey(), offset, limit));
+                            (withHistory ? es.getMyEventsWithHistory(me.getUser().getKey(), offset, limit) : es.getMyEvents(me.getUser().getKey(), offset, limit));
                     JSONArray out = new JSONArray();
                     for (Event e : events)
                         out.put(e.toJSONObject());

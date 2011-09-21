@@ -7,19 +7,22 @@ import com.meeetlet.common.Me;
 import com.meeetlet.model.common.User;
 import com.meeetlet.service.common.UserService;
 
-public class MeForLocal extends Me implements Serializable {
+
+public class MeForLocal implements Me, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Override
+    private User user;
+    public User getUser() {
+        return user;
+    }
+    
     public List<User> getFriends() {
         // TODO:
         return null;
     }
     
     public MeForLocal(String userid) {
-        super(null);
-        
         UserService userService = new UserService();
         user = userService.getUser(userid);
     }

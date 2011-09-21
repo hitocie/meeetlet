@@ -1,18 +1,18 @@
-package com.meeetlet.model.common;
+package com.meeetlet.model.event;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import org.slim3.datastore.Attribute;
-import org.slim3.datastore.Model;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
-import com.meeetlet.common.utils.DateUtil;
+import com.meeetlet.model.common.User;
+
+import org.slim3.datastore.Attribute;
+import org.slim3.datastore.Model;
+import org.slim3.datastore.ModelRef;
 
 @Model(schemaVersion = 1)
-public class User implements Serializable {
+public class Participant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,46 +22,6 @@ public class User implements Serializable {
     @Attribute(version = true)
     private Long version;
 
-    
-    // -------------------------------
-    // userid
-    private String userid;
-    public String getUserid() {
-        return userid;
-    }
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-    
-    // username
-    private String username;
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    
-    // access token for Facebook/Google+
-    private String token;
-    public String getToken() {
-        return token;
-    }
-    public void setToken(String token) {
-        this.token = token;
-    }
-    
-    // timestamp
-    private Date timestamp;
-    public Date getTimestamp() {
-        return timestamp;
-    }
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-    // -------------------------------
-
-    
     /**
      * Returns the key.
      *
@@ -100,6 +60,32 @@ public class User implements Serializable {
         this.version = version;
     }
 
+    //-------------------------
+    
+    // User relation (user)
+    private ModelRef<User> userRef = new ModelRef<User>(User.class);
+    public ModelRef<User> getUserRef() {
+        return userRef;
+    }
+    
+    // Event relation
+    private ModelRef<Event> eventRef = new ModelRef<Event>(Event.class);
+    public ModelRef<Event> getEventRef() {
+        return eventRef;
+    }
+    
+
+    private String comment;
+    public String getComment() {
+        return comment;
+    }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    
+    //-------------------------
+    
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -119,7 +105,7 @@ public class User implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        User other = (User) obj;
+        Participant other = (Participant) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -130,14 +116,10 @@ public class User implements Serializable {
         return true;
     }
     
-
     
     public JSONObject toJSONObject() throws JSONException {
         return new JSONObject()
-        //.put("key", KeyFactory.keyToString(key))
-        .put("id", userid)
-        .put("name", username)
-        //.put("token", token)
-        .put("timestamp", DateUtil.toString(timestamp));
+        .put("user", userRef.getModel().toJSONObject())
+        .put("comment", comment);
     }
 }

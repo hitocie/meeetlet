@@ -13,7 +13,7 @@ import com.google.appengine.repackaged.org.json.JSONArray;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 import com.meeetlet.common.utils.DateUtil;
-import com.meeetlet.meta.common.UserMeta;
+import com.meeetlet.meta.event.ParticipantMeta;
 import com.meeetlet.model.common.User;
 
 @Model(schemaVersion = 1)
@@ -27,6 +27,44 @@ public class Event implements Serializable {
     @Attribute(version = true)
     private Long version;
 
+    
+    /**
+     * Returns the key.
+     *
+     * @return the key
+     */
+    public Key getKey() {
+        return key;
+    }
+
+    /**
+     * Sets the key.
+     *
+     * @param key
+     *            the key
+     */
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    /**
+     * Returns the version.
+     *
+     * @return the version
+     */
+    public Long getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the version.
+     *
+     * @param version
+     *            the version
+     */
+    public void setVersion(Long version) {
+        this.version = version;
+    }
     
     // -------------------------------
     // event id
@@ -107,11 +145,11 @@ public class Event implements Serializable {
         return ownerRef;
     }
 
-    // User relation (participants)
+    // Participant relation (participants)
     @Attribute(persistent=false)
-    private InverseModelListRef<User, Event> participantsRef =
-        new InverseModelListRef<User, Event>(User.class, UserMeta.get().eventRef, this);
-    public InverseModelListRef<User, Event> getParticipantsRef() {
+    private InverseModelListRef<Participant, Event> participantsRef =
+        new InverseModelListRef<Participant, Event>(Participant.class, ParticipantMeta.get().eventRef, this);
+    public InverseModelListRef<Participant, Event> getParticipantsRef() {
         return participantsRef;
     }
     
@@ -125,44 +163,6 @@ public class Event implements Serializable {
     }
     // -------------------------------
 
-    
-    /**
-     * Returns the key.
-     *
-     * @return the key
-     */
-    public Key getKey() {
-        return key;
-    }
-
-    /**
-     * Sets the key.
-     *
-     * @param key
-     *            the key
-     */
-    public void setKey(Key key) {
-        this.key = key;
-    }
-
-    /**
-     * Returns the version.
-     *
-     * @return the version
-     */
-    public Long getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version.
-     *
-     * @param version
-     *            the version
-     */
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 
     @Override
     public int hashCode() {
@@ -197,10 +197,10 @@ public class Event implements Serializable {
     
     
     public JSONObject toJSONObject() throws JSONException {
-        
         JSONArray participants = new JSONArray();
-        for (User p : participantsRef.getModelList())
+        for (Participant p : getParticipantsRef().getModelList()) {
             participants.put(p.toJSONObject());
+        }
         
         return new JSONObject()
         //.put("key", KeyFactory.keyToString(key))
