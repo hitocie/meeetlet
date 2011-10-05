@@ -61,7 +61,7 @@ public class UpdateController extends Controller {
                 } else if (service.equals("delete")) {
                     // service=delete
                     es.deleteEvent(asString("eventid"));
-                    response.getWriter().write("");
+                    response.getWriter().write("null");
                     
                     return null;
                 }

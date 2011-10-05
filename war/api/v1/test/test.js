@@ -58,7 +58,7 @@ $(function() {
 		); // 1
 		event = add_participant(
 				event.id,
-				'This is a comment2.'
+				'これは日本語コメントです。'
 		); // 2
 		dump_event(event, '[Added participant!]');
 	});	
