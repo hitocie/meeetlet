@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="jquery-ui-1.8.16.custom.css">
+<link rel="stylesheet" href="main.css">
+<script src="jquery-1.6.2.min.js"></script>
+<script src="jquery-ui-1.8.16.custom.min.js"></script>
+<script src="main.js"></script>
+<title>meeetlet!</title>
+</head>
+<body>
+<div class="base">
+
+<div class="hbase">
+<div class="header">
+  <div class="titleImg">
+    <img src="img/meeetlet-blue-170x70.png" alt="meeetlet!">
+  </div>
+</div>
+</div>
+
+<div class="mbase">
+<div class="main">
+  <div class="selector">
+    <label for="category" class="leftmargin">カテゴリ：</label>
+    <select id="category" name="category">
+      <option selected value="none">指定なし</option>
+      <option value="lunch">ランチ</option>
+      <option value="dinner">ディナー</option>
+      <option value="cafe">カフェ</option>
+      <option value="party">飲み会、パーティ</option>
+      <option value="study">勉強会</option>
+      <option value="other">その他</option>
+    </select>
+    <label for="prefecture" class="leftmargin">都道府県：</label>
+    <select id="prefecture" name="prefecture">
+      <option selected value="none">指定なし</option>
+      <option value="tokyo">東京</option>
+      <option value="kanagawa">神奈川</option>
+      <option value="chiba">千葉</option>
+      <option value="saitama">埼玉</option>
+    </select>
+    <label for="fromdate" class="leftmargin">期間</label>
+    <input type="text" id="fromdate" name="fromdate" readonly>
+    <label for="fromdate">から</label>
+    <input type="text" id="todate" name="todate" readonly>
+    <label for="todate">まで</label>
+    <label for="keyword" class="leftmargin">キーワード</label>
+    <input type="text" id="keyword" name="keyword">
+    <button id="search" class="leftmargin">検索</button>
+  </div>
+  
+  <div class="eventtable">
+    <div class="eventitem"></div>
+    <div class="eventitem"></div>
+    <div class="eventitem"></div>
+    <div class="eventitem"></div>
+  </div>
+  <div class="page">
+    <button class="pagebutton" id="prevbutton">prev</button><button class="pagebutton" id="nextbutton">next</button>
+  </div></div>
+</div>
+
+<div class="fbase">
+<div class="footer">
+  <div class="copyright">
+    copyright © 2011  meeetlet! All rights reserved.
+  </div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
