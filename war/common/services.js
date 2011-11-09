@@ -108,18 +108,18 @@ function create_event(
 	});
 	return response;
 }
-function add_participant(eventid, comment) {
+function join_event(eventid, comment) {
 	
 	var response = sync_request({
-			url: '/api/v1/event/update?service=add_participant',
+			url: '/api/v1/event/update?service=join_event',
 			data: {eventid: eventid, comment: comment}
 	});
 	return response;
 }
-function delete_event(eventid) {
+function cancel_event(eventid) {
 	
 	var response = sync_request({
-			url: '/api/v1/event/update?service=delete',
+			url: '/api/v1/event/update?service=cancel_event',
 			data: {eventid: eventid}
 	});
 	return response;

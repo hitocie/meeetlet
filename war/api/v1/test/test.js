@@ -51,16 +51,16 @@ $(function() {
 		);
 		dump_event(event, '[Created event!]');
 
-		// add one participant.
-		event = add_participant(
+		// join Event.
+		event = join_event(
 				event.id,
 				'This is a comment1.'
 		); // 1
-		event = add_participant(
+		event = join_event(
 				event.id,
 				'これは日本語コメントです。'
 		); // 2
-		dump_event(event, '[Added participant!]');
+		dump_event(event, '[Joined event!]');
 	});	
 });
 

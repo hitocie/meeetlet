@@ -28,6 +28,7 @@
 
  Participant
    -key
+   -event (eventRef --> Event)
    -user (userRef --> User)
    -comment
    
@@ -63,12 +64,13 @@
  event/update
    service=create
    service=delete
-   service=add_participant
+   service=join_event
+   service=cancel_event
 
 
 // TODO list
-- cancel the joined event
 - send message to friends
+- Exception handling
 - .......etc
 
 

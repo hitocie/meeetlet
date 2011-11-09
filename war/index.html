@@ -5,7 +5,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<title>meeetlet</title>
+	<link rel="stylesheet" href="common/jquery.mobile-1.0rc1.min.css" />
 	<script src="common/jquery-1.6.2.min.js"></script>
+	<script src="common/jquery.mobile-1.0rc1.min.js"></script>
 	<script src="common/services.js"></script>
 
 	<script src="index.js"></script>
@@ -13,14 +15,26 @@
 </head>
 
 <body>
-	<h1>Top</h1>
-	
-	<div id="login">
-		<a href="/api/v1/auth/facebook/">Facebookにログイン</a>
-	</div>
-	<div id="api-test">
-		<a href="/api/v1/test/test.html">APIテストページ</a><p>
-	</div>
+	<div id="top" data-role="page">
 
+		<!-- header -->
+		<div data-role="header">
+			<h1>meetlet</h1>
+		</div>
+
+		<!-- content -->
+		<div data-role="content">
+			<a href="/api/v1/auth/facebook/" data-role="button">Facebookにログイン</a>
+			<a href="/api/v1/test/test.html" data-role="button">APIテストページ</a>
+			<a href="mobile/shall-we/index.html" data-role="button">イベントしようか！？</a>
+			<a href="#" data-role="button">イベントお誘い</a>
+			
+		</div>
+		
+		<!-- footer -->
+		<div data-role="footer" data-position="fixed" data-id="persistent" data-theme="b">
+		</div>
+		
+	</div>
 </body>
 </html>

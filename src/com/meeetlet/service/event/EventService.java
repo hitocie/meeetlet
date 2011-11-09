@@ -96,20 +96,31 @@ public class EventService {
         }
     }
     
-    public Event addParticipant(Participant participant, Event event) throws Exception {
+    public Event joinEvent(User user, String comment, Event event) throws Exception {
         
-        event.setTimestamp(new Date());
+        // TODO: If this user has already joined, it should throw exception. 
+        //ParticipantMeta m = ParticipantMeta.get();
+        //Participant p = Datastore.query(m)
+        //        .filter(m.eventRef.equal(event.getKey()), m.userRef.equal(user.getKey()))
+        //        .asSingle();
+        //if (p != null)
+        //    throw error;
         
+        Participant p = new Participant();
+        p.getUserRef().setModel(user);
+        p.setComment(comment);
         Key key = Datastore.createKey(
             event.getKey(), 
             ParticipantMeta.get(), 
             event.getParticipantsRef().getModelList().size() + 1);
-        participant.setKey(key);
-        participant.getEventRef().setModel(event);
+        p.setKey(key);
+        p.getEventRef().setModel(event);
+        
+        event.setTimestamp(new Date());
         
         Transaction tx = Datastore.beginTransaction();
         try {
-            Datastore.put(tx, event, participant);
+            Datastore.put(tx, event, p);
             tx.commit();
         } catch (Exception e) {
             if (tx.isActive()) {
@@ -121,7 +132,30 @@ public class EventService {
         return event;
     }
 
-//    public void deleteParticipant(Key participantKey) throws Exception {
-//        
-//    }
+    public Event cancelEvent(User user, Event event) throws Exception {
+        
+        event.setTimestamp(new Date());
+        
+        ParticipantMeta m = ParticipantMeta.get();
+        Participant p = Datastore.query(m)
+                .filter(m.eventRef.equal(event.getKey()), m.userRef.equal(user.getKey()))
+                .asSingle();
+        
+        if (p == null)
+            return event; // TODO: if this user has not joined, error?
+        
+        Transaction tx = Datastore.beginTransaction();
+        try {
+            Datastore.delete(tx, p.getKey());
+            Datastore.put(tx, event);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
+        }
+        
+        return event;
+    }
 }

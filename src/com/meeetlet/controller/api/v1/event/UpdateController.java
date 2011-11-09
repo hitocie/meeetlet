@@ -8,7 +8,6 @@ import org.slim3.controller.Navigation;
 import com.meeetlet.common.Const;
 import com.meeetlet.common.Me;
 import com.meeetlet.model.event.Event;
-import com.meeetlet.model.event.Participant;
 import com.meeetlet.service.event.EventService;
 
 public class UpdateController extends Controller {
@@ -45,15 +44,20 @@ public class UpdateController extends Controller {
 
                     return null;
                     
-                } else if (service.equals("add_participant")) {
-                    // service=add_participant
+                } else if (service.equals("join_event")) {
+                    // service=join_event
                     Event e = es.getEvent(asString("eventid"));
                     
-                    Participant p = new Participant();
-                    p.getUserRef().setModel(me.getUser());
-                    p.setComment(asString("comment"));
+                    e = es.joinEvent(me.getUser(), asString("comment"), e);
+                    e.toJSONObject().write(response.getWriter());
                     
-                    e = es.addParticipant(p, e);
+                    return null;
+                    
+                } else if (service.equals("cancel_event")) {
+                    // service=cancel_event
+                    Event e = es.getEvent(asString("eventid"));
+                    
+                    e = es.cancelEvent(me.getUser(), e);
                     e.toJSONObject().write(response.getWriter());
                     
                     return null;
