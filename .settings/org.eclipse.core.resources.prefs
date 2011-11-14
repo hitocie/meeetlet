@@ -1,6 +1,9 @@
-#Wed Oct 05 22:31:16 JST 2011
+#Tue Nov 15 00:17:09 JST 2011
 eclipse.preferences.version=1
 encoding//war/api/v1/test/test.js=UTF-8
 encoding//war/common/dump.js=UTF-8
 encoding//war/common/services.js=UTF-8
 encoding//war/index.js=UTF-8
+encoding//war/mobile/list/ask.js=UTF-8
+encoding//war/mobile/list/event.js=UTF-8
+encoding//war/mobile/list/index.js=UTF-8
