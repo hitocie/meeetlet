@@ -16,8 +16,8 @@ public class IndexController extends Controller {
     @Override
     public Navigation run() throws Exception {
         
-        log.info("Start auth.");
-        
+        log.info("Start auth!!");
+        //return redirect("https://graph.facebook.com/oauth/authorize?client_id=150258521734656&redirect_uri=http://localhost:8888/api/v1/auth/facebook/token&scope=publish_stream,offline_access,manage_pages");
         return redirect(
             "https://graph.facebook.com/oauth/authorize?client_id=" + App.appId + 
             "&redirect_uri=" + App.authSitePage +
