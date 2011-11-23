@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="../common/jquery.mobile-1.0.min.css" />
+	<script src="../common/jquery-1.7.min.js"></script>
+	<script src="../common/jquery.mobile-1.0.min.js"></script>
+	<script src="../common/utils.js"></script>
+	<script src="../common/services.js"></script>
+	<link rel="stylesheet" href="status.css" />
+	<script src="status.js"></script>
+	<title>meeetlet!</title>
+</head>
+
+<body>
+	<div id="top" data-role="page">
+
+		<!-- header -->
+		<div data-role="header">
+			<a href="detail.html" data-icon="arrow-l" data-direction="reverse">戻る</a>
+			<h1>参加状況</h1>
+		</div>
+
+		<!-- content -->
+		<div data-role="content">
+			<div>
+				<fieldset data-role="controlgroup">
+					<legend>参加しますか？</legend>
+					<input type="radio" name="radio-choice-1" id="radio-choice-1" value="yes" checked="checked" />
+					<label for="radio-choice-1">参加します！</label>
+					<input type="radio" name="radio-choice-1" id="radio-choice-2" value="no" />
+					<label for="radio-choice-2">参加できません！</label>
+					<input type="radio" name="radio-choice-1" id="radio-choice-3" value="pending" />
+					<label for="radio-choice-3">未定・・・</label>
+				</fieldset>
+				<div data-role="fieldcontain">
+				<label for="commentText">コメント</label>
+				<textarea name="commentText" id="commentText" style="resize:none"></textarea>
+				</div>
+			</div>
+			<div data-role="header" data-theme="d">
+				<h3>現在の状況</h3>
+			</div>
+			<div data-role="content" data-theme="d">
+				<p>参加？：参加します！</p>
+				<p>コメント：ちょっと遅れるかもしれないけど、行きます！</p>
+			</div>		
+			
+			<a href="main.html" data-role="button" data-icon="check" data-theme="b" data-direction="reverse">更新</a>
+		</div>
+		
+		<!-- footer -->
+		<div data-role="footer" data-position="fixed" data-id="persistent" data-theme="b">
+		© meeetlet! All right reserved.
+		</div>
+		
+	</div>
+</body>
+</html>
