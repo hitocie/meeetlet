@@ -1,7 +1,6 @@
 
 - Top page
   http://localhost:8888
-  (http://localhost:8888/index.html)
   
 
 - DTO / Database entities
@@ -15,23 +14,40 @@
  Event
    -key
    -id (eventid)
-   -subject
-   -place
-   -eventDate
-   -registeredDate
-   -expiredDate
-   -number
-   -comment
-   -owner (ownerRef --> User)
-   -participants (participantsRef --> Participant) 
-   -timestamp
+   -title :String
+   -eventDate :Date
+   -place :String
+   -budget :String
+   -genre :String(?)
+   -restaurant
+   -owner :User(ownerRef)
+   -participants :Array<Participant>(participantsRef)
+   -timestamp :Date
+
+ PreEvent
+   -key
+   -event (eventRef --> Event)
+   -dates:Array (e.g. 11/23, 11/24, 11/25)
+   -places:Array (e.g. Boston, NY, LA)
+   -budges:Array (e.g. 1000-2000, 2000-3000, 3000-4000)
+   -genres:Array (e.g. Japanese, Chinese, Western)
+   -restaurants:Array (e.g. A, B, C)
+ 
+ Response(enum)
+   - OK(0), Pending(1), NG(2)
 
  Participant
    -key
    -event (eventRef --> Event)
    -user (userRef --> User)
-   -comment
-   
+   -comment :String
+   -attend :Response
+   -dates :Array<Response>
+   -places :Array<Response>
+   -budges :Array<Response>
+   -genres :Array<Response>
+   -restaurants :Array<Response>
+
 
 - Web services
   *root: http://localhost:8888/api/v1/
@@ -47,25 +63,28 @@
    service=me
    service=my_friends
  
- 
  me/update
-   
-   
+   nothing   
+
  event/get
-   service=all_events
+   #service=all_events
    service=my_events
-   #service=search
+   service=search(keyword)
    
-   offset=int(first position)
-   limit=int(last position)
-   withHistory=true/false
-   
+     offset=int(first position)
+     limit=int(last position)
+     withHistory=true/false
 
  event/update
-   service=create
-   service=delete
-   service=join_event
-   service=cancel_event
+   service=create_pre_event(title, dates, places, budgets, genres, restaurants, participants)
+   service=update_pre_event(eventid, <same as above>)
+   service=create_event(title, date, place, budget, genre, restaurant, participants)
+   service=update_event(eventid, <same as above>)
+   
+   service=reply_pre_event(eventid, dates, places, budgets, genres, restaurants, comment)
+   service=reply_event(eventid, attend, comment)
+   service=cancel_event(eventid)
+   service=add_friend([userid, userid, ....])
 
 
 // TODO list
