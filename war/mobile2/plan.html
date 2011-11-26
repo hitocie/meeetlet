@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="../common/jquery.mobile-1.0.min.css" />
+	<script src="../common/jquery-1.7.min.js"></script>
+	<script src="../common/jquery.mobile-1.0.min.js"></script>
+	<script src="../common/utils.js"></script>
+	<script src="../common/services.js"></script>
+	<link rel="stylesheet" href="detail.css" />
+	<script src="detail.js"></script>
+	<title>meeetlet!</title>
+</head>
+
+<body>
+	<div id="top" data-role="page">
+
+		<!-- header -->
+		<div data-role="header">
+			<a href="main.html" data-icon="arrow-l" data-direction="reverse">戻る</a>
+			<h1>11月の飲み会</h1>
+			<a href="arrange.html" data-icon="plus">返事をする</a>
+		</div>
+
+		<!-- content -->
+		<div data-role="content">
+			<ul data-role="listview" data-inset="true">
+				<li data-role="list-divider">主催者</li>
+				<li>福井勝史</li>
+				<li data-role="list-divider">場所</li>
+				<li>東京都　港区</li>
+				<li data-role="list-divider">ジャンル</li>
+				<li>居酒屋</li>
+				<li data-role="list-divider">店</li>
+				<li>笑笑</li>
+				<li data-role="list-divider">予算</li>
+				<li>未定</li>
+				<li data-role="list-divider">コメント</li>
+				<li><textarea name="comment" id="comment" style="resize:none"></textarea></li>
+			</ul>
+			<a href="invitedFriends.html" data-role="button" data-theme="e" data-rel="dialog">お誘い中</a>
+		</div>
+		
+		<!-- footer -->
+		<div data-role="footer" data-position="fixed" data-id="persistent" data-theme="b">
+		© meeetlet! All right reserved.
+		</div>
+		
+	</div>
+</body>
+</html>
