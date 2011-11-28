@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="../common/jquery.mobile-1.0.min.css" />
+	<script src="../common/jquery-1.6.4.min.js"></script>
+	<script src="../common/jquery.mobile-1.0.min.js"></script>
+	<link rel="stylesheet" href="../common/jquery.mobile.datebox.min.css" />
+	<script src="../common/jquery.mobile.datebox.min.js"></script>
+	<script src="../common/jquery.mobile.datebox.i8n.jp.js"></script>
+	<script src="../common/utils.js"></script>
+	<script src="../common/services.js"></script>
+	<script src="newArrange.js"></script>
+	<title>meeetlet!</title>
+</head>
+
+<body>
+	<div id="top" data-role="page">
+
+		<!-- header -->
+		<div data-role="header">
+			<a href="new.html" data-icon="arrow-l" data-direction="reverse">戻る</a>
+			<h1>イベント設定</h1>
+		</div>
+
+		<!-- content -->
+		<div data-role="content">
+			<label for="select-prefecture">開催する都道府県の候補</label>
+			<select name="select-prefecture" id="select-prefecture">
+				<option value="tokyo">東京都</option>
+				<option value="chiba">千葉</option>
+				<option value="saitama">埼玉</option>
+				<option value="kanagawa">神奈川</option>
+			</select>
+			
+			<label for="select-city">開催する市区町村の候補</label>
+			<select name="select-city" id="select-city">
+				<option value="kotoku">江東区</option>
+				<option value="minatoku">港区</option>
+				<option value="sibuyaku">渋谷区</option>
+				<option value="taitouku">台東区</option>
+			</select>
+
+			<label for="select-date">開催候補日</label>
+			<a href="arrangeDate.html" id="select-date" data-role="button" data-icon="grid" data-rel="dialog" data-iconpos="right">候補日を選択！</a>		
+			
+			<label for="select-budget">予算候補</label>
+			<select name="select-budget" id="select-budget">
+				<option value="1000">1000円以下</option>
+				<option value="3000">3000円まで</option>
+				<option value="5000">5000円まで</option>
+				<option value="7000">7000円まで</option>
+				<option value="10000">10000円以上</option>
+			</select>
+			
+			<label for="select-category">料理候補</label>
+			<select name="select-category" id="select-category">
+				<option value="wa-izakya">和風居酒屋</option>
+				<option value="yo-izakaya">洋風居酒屋</option>
+				<option value="chinese">中華</option>
+				<option value="french">フランス料理</option>
+				<option value="firstfood">ファーストフード</option>
+				<option value="other">その他</option>
+			</select>
+			
+			<label for="select-restaurant">お店候補</label>
+			<input type="text" id="select-restaurant" value=""/>
+			
+			<label for="comment">コメント</label>
+			<textarea style="resize:none" id="comment"></textarea>
+			
+			<label for="invite">招待する友達</label>
+			<a href="inviteNew.html" data-role="button" id="invite" data-rel="dialog">友達を選択！</a>
+			
+			<a href="#" data-role="button" data-theme="b">作成</a>
+		</div>
+		
+		<!-- footer -->
+		<div data-role="footer" data-position="fixed" data-id="persistent" data-theme="b">
+		© meeetlet! All right reserved.
+		</div>
+		
+	</div>
+</body>
+</html>
