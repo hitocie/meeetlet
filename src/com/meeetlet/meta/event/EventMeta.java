@@ -1,8 +1,11 @@
 package com.meeetlet.meta.event;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-11-10 00:00:32")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-02 00:05:10")
 /** */
 public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.event.Event> {
+
+    /** */
+    public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> budget = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "budget", "budget");
 
     /** */
     public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> comment = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "comment", "comment");
@@ -14,13 +17,10 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
     public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> eventid = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "eventid", "eventid");
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date> expiredDate = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date>(this, "expiredDate", "expiredDate", java.util.Date.class);
+    public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> genre = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "genre", "genre");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
-
-    /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.lang.Integer> number = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.lang.Integer>(this, "number", "number", int.class);
 
     /** */
     public final org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Event, org.slim3.datastore.ModelRef<com.meeetlet.model.common.User>, com.meeetlet.model.common.User> ownerRef = new org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Event, org.slim3.datastore.ModelRef<com.meeetlet.model.common.User>, com.meeetlet.model.common.User>(this, "ownerRef", "ownerRef", org.slim3.datastore.ModelRef.class, com.meeetlet.model.common.User.class);
@@ -29,13 +29,10 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
     public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> place = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "place", "place");
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date> registeredDate = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date>(this, "registeredDate", "registeredDate", java.util.Date.class);
-
-    /** */
-    public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> subject = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "subject", "subject");
-
-    /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date> timestamp = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date>(this, "timestamp", "timestamp", java.util.Date.class);
+
+    /** */
+    public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> title = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "title", "title");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.lang.Long> version = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.lang.Long>(this, "version", "version", java.lang.Long.class);
@@ -57,20 +54,19 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
     @Override
     public com.meeetlet.model.event.Event entityToModel(com.google.appengine.api.datastore.Entity entity) {
         com.meeetlet.model.event.Event model = new com.meeetlet.model.event.Event();
+        model.setBudget((java.lang.String) entity.getProperty("budget"));
         model.setComment((java.lang.String) entity.getProperty("comment"));
         model.setEventDate((java.util.Date) entity.getProperty("eventDate"));
         model.setEventid((java.lang.String) entity.getProperty("eventid"));
-        model.setExpiredDate((java.util.Date) entity.getProperty("expiredDate"));
+        model.setGenre((java.lang.String) entity.getProperty("genre"));
         model.setKey(entity.getKey());
-        model.setNumber(longToPrimitiveInt((java.lang.Long) entity.getProperty("number")));
         if (model.getOwnerRef() == null) {
             throw new NullPointerException("The property(ownerRef) is null.");
         }
         model.getOwnerRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("ownerRef"));
         model.setPlace((java.lang.String) entity.getProperty("place"));
-        model.setRegisteredDate((java.util.Date) entity.getProperty("registeredDate"));
-        model.setSubject((java.lang.String) entity.getProperty("subject"));
         model.setTimestamp((java.util.Date) entity.getProperty("timestamp"));
+        model.setTitle((java.lang.String) entity.getProperty("title"));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
     }
@@ -84,19 +80,18 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
         } else {
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
+        entity.setProperty("budget", m.getBudget());
         entity.setProperty("comment", m.getComment());
         entity.setProperty("eventDate", m.getEventDate());
         entity.setProperty("eventid", m.getEventid());
-        entity.setProperty("expiredDate", m.getExpiredDate());
-        entity.setProperty("number", m.getNumber());
+        entity.setProperty("genre", m.getGenre());
         if (m.getOwnerRef() == null) {
             throw new NullPointerException("The property(ownerRef) must not be null.");
         }
         entity.setProperty("ownerRef", m.getOwnerRef().getKey());
         entity.setProperty("place", m.getPlace());
-        entity.setProperty("registeredDate", m.getRegisteredDate());
-        entity.setProperty("subject", m.getSubject());
         entity.setProperty("timestamp", m.getTimestamp());
+        entity.setProperty("title", m.getTitle());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
         return entity;
@@ -165,6 +160,10 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
         com.meeetlet.model.event.Event m = (com.meeetlet.model.event.Event) model;
         writer.beginObject();
         org.slim3.datastore.json.Default encoder0 = new org.slim3.datastore.json.Default();
+        if(m.getBudget() != null){
+            writer.setNextPropertyName("budget");
+            encoder0.encode(writer, m.getBudget());
+        }
         if(m.getComment() != null){
             writer.setNextPropertyName("comment");
             encoder0.encode(writer, m.getComment());
@@ -177,16 +176,14 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
             writer.setNextPropertyName("eventid");
             encoder0.encode(writer, m.getEventid());
         }
-        if(m.getExpiredDate() != null){
-            writer.setNextPropertyName("expiredDate");
-            encoder0.encode(writer, m.getExpiredDate());
+        if(m.getGenre() != null){
+            writer.setNextPropertyName("genre");
+            encoder0.encode(writer, m.getGenre());
         }
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
             encoder0.encode(writer, m.getKey());
         }
-        writer.setNextPropertyName("number");
-        encoder0.encode(writer, m.getNumber());
         if(m.getOwnerRef() != null && m.getOwnerRef().getKey() != null){
             writer.setNextPropertyName("ownerRef");
             encoder0.encode(writer, m.getOwnerRef(), maxDepth, currentDepth);
@@ -199,17 +196,13 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
             writer.setNextPropertyName("place");
             encoder0.encode(writer, m.getPlace());
         }
-        if(m.getRegisteredDate() != null){
-            writer.setNextPropertyName("registeredDate");
-            encoder0.encode(writer, m.getRegisteredDate());
-        }
-        if(m.getSubject() != null){
-            writer.setNextPropertyName("subject");
-            encoder0.encode(writer, m.getSubject());
-        }
         if(m.getTimestamp() != null){
             writer.setNextPropertyName("timestamp");
             encoder0.encode(writer, m.getTimestamp());
+        }
+        if(m.getTitle() != null){
+            writer.setNextPropertyName("title");
+            encoder0.encode(writer, m.getTitle());
         }
         if(m.getVersion() != null){
             writer.setNextPropertyName("version");
@@ -223,29 +216,27 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
         com.meeetlet.model.event.Event m = new com.meeetlet.model.event.Event();
         org.slim3.datastore.json.JsonReader reader = null;
         org.slim3.datastore.json.Default decoder0 = new org.slim3.datastore.json.Default();
+        reader = rootReader.newObjectReader("budget");
+        m.setBudget(decoder0.decode(reader, m.getBudget()));
         reader = rootReader.newObjectReader("comment");
         m.setComment(decoder0.decode(reader, m.getComment()));
         reader = rootReader.newObjectReader("eventDate");
         m.setEventDate(decoder0.decode(reader, m.getEventDate()));
         reader = rootReader.newObjectReader("eventid");
         m.setEventid(decoder0.decode(reader, m.getEventid()));
-        reader = rootReader.newObjectReader("expiredDate");
-        m.setExpiredDate(decoder0.decode(reader, m.getExpiredDate()));
+        reader = rootReader.newObjectReader("genre");
+        m.setGenre(decoder0.decode(reader, m.getGenre()));
         reader = rootReader.newObjectReader("key");
         m.setKey(decoder0.decode(reader, m.getKey()));
-        reader = rootReader.newObjectReader("number");
-        m.setNumber(decoder0.decode(reader, m.getNumber()));
         reader = rootReader.newObjectReader("ownerRef");
         decoder0.decode(reader, m.getOwnerRef(), maxDepth, currentDepth);
         reader = rootReader.newObjectReader("participantsRef");
         reader = rootReader.newObjectReader("place");
         m.setPlace(decoder0.decode(reader, m.getPlace()));
-        reader = rootReader.newObjectReader("registeredDate");
-        m.setRegisteredDate(decoder0.decode(reader, m.getRegisteredDate()));
-        reader = rootReader.newObjectReader("subject");
-        m.setSubject(decoder0.decode(reader, m.getSubject()));
         reader = rootReader.newObjectReader("timestamp");
         m.setTimestamp(decoder0.decode(reader, m.getTimestamp()));
+        reader = rootReader.newObjectReader("title");
+        m.setTitle(decoder0.decode(reader, m.getTitle()));
         reader = rootReader.newObjectReader("version");
         m.setVersion(decoder0.decode(reader, m.getVersion()));
         return m;

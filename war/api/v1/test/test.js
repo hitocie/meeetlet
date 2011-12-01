@@ -42,11 +42,12 @@ $(function() {
 	$('#create_event').click(function() {
 
 		var event = create_event(
-				'Great Event2011', // subject
+				'Great Event2011', // title
 				'2011-12-25 10:30', // event date
-				'2011-12-20 19:30', // expired date
 				'Tokyo, Japan', // place
-				20, // max number of participants
+				"2000 - 3000", // budget
+				"Lunch", // genre
+				["100000052301176", "696550103"], // participants
 				'This is a great of 2011 party.' // comment
 		);
 		dump_event(event, '[Created event!]');

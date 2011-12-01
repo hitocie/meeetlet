@@ -95,16 +95,24 @@ function get_my_events(p) {
 	});
 }
 function create_event(
-		subject, 
+		title, 
 		eventDate,
-		expiredDate,
 		place, 
-		number,
+		budget,
+		genre,
+		participants,
 		comment) {
 	
 	var response = sync_request({
-			url: '/api/v1/event/update?service=create',
-			data: {subject: subject, eventDate: eventDate, expiredDate: expiredDate, place: place, number: number, comment: comment}
+			url: '/api/v1/event/update?service=create_event',
+			data: {
+				title: title,
+				eventDate: eventDate,
+				place: place,
+				budget: budget,
+				genre: genre,
+				participants: JSON.stringify(participants), 
+				comment: comment}
 	});
 	return response;
 }

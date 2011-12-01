@@ -28,40 +28,16 @@ public class Event implements Serializable {
     private Long version;
 
     
-    /**
-     * Returns the key.
-     *
-     * @return the key
-     */
     public Key getKey() {
         return key;
     }
-
-    /**
-     * Sets the key.
-     *
-     * @param key
-     *            the key
-     */
     public void setKey(Key key) {
         this.key = key;
     }
 
-    /**
-     * Returns the version.
-     *
-     * @return the version
-     */
     public Long getVersion() {
         return version;
     }
-
-    /**
-     * Sets the version.
-     *
-     * @param version
-     *            the version
-     */
     public void setVersion(Long version) {
         this.version = version;
     }
@@ -76,13 +52,22 @@ public class Event implements Serializable {
         this.eventid = eventid;
     }
 
-    // subject
-    private String subject;
-    public String getSubject() {
-        return subject;
+    // title(subject)
+    private String title;
+    public String getTitle() {
+        return title;
     }
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    // event date
+    private Date eventDate;
+    public Date getEventDate() {
+        return eventDate;
+    }
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
     }
     
     // place
@@ -94,50 +79,50 @@ public class Event implements Serializable {
         this.place = place;
     }
     
-    // event date
-    private Date eventDate;
-    public Date getEventDate() {
-        return eventDate;
+    // budget :String
+    private String budget;
+    public String getBudget() {
+        return budget;
     }
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
-    
-    // registered date
-    private Date registeredDate;
-    public Date getRegisteredDate() {
-        return registeredDate;
-    }
-    public void setRegisteredDate(Date registeredData) {
-        this.registeredDate = registeredData;
+    public void setBudget(String budget) {
+        this.budget = budget;
     }
     
-    // expired date
-    private Date expiredDate;
-    public Date getExpiredDate() {
-        return expiredDate;
+    // genre :String(?)
+    private String genre;
+    public String getGenre() {
+        return genre;
     }
-    public void setExpiredDate(Date expiredDate) {
-        this.expiredDate = expiredDate;
-    }
-
-    // max number of participants
-    private int number;
-    public int getNumber() {
-        return number;
-    }
-    public void setNumber(int number) {
-        this.number = number;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
     
-    // comment
-    private String comment;
-    public String getComment() {
-        return comment;
-    }
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+//    // registered date
+//    private Date registeredDate;
+//    public Date getRegisteredDate() {
+//        return registeredDate;
+//    }
+//    public void setRegisteredDate(Date registeredData) {
+//        this.registeredDate = registeredData;
+//    }
+//    
+//    // expired date
+//    private Date expiredDate;
+//    public Date getExpiredDate() {
+//        return expiredDate;
+//    }
+//    public void setExpiredDate(Date expiredDate) {
+//        this.expiredDate = expiredDate;
+//    }
+//
+//    // max number of participants
+//    private int number;
+//    public int getNumber() {
+//        return number;
+//    }
+//    public void setNumber(int number) {
+//        this.number = number;
+//    }
     
     // User relation (owner)
     private ModelRef<User> ownerRef = new ModelRef<User>(User.class);
@@ -151,6 +136,15 @@ public class Event implements Serializable {
         new InverseModelListRef<Participant, Event>(Participant.class, ParticipantMeta.get().eventRef, this);
     public InverseModelListRef<Participant, Event> getParticipantsRef() {
         return participantsRef;
+    }
+
+    // comment
+    private String comment;
+    public String getComment() {
+        return comment;
+    }
+    public void setComment(String comment) {
+        this.comment = comment;
     }
     
     // timestamp
@@ -205,15 +199,16 @@ public class Event implements Serializable {
         return new JSONObject()
         //.put("key", KeyFactory.keyToString(key))
         .put("id", eventid)
-        .put("subject", subject)
-        .put("place", place)
+        .put("title", title)
         .put("eventDate", DateUtil.toString(eventDate))
-        .put("registeredDate", DateUtil.toString(registeredDate))
-        .put("expiredDate", DateUtil.toString(expiredDate))
-        .put("number", number)
-        .put("comment", comment)
+        .put("place", place)
+        .put("budget", budget)
+        .put("genre", genre)
         .put("owner", ownerRef.getModel().toJSONObject())
         .put("participants", participants)
+        .put("comment", comment)
         .put("timestamp", DateUtil.toString(timestamp));
     }
 }
+
+

@@ -28,12 +28,10 @@ public class GetController extends Controller {
 
             int offset = (asInteger("offset") == null ? 0 : asInteger("offset"));
             int limit = (asInteger("limit") == null ? 20 : asInteger("limit"));
-            boolean withHistory = (asBoolean("withHistory") != null ? asBoolean("withHistory") : false);
 
             if (service.equals("all_events")) {
                 EventService es = new EventService();
-                List<Event> events = 
-                        es.getEvents(withHistory, offset, limit);
+                List<Event> events = es.getEvents(offset, limit);
                 JSONArray out = new JSONArray();
                 for (Event e : events)
                     out.put(e.toJSONObject());
@@ -48,7 +46,7 @@ public class GetController extends Controller {
                 if (service.equals("my_events")) {
                     EventService es = new EventService();
                     List<Event> events =
-                            es.getMyEvents(me.getUser().getKey(), withHistory, offset, limit);
+                            es.getMyEvents(me.getUser().getKey(), offset, limit);
                     JSONArray out = new JSONArray();
                     for (Event e : events)
                         out.put(e.toJSONObject());

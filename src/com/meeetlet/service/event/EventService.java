@@ -18,28 +18,24 @@ import com.meeetlet.model.event.Participant;
 
 public class EventService {
 
-    public List<Event> getEvents(boolean withHistory, int offset, int limit) {
+    public List<Event> getEvents(int offset, int limit) {
         EventMeta m = EventMeta.get();
         List<FilterCriterion> filters = new ArrayList<FilterCriterion>();
-        if (withHistory)
-            filters.add(m.expiredDate.greaterThan(new Date()));
         return Datastore.query(m)
                 .filter(filters.toArray(new FilterCriterion[filters.size()]))
-                .sort(m.registeredDate.desc)
+                .sort(m.timestamp.desc)
                 .offset(offset)
                 .limit(limit)
                 .asList();
     }
 
-    public List<Event> getMyEvents(Key myKey, boolean withHistory, int offset, int limit) {
+    public List<Event> getMyEvents(Key myKey, int offset, int limit) {
         EventMeta m = EventMeta.get();
         List<FilterCriterion> filters = new ArrayList<FilterCriterion>();
         filters.add(m.ownerRef.equal(myKey));
-        if (withHistory)
-            filters.add(m.expiredDate.greaterThan(new Date()));
         return Datastore.query(m)
                 .filter(filters.toArray(new FilterCriterion[filters.size()]))
-                .sort(m.expiredDate.desc)
+                .sort(m.timestamp.desc)
                 .offset(offset)
                 .limit(limit)
                 .asList();
@@ -60,7 +56,6 @@ public class EventService {
         event.getOwnerRef().setKey(owner.getKey());
 
         Date now = new Date();
-        event.setRegisteredDate(now);
         event.setTimestamp(now);
 
         Transaction tx = Datastore.beginTransaction();

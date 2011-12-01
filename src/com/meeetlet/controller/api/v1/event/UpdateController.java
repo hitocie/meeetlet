@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.google.appengine.repackaged.org.json.JSONArray;
 import com.meeetlet.common.Const;
 import com.meeetlet.common.Me;
 import com.meeetlet.model.event.Event;
@@ -28,15 +29,18 @@ public class UpdateController extends Controller {
             if (me != null) {
                 
                 EventService es = new EventService();
-                if (service.equals("create")) {
-                    // service=create
+                if (service.equals("create_event")) {
+                    // service=create_event
                     Event e = new Event();
-
-                    e.setSubject(asString("subject"));
+                    e.setTitle(asString("title"));
                     e.setEventDate(asDate("eventDate", "yyyy-MM-dd HH:mm"));
-                    e.setExpiredDate(asDate("expiredDate", "yyyy-MM-dd HH:mm"));
                     e.setPlace(asString("place"));
-                    e.setNumber(asInteger("number"));
+                    e.setBudget(asString("budget"));
+                    e.setGenre(asString("genre"));
+                    // TODO:
+                    JSONArray participants = new JSONArray(asString("participants"));
+                    // create friend as User class if not exsits??
+                    //------
                     e.setComment(asString("comment"));
 
                     e = es.createEvent(me.getUser(), e);

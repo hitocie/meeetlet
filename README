@@ -19,9 +19,10 @@
    -place :String
    -budget :String
    -genre :String(?)
-   -restaurant
+   //-restaurant
    -owner :User(ownerRef)
    -participants :Array<Participant>(participantsRef)
+   -comment :String
    -timestamp :Date
 
  PreEvent
@@ -31,22 +32,22 @@
    -places:Array (e.g. Boston, NY, LA)
    -budges:Array (e.g. 1000-2000, 2000-3000, 3000-4000)
    -genres:Array (e.g. Japanese, Chinese, Western)
-   -restaurants:Array (e.g. A, B, C)
+   //-restaurants:Array (e.g. A, B, C)
  
  Response(enum)
-   - OK(0), Pending(1), NG(2)
+   - OK(0), NG(1), Pending(2)
 
  Participant
    -key
    -event (eventRef --> Event)
    -user (userRef --> User)
-   -comment :String
    -attend :Response
    -dates :Array<Response>
    -places :Array<Response>
    -budges :Array<Response>
    -genres :Array<Response>
-   -restaurants :Array<Response>
+   //-restaurants :Array<Response>
+   -comment :String
 
 
 - Web services
@@ -76,12 +77,12 @@
      withHistory=true/false
 
  event/update
-   service=create_pre_event(title, dates, places, budgets, genres, restaurants, participants)
+   service=create_pre_event(title, dates, places, budgets, genres, participants, comment)
    service=update_pre_event(eventid, <same as above>)
-   service=create_event(title, date, place, budget, genre, restaurant, participants)
+   service=create_event(title, date, place, budget, genre, participants, comment)
    service=update_event(eventid, <same as above>)
    
-   service=reply_pre_event(eventid, dates, places, budgets, genres, restaurants, comment)
+   service=reply_pre_event(eventid, dates, places, budgets, genres, comment)
    service=reply_event(eventid, attend, comment)
    service=cancel_event(eventid)
    service=add_friend([userid, userid, ....])
