@@ -34,12 +34,18 @@ public class MeForFacebook implements Me, Serializable {
         UserService us = new UserService();
         String userid = fbUser.getId();
         user = us.getUser(userid);
+        // first login
         if (user == null) {
             user = new User();
             user.setUserid(userid);
             user.setUsername(fbUser.getName());
             user.setToken(token);
-            us.createUser(user);
+            user = us.createUser(user);
+        }
+        // first login (already created user by invitation of event.)
+        if (user.getToken() == null || user.getToken().equals("")) {
+            user.setToken(token);
+            user = us.updateUser(user);
         }
 
         List<com.restfb.types.User> fbFriends = 

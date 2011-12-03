@@ -1,6 +1,6 @@
 package com.meeetlet.meta.event;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-02 00:05:10")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-03 13:59:36")
 /** */
 public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.event.Event> {
 
@@ -27,6 +27,9 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
 
     /** */
     public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event> place = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Event>(this, "place", "place");
+
+    /** */
+    public final org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Event, org.slim3.datastore.ModelRef<com.meeetlet.model.event.PreEvent>, com.meeetlet.model.event.PreEvent> preEventRef = new org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Event, org.slim3.datastore.ModelRef<com.meeetlet.model.event.PreEvent>, com.meeetlet.model.event.PreEvent>(this, "preEventRef", "preEventRef", org.slim3.datastore.ModelRef.class, com.meeetlet.model.event.PreEvent.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date> timestamp = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Event, java.util.Date>(this, "timestamp", "timestamp", java.util.Date.class);
@@ -65,6 +68,10 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
         }
         model.getOwnerRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("ownerRef"));
         model.setPlace((java.lang.String) entity.getProperty("place"));
+        if (model.getPreEventRef() == null) {
+            throw new NullPointerException("The property(preEventRef) is null.");
+        }
+        model.getPreEventRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("preEventRef"));
         model.setTimestamp((java.util.Date) entity.getProperty("timestamp"));
         model.setTitle((java.lang.String) entity.getProperty("title"));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
@@ -90,6 +97,10 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
         }
         entity.setProperty("ownerRef", m.getOwnerRef().getKey());
         entity.setProperty("place", m.getPlace());
+        if (m.getPreEventRef() == null) {
+            throw new NullPointerException("The property(preEventRef) must not be null.");
+        }
+        entity.setProperty("preEventRef", m.getPreEventRef().getKey());
         entity.setProperty("timestamp", m.getTimestamp());
         entity.setProperty("title", m.getTitle());
         entity.setProperty("version", m.getVersion());
@@ -123,6 +134,10 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
             throw new NullPointerException("The property(ownerRef) must not be null.");
         }
         m.getOwnerRef().assignKeyIfNecessary(ds);
+        if (m.getPreEventRef() == null) {
+            throw new NullPointerException("The property(preEventRef) must not be null.");
+        }
+        m.getPreEventRef().assignKeyIfNecessary(ds);
     }
 
     @Override
@@ -196,6 +211,10 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
             writer.setNextPropertyName("place");
             encoder0.encode(writer, m.getPlace());
         }
+        if(m.getPreEventRef() != null && m.getPreEventRef().getKey() != null){
+            writer.setNextPropertyName("preEventRef");
+            encoder0.encode(writer, m.getPreEventRef(), maxDepth, currentDepth);
+        }
         if(m.getTimestamp() != null){
             writer.setNextPropertyName("timestamp");
             encoder0.encode(writer, m.getTimestamp());
@@ -233,6 +252,8 @@ public final class EventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.
         reader = rootReader.newObjectReader("participantsRef");
         reader = rootReader.newObjectReader("place");
         m.setPlace(decoder0.decode(reader, m.getPlace()));
+        reader = rootReader.newObjectReader("preEventRef");
+        decoder0.decode(reader, m.getPreEventRef(), maxDepth, currentDepth);
         reader = rootReader.newObjectReader("timestamp");
         m.setTimestamp(decoder0.decode(reader, m.getTimestamp()));
         reader = rootReader.newObjectReader("title");

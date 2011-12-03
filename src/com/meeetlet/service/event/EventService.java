@@ -11,9 +11,11 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.meeetlet.meta.event.EventMeta;
 import com.meeetlet.meta.event.ParticipantMeta;
+import com.meeetlet.meta.event.PreEventMeta;
 import com.meeetlet.model.common.User;
 import com.meeetlet.model.event.Event;
 import com.meeetlet.model.event.Participant;
+import com.meeetlet.model.event.PreEvent;
 
 
 public class EventService {
@@ -48,18 +50,41 @@ public class EventService {
                 .asSingle();
     }
     
-    public Event createEvent(User owner, Event event) throws Exception {
+    public Event createEvent(
+            User owner, 
+            Event event, 
+            List<User> participants,
+            PreEvent preEvent) throws Exception {
 
         event.setKey(Datastore.allocateId(EventMeta.get()));
         event.setEventid(event.getKey().getId() + "");
         
         event.getOwnerRef().setKey(owner.getKey());
-
-        Date now = new Date();
-        event.setTimestamp(now);
+        event.setTimestamp(new Date()); // now
 
         Transaction tx = Datastore.beginTransaction();
         try {
+
+            // pre event
+            if (preEvent != null) {
+                Key key = Datastore.createKey(
+                    event.getKey(), PreEventMeta.get(), 1);
+                preEvent.setKey(key);
+                Datastore.put(tx, preEvent);
+                
+                event.getPreEventRef().setKey(preEvent.getKey()); // Event.preEventRef
+            }
+            // participants
+            for (int i = 0; i < participants.size(); i++) {
+                Participant participant = new Participant();
+                participant.getUserRef().setModel(participants.get(i));
+                Key key = Datastore.createKey(
+                    event.getKey(), ParticipantMeta.get(), i + 1);
+                participant.setKey(key);
+                participant.getEventRef().setModel(event);
+                Datastore.put(tx, participant);
+            }
+            // event
             Datastore.put(tx, event);
             tx.commit();
         } catch (Exception e) {
@@ -68,19 +93,20 @@ public class EventService {
             }
             throw e;
         }
-        
         return event;
     }
     
     public void deleteEvent(String eventid) throws Exception {
         
         Event event = getEvent(eventid);
+        PreEvent preEvent = event.getPreEventRef().getModel();
         
         Transaction tx = Datastore.beginTransaction();
         try {
-            for (Participant p : event.getParticipantsRef().getModelList()) {
+            for (Participant p : event.getParticipantsRef().getModelList())
                 Datastore.delete(tx, p.getKey());
-            }
+            if (preEvent != null)
+                Datastore.delete(tx, preEvent.getKey());
             Datastore.delete(tx, event.getKey());
             tx.commit();
         } catch (Exception e) {

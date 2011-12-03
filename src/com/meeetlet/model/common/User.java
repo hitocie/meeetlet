@@ -18,10 +18,21 @@ public class User implements Serializable {
 
     @Attribute(primaryKey = true)
     private Key key;
+    public Key getKey() {
+        return key;
+    }
+    public void setKey(Key key) {
+        this.key = key;
+    }
 
     @Attribute(version = true)
     private Long version;
-
+    public Long getVersion() {
+        return version;
+    }
+    public void setVersion(Long version) {
+        this.version = version;
+    }
     
     // -------------------------------
     // userid
@@ -62,44 +73,6 @@ public class User implements Serializable {
     // -------------------------------
 
     
-    /**
-     * Returns the key.
-     *
-     * @return the key
-     */
-    public Key getKey() {
-        return key;
-    }
-
-    /**
-     * Sets the key.
-     *
-     * @param key
-     *            the key
-     */
-    public void setKey(Key key) {
-        this.key = key;
-    }
-
-    /**
-     * Returns the version.
-     *
-     * @return the version
-     */
-    public Long getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version.
-     *
-     * @param version
-     *            the version
-     */
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -23,11 +23,11 @@
    -owner :User(ownerRef)
    -participants :Array<Participant>(participantsRef)
    -comment :String
+   -preEvent :PreEvent(preEventRef)
    -timestamp :Date
 
  PreEvent
    -key
-   -event (eventRef --> Event)
    -dates:Array (e.g. 11/23, 11/24, 11/25)
    -places:Array (e.g. Boston, NY, LA)
    -budges:Array (e.g. 1000-2000, 2000-3000, 3000-4000)
@@ -74,7 +74,6 @@
    
      offset=int(first position)
      limit=int(last position)
-     withHistory=true/false
 
  event/update
    service=create_pre_event(title, dates, places, budgets, genres, participants, comment)

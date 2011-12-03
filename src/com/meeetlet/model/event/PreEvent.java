@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
-import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.repackaged.org.json.JSONArray;
@@ -37,11 +36,12 @@ public class PreEvent implements Serializable {
     }
     
     //-------
+    // TODO: Can I merge PreEvent to Event?
     // event (eventRef --> Event)
-    private ModelRef<Event> eventRef = new ModelRef<Event>(Event.class);
-    public ModelRef<Event> getEventRef() {
-        return eventRef;
-    }
+    //private ModelRef<Event> eventRef = new ModelRef<Event>(Event.class);
+    //public ModelRef<Event> getEventRef() {
+    //    return eventRef;
+    //}
     
     // dates:Array (e.g. 11/23, 11/24, 11/25)
     private List<Date> dates;
@@ -131,7 +131,6 @@ public class PreEvent implements Serializable {
         
         return new JSONObject()
         //.put("key", KeyFactory.keyToString(key))
-        .put("id", eventRef.getModel().getEventid())
         .put("dates", jdates)
         .put("places", jplaces)
         .put("budgets", jbudgets)

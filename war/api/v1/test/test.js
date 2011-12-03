@@ -43,7 +43,7 @@ $(function() {
 
 		var event = create_event(
 				'Great Event2011', // title
-				'2011-12-25 10:30', // event date
+				'2011-12-25 10:30:00', // event date
 				'Tokyo, Japan', // place
 				"2000 - 3000", // budget
 				"Lunch", // genre
@@ -62,6 +62,22 @@ $(function() {
 				'これは日本語コメントです。'
 		); // 2
 		dump_event(event, '[Joined event!]');
+	});	
+});
+
+$(function() {
+	$('#create_pre_event').click(function() {
+
+		var event = create_pre_event(
+				'Pre Event2011', // title
+				['2011-10-10 10:35:00', '2011-11-11 11:35:00'], // event date
+				['Tokyo, Japan', 'Ginza', 'Shinjuku'], // place
+				['2000 - 3000', '3000 - 4000', '4000 - 5000'], // budget
+				['Seafood', 'Japanese', 'Chinese'], // genre
+				['100000052301176', '100003143705292', '100001911674442'], // participants
+				['Comment1', 'Comment2'] // comment
+		);
+		dump_event(event, '[Created Pre Event!]');
 	});	
 });
 

@@ -94,6 +94,28 @@ function get_my_events(p) {
 			}
 	});
 }
+function create_pre_event(
+		title, 
+		eventDates,
+		places, 
+		budgets,
+		genres,
+		participants,
+		comments) {
+	
+	var response = sync_request({
+			url: '/api/v1/event/update?service=create_pre_event',
+			data: {
+				title: title,
+				eventDates: JSON.stringify(eventDates),
+				places: JSON.stringify(places),
+				budgets: JSON.stringify(budgets),
+				genres: JSON.stringify(genres),
+				participants: JSON.stringify(participants), 
+				comments: JSON.stringify(comments)}
+	});
+	return response;
+}
 function create_event(
 		title, 
 		eventDate,

@@ -1,6 +1,6 @@
 package com.meeetlet.meta.event;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-02 00:20:48")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-03 14:03:24")
 /** */
 public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.event.PreEvent> {
 
@@ -9,9 +9,6 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
 
     /** */
     public final org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.util.Date>, java.util.Date> dates = new org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.util.Date>, java.util.Date>(this, "dates", "dates", java.util.List.class);
-
-    /** */
-    public final org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.PreEvent, org.slim3.datastore.ModelRef<com.meeetlet.model.event.Event>, com.meeetlet.model.event.Event> eventRef = new org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.PreEvent, org.slim3.datastore.ModelRef<com.meeetlet.model.event.Event>, com.meeetlet.model.event.Event>(this, "eventRef", "eventRef", org.slim3.datastore.ModelRef.class, com.meeetlet.model.event.Event.class);
 
     /** */
     public final org.slim3.datastore.StringCollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.lang.String>> genres = new org.slim3.datastore.StringCollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.lang.String>>(this, "genres", "genres", java.util.List.class);
@@ -44,10 +41,6 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
         com.meeetlet.model.event.PreEvent model = new com.meeetlet.model.event.PreEvent();
         model.setBudgets(toList(java.lang.String.class, entity.getProperty("budgets")));
         model.setDates(toList(java.util.Date.class, entity.getProperty("dates")));
-        if (model.getEventRef() == null) {
-            throw new NullPointerException("The property(eventRef) is null.");
-        }
-        model.getEventRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("eventRef"));
         model.setGenres(toList(java.lang.String.class, entity.getProperty("genres")));
         model.setKey(entity.getKey());
         model.setPlaces(toList(java.lang.String.class, entity.getProperty("places")));
@@ -66,10 +59,6 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
         }
         entity.setProperty("budgets", m.getBudgets());
         entity.setProperty("dates", m.getDates());
-        if (m.getEventRef() == null) {
-            throw new NullPointerException("The property(eventRef) must not be null.");
-        }
-        entity.setProperty("eventRef", m.getEventRef().getKey());
         entity.setProperty("genres", m.getGenres());
         entity.setProperty("places", m.getPlaces());
         entity.setProperty("version", m.getVersion());
@@ -98,11 +87,6 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
 
     @Override
     protected void assignKeyToModelRefIfNecessary(com.google.appengine.api.datastore.AsyncDatastoreService ds, java.lang.Object model) {
-        com.meeetlet.model.event.PreEvent m = (com.meeetlet.model.event.PreEvent) model;
-        if (m.getEventRef() == null) {
-            throw new NullPointerException("The property(eventRef) must not be null.");
-        }
-        m.getEventRef().assignKeyIfNecessary(ds);
     }
 
     @Override
@@ -155,10 +139,6 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
                 encoder0.encode(writer, v);
             }
             writer.endArray();
-        }
-        if(m.getEventRef() != null && m.getEventRef().getKey() != null){
-            writer.setNextPropertyName("eventRef");
-            encoder0.encode(writer, m.getEventRef(), maxDepth, currentDepth);
         }
         if(m.getGenres() != null){
             writer.setNextPropertyName("genres");
@@ -226,8 +206,6 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
                 m.setDates(elements);
             }
         }
-        reader = rootReader.newObjectReader("eventRef");
-        decoder0.decode(reader, m.getEventRef(), maxDepth, currentDepth);
         reader = rootReader.newObjectReader("genres");
         {
             java.util.ArrayList<java.lang.String> elements = new java.util.ArrayList<java.lang.String>();

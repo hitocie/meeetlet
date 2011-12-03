@@ -23,11 +23,6 @@ public class Event implements Serializable {
 
     @Attribute(primaryKey = true)
     private Key key;
-
-    @Attribute(version = true)
-    private Long version;
-
-    
     public Key getKey() {
         return key;
     }
@@ -35,6 +30,8 @@ public class Event implements Serializable {
         this.key = key;
     }
 
+    @Attribute(version = true)
+    private Long version;
     public Long getVersion() {
         return version;
     }
@@ -147,6 +144,12 @@ public class Event implements Serializable {
         this.comment = comment;
     }
     
+    // PreEvent relation (preEvent)
+    private ModelRef<PreEvent> preEventRef = new ModelRef<PreEvent>(PreEvent.class);
+    public ModelRef<PreEvent> getPreEventRef() {
+        return preEventRef;
+    }
+    
     // timestamp
     private Date timestamp;
     public Date getTimestamp() {
@@ -207,6 +210,7 @@ public class Event implements Serializable {
         .put("owner", ownerRef.getModel().toJSONObject())
         .put("participants", participants)
         .put("comment", comment)
+        .put("preEvent", (preEventRef.getModel() == null ? null  : preEventRef.getModel().toJSONObject()))
         .put("timestamp", DateUtil.toString(timestamp));
     }
 }
