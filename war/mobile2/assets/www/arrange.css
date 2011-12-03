@@ -9,10 +9,17 @@ table {
 }
 
 th {
+	font-size:12px;
 	text-align:center;
 }
 
 td {
+	font-size:12px;
 	text-align:center;
 	border-top: 1px solid;
+}
+
+#select_date_top label {
+	font-size:12px;
+	width:50px;
 }
