@@ -1,14 +1,12 @@
 package com.meeetlet.model.event;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.repackaged.org.json.JSONArray;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 import com.meeetlet.common.event.Response;
@@ -38,7 +36,6 @@ public class Participant implements Serializable {
     }
 
     //-------------------------
-    
     // User relation (user)
     private ModelRef<User> userRef = new ModelRef<User>(User.class);
     public ModelRef<User> getUserRef() {
@@ -59,43 +56,8 @@ public class Participant implements Serializable {
     public void setAttend(Response attend) {
         this.attend = attend;
     }
-    
-    // dates :Array<Response>
-    private List<Response> dates;
-    public List<Response> getDates() {
-        return dates;
-    }
-    public void setDates(List<Response> dates) {
-        this.dates = dates;
-    }
 
-    // places :Array<Response>
-    private List<Response> places;
-    public List<Response> getPlaces() {
-        return places;
-    }
-    public void setPlaces(List<Response> places) {
-        this.places = places;
-    }
-    
-    // budges :Array<Response>
-    private List<Response> budgets;
-    public List<Response> getBudgets() {
-        return budgets;
-    }
-    public void setBudgets(List<Response> budgets) {
-        this.budgets = budgets;
-    }
-    
-    // genres :Array<Response>
-    private List<Response> genres;
-    public List<Response> getGenres() {
-        return genres;
-    }
-    public void setGenres(List<Response> genres) {
-        this.genres = genres;
-    }
-
+    // comment :String
     private String comment;
     public String getComment() {
         return comment;
@@ -104,6 +66,11 @@ public class Participant implements Serializable {
         this.comment = comment;
     }
     
+    // PreParticipant relation (preParticipant)
+    private ModelRef<PreParticipant> preParticipantRef = new ModelRef<PreParticipant>(PreParticipant.class);
+    public ModelRef<PreParticipant> getPreParticipantRef() {
+        return preParticipantRef;
+    }
     //-------------------------
     
     
@@ -139,29 +106,11 @@ public class Participant implements Serializable {
     
     
     public JSONObject toJSONObject() throws JSONException {
-        JSONArray jdates = new JSONArray();
-        for (Response r : dates) {
-            jdates.put(r);
-        }
-        JSONArray jplaces = new JSONArray();
-        for (Response r : places) {
-            jplaces.put(r);
-        }
-        JSONArray jbudgets = new JSONArray();
-        for (Response r : budgets) {
-            jbudgets.put(r);
-        }
-        JSONArray jgenres = new JSONArray();
-        for (Response r : genres) {
-            jgenres.put(r);
-        }
-                
+        PreParticipant pp = preParticipantRef.getModel();
+
         return new JSONObject()
         .put("user", userRef.getModel().toJSONObject())
-        .put("dates", jdates)
-        .put("places", jplaces)
-        .put("budgets", jbudgets)
-        .put("genres", jgenres)
+        .put("participants", (pp == null ? null : pp.toJSONObject()))
         .put("comment", comment);
     }   
 }

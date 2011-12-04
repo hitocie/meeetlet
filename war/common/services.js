@@ -101,7 +101,7 @@ function create_pre_event(
 		budgets,
 		genres,
 		participants,
-		comments) {
+		comment) {
 	
 	var response = sync_request({
 			url: '/api/v1/event/update?service=create_pre_event',
@@ -112,7 +112,7 @@ function create_pre_event(
 				budgets: JSON.stringify(budgets),
 				genres: JSON.stringify(genres),
 				participants: JSON.stringify(participants), 
-				comments: JSON.stringify(comments)}
+				comments: comment}
 	});
 	return response;
 }
@@ -146,19 +146,33 @@ function delete_event(eventid) {
 	});
 	return response;
 }
-function join_event(eventid, comment) {
+
+var Response = {OK: 0, NG: 1, Pending: 2};
+function reply_pre_event(
+		eventid,
+		eventDates,
+		places, 
+		budgets,
+		genres,
+		comment) {
 	
 	var response = sync_request({
-			url: '/api/v1/event/update?service=join_event',
-			data: {eventid: eventid, comment: comment}
+			url: '/api/v1/event/update?service=reply_pre_event',
+			data: {
+				eventid: eventid,
+				eventDates: JSON.stringify(eventDates),
+				places: JSON.stringify(places),
+				budgets: JSON.stringify(budgets),
+				genres: JSON.stringify(genres),
+				comment: comment}
 	});
 	return response;
 }
-function cancel_event(eventid) {
+function reply_event(eventid, attend, comment) {
 	
 	var response = sync_request({
-			url: '/api/v1/event/update?service=cancel_event',
-			data: {eventid: eventid}
+		url: '/api/v1/event/update?service=reply_event',
+		data: {eventid: eventid, attend: attend, comment: comment}
 	});
 	return response;
 }

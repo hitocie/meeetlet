@@ -49,7 +49,7 @@ public class Event implements Serializable {
         this.eventid = eventid;
     }
 
-    // title(subject)
+    // title
     private String title;
     public String getTitle() {
         return title;
@@ -93,33 +93,6 @@ public class Event implements Serializable {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-    
-//    // registered date
-//    private Date registeredDate;
-//    public Date getRegisteredDate() {
-//        return registeredDate;
-//    }
-//    public void setRegisteredDate(Date registeredData) {
-//        this.registeredDate = registeredData;
-//    }
-//    
-//    // expired date
-//    private Date expiredDate;
-//    public Date getExpiredDate() {
-//        return expiredDate;
-//    }
-//    public void setExpiredDate(Date expiredDate) {
-//        this.expiredDate = expiredDate;
-//    }
-//
-//    // max number of participants
-//    private int number;
-//    public int getNumber() {
-//        return number;
-//    }
-//    public void setNumber(int number) {
-//        this.number = number;
-//    }
     
     // User relation (owner)
     private ModelRef<User> ownerRef = new ModelRef<User>(User.class);
@@ -214,5 +187,3 @@ public class Event implements Serializable {
         .put("timestamp", DateUtil.toString(timestamp));
     }
 }
-
-

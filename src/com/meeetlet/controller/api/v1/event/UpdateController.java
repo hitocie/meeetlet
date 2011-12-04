@@ -11,11 +11,14 @@ import org.slim3.controller.Navigation;
 import com.google.appengine.repackaged.org.json.JSONArray;
 import com.meeetlet.common.Const;
 import com.meeetlet.common.Me;
+import com.meeetlet.common.event.Response;
 import com.meeetlet.common.utils.DateUtil;
 import com.meeetlet.common.utils.MeUtil;
 import com.meeetlet.model.common.User;
 import com.meeetlet.model.event.Event;
+import com.meeetlet.model.event.Participant;
 import com.meeetlet.model.event.PreEvent;
+import com.meeetlet.model.event.PreParticipant;
 import com.meeetlet.service.common.UserService;
 import com.meeetlet.service.event.EventService;
 
@@ -40,6 +43,16 @@ public class UpdateController extends Controller {
         }
         return participants;
     }
+    
+    private Response getAttend(int attend) {
+        Response v = Response.Pending;
+        if (attend == 0) {
+            v = Response.OK;
+        } else if (attend == 1) {
+            v = Response.NG;
+        }
+        return v;
+    }
 
     @Override
     public Navigation run() throws Exception {
@@ -56,6 +69,7 @@ public class UpdateController extends Controller {
                 EventService es = new EventService();
                 if (service.equals("create_pre_event")) {
                     // service=create_pre_event
+                    // TODO: update (only title, comment, participants)
                     Event e = new Event();
                     e.setTitle(asString("title"));
                     List<User> participants = makeParticipants(me, asString("participants"));
@@ -81,6 +95,8 @@ public class UpdateController extends Controller {
                     for (int i = 0; i < jgenres.length(); i++)
                         pe.getGenres().add(jgenres.getString(i));
 
+                    e.setComment(asString("comment"));
+                    
                     e = es.createEvent(me.getUser(), e, participants, pe);
                     e.toJSONObject().write(response.getWriter());
 
@@ -88,6 +104,7 @@ public class UpdateController extends Controller {
 
                 } else if (service.equals("create_event")) {
                     // service=create_event
+                    // TODO: update 
                     Event e = new Event();
                     e.setTitle(asString("title"));
                     e.setEventDate(asDate("eventDate", "yyyy-MM-dd HH:mm"));
@@ -109,24 +126,53 @@ public class UpdateController extends Controller {
 
                     return null;
 
-                } else if (service.equals("join_event")) {
-                    // service=join_event
-                    Event e = es.getEvent(asString("eventid"));
+                } else if (service.equals("reply_pre_event")) {
+                    // service=reply_pre_event
+                    // TODO: update (if PreParticipant exists, it should be updated.(not create)
+                    PreParticipant pp = new PreParticipant();
 
-                    e = es.joinEvent(me.getUser(), asString("comment"), e);
+                    pp.setDates(new ArrayList<Response>());
+                    JSONArray jdates = new JSONArray(asString("eventDates"));
+                    for (int i = 0; i < jdates.length(); i++)
+                        pp.getDates().add(getAttend(jdates.getInt(i)));
+
+                    pp.setPlaces(new ArrayList<Response>());
+                    JSONArray jplaces = new JSONArray(asString("places"));
+                    for (int i = 0; i < jplaces.length(); i++)
+                        pp.getPlaces().add(getAttend(jplaces.getInt(i)));
+
+                    pp.setBudgets(new ArrayList<Response>());
+                    JSONArray jbudgets = new JSONArray(asString("budgets"));
+                    for (int i = 0; i < jbudgets.length(); i++)
+                        pp.getBudgets().add(getAttend(jbudgets.getInt(i)));
+
+                    pp.setGenres(new ArrayList<Response>());
+                    JSONArray jgenres = new JSONArray(asString("genres"));
+                    for (int i = 0; i < jgenres.length(); i++)
+                        pp.getGenres().add(getAttend(jgenres.getInt(i)));
+
+                    pp.setComment(asString("comment"));
+                    
+                    Participant p = 
+                            es.replyPreEvent(
+                                me.getUser(), 
+                                es.getEvent(asString("eventid")),
+                                pp);
+                    p.toJSONObject().write(response.getWriter());
+
+                    return null;
+                    
+                } else if (service.equals("reply_event")) {
+                    // service=reply_event (== update)
+                    Event e =
+                            es.replyEvent(
+                                me.getUser(),
+                                es.getEvent(asString("eventid")), 
+                                getAttend(asInteger("attend")), 
+                                asString("comment"));
                     e.toJSONObject().write(response.getWriter());
 
                     return null;
-
-                } else if (service.equals("cancel_event")) {
-                    // service=cancel_event
-                    Event e = es.getEvent(asString("eventid"));
-
-                    e = es.cancelEvent(me.getUser(), e);
-                    e.toJSONObject().write(response.getWriter());
-
-                    return null;
-
                 }
             }
         }

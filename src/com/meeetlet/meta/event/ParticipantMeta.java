@@ -1,6 +1,6 @@
 package com.meeetlet.meta.event;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-03 12:58:51")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-04 22:58:19")
 /** */
 public final class ParticipantMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.event.Participant> {
 
@@ -8,25 +8,16 @@ public final class ParticipantMeta extends org.slim3.datastore.ModelMeta<com.mee
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Participant, com.meeetlet.common.event.Response> attend = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Participant, com.meeetlet.common.event.Response>(this, "attend", "attend", com.meeetlet.common.event.Response.class);
 
     /** */
-    public final org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response> budgets = new org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response>(this, "budgets", "budgets", java.util.List.class);
-
-    /** */
     public final org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Participant> comment = new org.slim3.datastore.StringAttributeMeta<com.meeetlet.model.event.Participant>(this, "comment", "comment");
-
-    /** */
-    public final org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response> dates = new org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response>(this, "dates", "dates", java.util.List.class);
 
     /** */
     public final org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Participant, org.slim3.datastore.ModelRef<com.meeetlet.model.event.Event>, com.meeetlet.model.event.Event> eventRef = new org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Participant, org.slim3.datastore.ModelRef<com.meeetlet.model.event.Event>, com.meeetlet.model.event.Event>(this, "eventRef", "eventRef", org.slim3.datastore.ModelRef.class, com.meeetlet.model.event.Event.class);
 
     /** */
-    public final org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response> genres = new org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response>(this, "genres", "genres", java.util.List.class);
-
-    /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Participant, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.Participant, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
 
     /** */
-    public final org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response> places = new org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.Participant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response>(this, "places", "places", java.util.List.class);
+    public final org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Participant, org.slim3.datastore.ModelRef<com.meeetlet.model.event.PreParticipant>, com.meeetlet.model.event.PreParticipant> preParticipantRef = new org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Participant, org.slim3.datastore.ModelRef<com.meeetlet.model.event.PreParticipant>, com.meeetlet.model.event.PreParticipant>(this, "preParticipantRef", "preParticipantRef", org.slim3.datastore.ModelRef.class, com.meeetlet.model.event.PreParticipant.class);
 
     /** */
     public final org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Participant, org.slim3.datastore.ModelRef<com.meeetlet.model.common.User>, com.meeetlet.model.common.User> userRef = new org.slim3.datastore.ModelRefAttributeMeta<com.meeetlet.model.event.Participant, org.slim3.datastore.ModelRef<com.meeetlet.model.common.User>, com.meeetlet.model.common.User>(this, "userRef", "userRef", org.slim3.datastore.ModelRef.class, com.meeetlet.model.common.User.class);
@@ -52,16 +43,16 @@ public final class ParticipantMeta extends org.slim3.datastore.ModelMeta<com.mee
     public com.meeetlet.model.event.Participant entityToModel(com.google.appengine.api.datastore.Entity entity) {
         com.meeetlet.model.event.Participant model = new com.meeetlet.model.event.Participant();
         model.setAttend(stringToEnum(com.meeetlet.common.event.Response.class, (java.lang.String) entity.getProperty("attend")));
-        model.setBudgets(stringListToEnumList(com.meeetlet.common.event.Response.class, entity.getProperty("budgets")));
         model.setComment((java.lang.String) entity.getProperty("comment"));
-        model.setDates(stringListToEnumList(com.meeetlet.common.event.Response.class, entity.getProperty("dates")));
         if (model.getEventRef() == null) {
             throw new NullPointerException("The property(eventRef) is null.");
         }
         model.getEventRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("eventRef"));
-        model.setGenres(stringListToEnumList(com.meeetlet.common.event.Response.class, entity.getProperty("genres")));
         model.setKey(entity.getKey());
-        model.setPlaces(stringListToEnumList(com.meeetlet.common.event.Response.class, entity.getProperty("places")));
+        if (model.getPreParticipantRef() == null) {
+            throw new NullPointerException("The property(preParticipantRef) is null.");
+        }
+        model.getPreParticipantRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("preParticipantRef"));
         if (model.getUserRef() == null) {
             throw new NullPointerException("The property(userRef) is null.");
         }
@@ -80,15 +71,15 @@ public final class ParticipantMeta extends org.slim3.datastore.ModelMeta<com.mee
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
         entity.setProperty("attend", enumToString(m.getAttend()));
-        entity.setProperty("budgets", enumListToStringList(m.getBudgets()));
         entity.setProperty("comment", m.getComment());
-        entity.setProperty("dates", enumListToStringList(m.getDates()));
         if (m.getEventRef() == null) {
             throw new NullPointerException("The property(eventRef) must not be null.");
         }
         entity.setProperty("eventRef", m.getEventRef().getKey());
-        entity.setProperty("genres", enumListToStringList(m.getGenres()));
-        entity.setProperty("places", enumListToStringList(m.getPlaces()));
+        if (m.getPreParticipantRef() == null) {
+            throw new NullPointerException("The property(preParticipantRef) must not be null.");
+        }
+        entity.setProperty("preParticipantRef", m.getPreParticipantRef().getKey());
         if (m.getUserRef() == null) {
             throw new NullPointerException("The property(userRef) must not be null.");
         }
@@ -124,6 +115,10 @@ public final class ParticipantMeta extends org.slim3.datastore.ModelMeta<com.mee
             throw new NullPointerException("The property(eventRef) must not be null.");
         }
         m.getEventRef().assignKeyIfNecessary(ds);
+        if (m.getPreParticipantRef() == null) {
+            throw new NullPointerException("The property(preParticipantRef) must not be null.");
+        }
+        m.getPreParticipantRef().assignKeyIfNecessary(ds);
         if (m.getUserRef() == null) {
             throw new NullPointerException("The property(userRef) must not be null.");
         }
@@ -169,49 +164,21 @@ public final class ParticipantMeta extends org.slim3.datastore.ModelMeta<com.mee
             writer.setNextPropertyName("attend");
             encoder0.encode(writer, m.getAttend());
         }
-        if(m.getBudgets() != null){
-            writer.setNextPropertyName("budgets");
-            writer.beginArray();
-            for(com.meeetlet.common.event.Response v : m.getBudgets()){
-                encoder0.encode(writer, v);
-            }
-            writer.endArray();
-        }
         if(m.getComment() != null){
             writer.setNextPropertyName("comment");
             encoder0.encode(writer, m.getComment());
-        }
-        if(m.getDates() != null){
-            writer.setNextPropertyName("dates");
-            writer.beginArray();
-            for(com.meeetlet.common.event.Response v : m.getDates()){
-                encoder0.encode(writer, v);
-            }
-            writer.endArray();
         }
         if(m.getEventRef() != null && m.getEventRef().getKey() != null){
             writer.setNextPropertyName("eventRef");
             encoder0.encode(writer, m.getEventRef(), maxDepth, currentDepth);
         }
-        if(m.getGenres() != null){
-            writer.setNextPropertyName("genres");
-            writer.beginArray();
-            for(com.meeetlet.common.event.Response v : m.getGenres()){
-                encoder0.encode(writer, v);
-            }
-            writer.endArray();
-        }
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
             encoder0.encode(writer, m.getKey());
         }
-        if(m.getPlaces() != null){
-            writer.setNextPropertyName("places");
-            writer.beginArray();
-            for(com.meeetlet.common.event.Response v : m.getPlaces()){
-                encoder0.encode(writer, v);
-            }
-            writer.endArray();
+        if(m.getPreParticipantRef() != null && m.getPreParticipantRef().getKey() != null){
+            writer.setNextPropertyName("preParticipantRef");
+            encoder0.encode(writer, m.getPreParticipantRef(), maxDepth, currentDepth);
         }
         if(m.getUserRef() != null && m.getUserRef().getKey() != null){
             writer.setNextPropertyName("userRef");
@@ -231,68 +198,14 @@ public final class ParticipantMeta extends org.slim3.datastore.ModelMeta<com.mee
         org.slim3.datastore.json.Default decoder0 = new org.slim3.datastore.json.Default();
         reader = rootReader.newObjectReader("attend");
         m.setAttend(decoder0.decode(reader, m.getAttend(), com.meeetlet.common.event.Response.class));
-        reader = rootReader.newObjectReader("budgets");
-        {
-            java.util.ArrayList<com.meeetlet.common.event.Response> elements = new java.util.ArrayList<com.meeetlet.common.event.Response>();
-            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("budgets");
-            if(r != null){
-                reader = r;
-                int n = r.length();
-                for(int i = 0; i < n; i++){
-                    r.setIndex(i);
-                    elements.add(decoder0.decode(reader, (com.meeetlet.common.event.Response)null, com.meeetlet.common.event.Response.class));
-                }
-                m.setBudgets(elements);
-            }
-        }
         reader = rootReader.newObjectReader("comment");
         m.setComment(decoder0.decode(reader, m.getComment()));
-        reader = rootReader.newObjectReader("dates");
-        {
-            java.util.ArrayList<com.meeetlet.common.event.Response> elements = new java.util.ArrayList<com.meeetlet.common.event.Response>();
-            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("dates");
-            if(r != null){
-                reader = r;
-                int n = r.length();
-                for(int i = 0; i < n; i++){
-                    r.setIndex(i);
-                    elements.add(decoder0.decode(reader, (com.meeetlet.common.event.Response)null, com.meeetlet.common.event.Response.class));
-                }
-                m.setDates(elements);
-            }
-        }
         reader = rootReader.newObjectReader("eventRef");
         decoder0.decode(reader, m.getEventRef(), maxDepth, currentDepth);
-        reader = rootReader.newObjectReader("genres");
-        {
-            java.util.ArrayList<com.meeetlet.common.event.Response> elements = new java.util.ArrayList<com.meeetlet.common.event.Response>();
-            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("genres");
-            if(r != null){
-                reader = r;
-                int n = r.length();
-                for(int i = 0; i < n; i++){
-                    r.setIndex(i);
-                    elements.add(decoder0.decode(reader, (com.meeetlet.common.event.Response)null, com.meeetlet.common.event.Response.class));
-                }
-                m.setGenres(elements);
-            }
-        }
         reader = rootReader.newObjectReader("key");
         m.setKey(decoder0.decode(reader, m.getKey()));
-        reader = rootReader.newObjectReader("places");
-        {
-            java.util.ArrayList<com.meeetlet.common.event.Response> elements = new java.util.ArrayList<com.meeetlet.common.event.Response>();
-            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("places");
-            if(r != null){
-                reader = r;
-                int n = r.length();
-                for(int i = 0; i < n; i++){
-                    r.setIndex(i);
-                    elements.add(decoder0.decode(reader, (com.meeetlet.common.event.Response)null, com.meeetlet.common.event.Response.class));
-                }
-                m.setPlaces(elements);
-            }
-        }
+        reader = rootReader.newObjectReader("preParticipantRef");
+        decoder0.decode(reader, m.getPreParticipantRef(), maxDepth, currentDepth);
         reader = rootReader.newObjectReader("userRef");
         decoder0.decode(reader, m.getUserRef(), maxDepth, currentDepth);
         reader = rootReader.newObjectReader("version");
