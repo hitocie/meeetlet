@@ -9,6 +9,7 @@ import org.slim3.datastore.FilterCriterion;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.meeetlet.common.event.Response;
 import com.meeetlet.meta.event.EventMeta;
 import com.meeetlet.meta.event.ParticipantMeta;
 import com.meeetlet.meta.event.PreEventMeta;
@@ -116,6 +117,39 @@ public class EventService {
             throw e;
         }
     }
+    
+    // TODO: Working on this method.
+    public Event replyEvent(User user, Event event, Response attend, String comment) throws Exception {
+        
+        Participant participant = null;
+        for (Participant p : event.getParticipantsRef().getModelList()) {
+            if (user.getKey().equals(p.getUserRef().getKey())) {
+                p.setAttend(attend);
+                p.setComment(comment);
+                participant = p;
+                break;
+            }
+        }
+
+        if (participant == null)
+            throw new Exception("Not exists the matched Participant."); // FIXME
+        
+        event.setTimestamp(new Date());
+        
+        Transaction tx = Datastore.beginTransaction();
+        try {
+            Datastore.put(tx, event, participant);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
+        }
+        
+        return event;
+    }
+
     
     public Event joinEvent(User user, String comment, Event event) throws Exception {
         

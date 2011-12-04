@@ -102,6 +102,13 @@ public class UpdateController extends Controller {
 
                     return null;
 
+                } else if (service.equals("delete_event")) {
+                    // service=delete_event
+                    es.deleteEvent(asString("eventid"));
+                    response.getWriter().write("null");
+
+                    return null;
+
                 } else if (service.equals("join_event")) {
                     // service=join_event
                     Event e = es.getEvent(asString("eventid"));
@@ -120,12 +127,6 @@ public class UpdateController extends Controller {
 
                     return null;
 
-                } else if (service.equals("delete")) {
-                    // service=delete
-                    es.deleteEvent(asString("eventid"));
-                    response.getWriter().write("null");
-
-                    return null;
                 }
             }
         }

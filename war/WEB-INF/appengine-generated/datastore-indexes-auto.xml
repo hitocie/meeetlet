@@ -1,4 +1,11 @@
-<!-- Indices written at Sat, 3 Dec 2011 05:06:04 UTC -->
+<!-- Indices written at Sun, 4 Dec 2011 02:15:44 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 10 times in query history -->
+    <datastore-index kind="Event" ancestor="false" source="auto">
+        <property name="ownerRef" direction="asc"/>
+        <property name="timestamp" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>

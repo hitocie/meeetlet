@@ -6,7 +6,7 @@ function dump_user(user, tag) {
 			tag +
 			' id=' + user.id + 
 			' name=' + user.name + 
-			//' token=' + user.token + 
+			' token=' + user.token + 
 			' timestamp=' + user.timestamp
 	);
 }
@@ -17,15 +17,15 @@ function dump_event(event, tag) {
 	console.log(
 			tag +
 			' id= ' + event.id + 
-			' subject=' + event.subject +
-			' place=' + event.place +
+			' title=' + event.title +
 			' eventDate=' + event.eventDate +
-			' registeredDate=' + event.registeredDate +
-			' expiredDate=' + event.expiredDate +
-			' number=' + event.number +
+			' place=' + event.place +
+			' budget=' + event.budget +
+			' genre=' + event.genre +
 			' comment=' + event.comment +
 			' owner=' + event.owner.name +
 			' participants=' + JSON.stringify(event.participants) +
+			' preEvent=' + JSON.stringify(event.preEvent) +
 			' timestamp=' + event.timestamp 
 	);
 }

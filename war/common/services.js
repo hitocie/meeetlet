@@ -138,6 +138,14 @@ function create_event(
 	});
 	return response;
 }
+function delete_event(eventid) {
+	
+	var response = sync_request({
+			url: '/api/v1/event/update?service=delete_event',
+			data: {eventid: eventid}
+	});
+	return response;
+}
 function join_event(eventid, comment) {
 	
 	var response = sync_request({
