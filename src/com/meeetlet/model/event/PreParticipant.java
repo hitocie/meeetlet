@@ -72,6 +72,15 @@ public class PreParticipant implements Serializable {
         this.genres = genres;
     }
 
+    // genres :Array<Response>
+    private List<Response> shops;
+    public List<Response> getShops() {
+        return shops;
+    }
+    public void setShops(List<Response> shops) {
+        this.shops = shops;
+    }
+    
     // comment :String
     private String comment;
     public String getComment() {
@@ -130,12 +139,17 @@ public class PreParticipant implements Serializable {
         for (Response r : genres) {
             jgenres.put(r);
         }
+        JSONArray jshops = new JSONArray();
+        for (Response r : shops) {
+            jshops.put(r);
+        }
                 
         return new JSONObject()
         .put("dates", jdates)
         .put("places", jplaces)
         .put("budgets", jbudgets)
         .put("genres", jgenres)
+        .put("shops", jshops)
         .put("comment", comment);
     }   
 }

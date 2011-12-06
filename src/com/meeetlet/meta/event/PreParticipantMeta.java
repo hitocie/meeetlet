@@ -1,6 +1,6 @@
 package com.meeetlet.meta.event;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-04 22:39:20")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-06 23:59:52")
 /** */
 public final class PreParticipantMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.event.PreParticipant> {
 
@@ -21,6 +21,9 @@ public final class PreParticipantMeta extends org.slim3.datastore.ModelMeta<com.
 
     /** */
     public final org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.PreParticipant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response> places = new org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.PreParticipant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response>(this, "places", "places", java.util.List.class);
+
+    /** */
+    public final org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.PreParticipant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response> shops = new org.slim3.datastore.CollectionAttributeMeta<com.meeetlet.model.event.PreParticipant, java.util.List<com.meeetlet.common.event.Response>, com.meeetlet.common.event.Response>(this, "shops", "shops", java.util.List.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.PreParticipant, java.lang.Long> version = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.PreParticipant, java.lang.Long>(this, "version", "version", java.lang.Long.class);
@@ -48,6 +51,7 @@ public final class PreParticipantMeta extends org.slim3.datastore.ModelMeta<com.
         model.setGenres(stringListToEnumList(com.meeetlet.common.event.Response.class, entity.getProperty("genres")));
         model.setKey(entity.getKey());
         model.setPlaces(stringListToEnumList(com.meeetlet.common.event.Response.class, entity.getProperty("places")));
+        model.setShops(stringListToEnumList(com.meeetlet.common.event.Response.class, entity.getProperty("shops")));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
     }
@@ -66,6 +70,7 @@ public final class PreParticipantMeta extends org.slim3.datastore.ModelMeta<com.
         entity.setProperty("dates", enumListToStringList(m.getDates()));
         entity.setProperty("genres", enumListToStringList(m.getGenres()));
         entity.setProperty("places", enumListToStringList(m.getPlaces()));
+        entity.setProperty("shops", enumListToStringList(m.getShops()));
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
         return entity;
@@ -169,6 +174,14 @@ public final class PreParticipantMeta extends org.slim3.datastore.ModelMeta<com.
             }
             writer.endArray();
         }
+        if(m.getShops() != null){
+            writer.setNextPropertyName("shops");
+            writer.beginArray();
+            for(com.meeetlet.common.event.Response v : m.getShops()){
+                encoder0.encode(writer, v);
+            }
+            writer.endArray();
+        }
         if(m.getVersion() != null){
             writer.setNextPropertyName("version");
             encoder0.encode(writer, m.getVersion());
@@ -239,6 +252,20 @@ public final class PreParticipantMeta extends org.slim3.datastore.ModelMeta<com.
                     elements.add(decoder0.decode(reader, (com.meeetlet.common.event.Response)null, com.meeetlet.common.event.Response.class));
                 }
                 m.setPlaces(elements);
+            }
+        }
+        reader = rootReader.newObjectReader("shops");
+        {
+            java.util.ArrayList<com.meeetlet.common.event.Response> elements = new java.util.ArrayList<com.meeetlet.common.event.Response>();
+            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("shops");
+            if(r != null){
+                reader = r;
+                int n = r.length();
+                for(int i = 0; i < n; i++){
+                    r.setIndex(i);
+                    elements.add(decoder0.decode(reader, (com.meeetlet.common.event.Response)null, com.meeetlet.common.event.Response.class));
+                }
+                m.setShops(elements);
             }
         }
         reader = rootReader.newObjectReader("version");

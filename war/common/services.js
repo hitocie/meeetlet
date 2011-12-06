@@ -100,6 +100,7 @@ function create_pre_event(
 		places, 
 		budgets,
 		genres,
+		shops,
 		participants,
 		comment) {
 	
@@ -111,6 +112,7 @@ function create_pre_event(
 				places: JSON.stringify(places),
 				budgets: JSON.stringify(budgets),
 				genres: JSON.stringify(genres),
+				shops: JSON.stringify(shops),
 				participants: JSON.stringify(participants), 
 				comments: comment}
 	});
@@ -122,6 +124,7 @@ function create_event(
 		place, 
 		budget,
 		genre,
+		shop,
 		participants,
 		comment) {
 	
@@ -133,6 +136,7 @@ function create_event(
 				place: place,
 				budget: budget,
 				genre: genre,
+				shop: shop,
 				participants: JSON.stringify(participants), 
 				comment: comment}
 	});
@@ -154,6 +158,7 @@ function reply_pre_event(
 		places, 
 		budgets,
 		genres,
+		shops,
 		comment) {
 	
 	var response = sync_request({
@@ -164,6 +169,7 @@ function reply_pre_event(
 				places: JSON.stringify(places),
 				budgets: JSON.stringify(budgets),
 				genres: JSON.stringify(genres),
+				shops: JSON.stringify(shops),
 				comment: comment}
 	});
 	return response;
@@ -173,6 +179,22 @@ function reply_event(eventid, attend, comment) {
 	var response = sync_request({
 		url: '/api/v1/event/update?service=reply_event',
 		data: {eventid: eventid, attend: attend, comment: comment}
+	});
+	return response;
+}
+function invite_friends(eventid, friends) {
+	
+	var response = sync_request({
+		url: '/api/v1/event/update?service=invite_friends',
+		data: {eventid: eventid, friends: JSON.stringify(friends)}
+	});
+	return response;
+}
+function cancel_event(eventid) {
+	
+	var response = sync_request({
+		url: '/api/v1/event/update?service=cancel_event',
+		data: {eventid: eventid}
 	});
 	return response;
 }

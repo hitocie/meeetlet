@@ -30,8 +30,7 @@ public class GetController extends Controller {
             int limit = (asInteger("limit") == null ? 20 : asInteger("limit"));
 
             if (service.equals("all_events")) {
-                EventService es = new EventService();
-                List<Event> events = es.getEvents(offset, limit);
+                List<Event> events = EventService.getEvents(offset, limit);
                 JSONArray out = new JSONArray();
                 for (Event e : events)
                     out.put(e.toJSONObject());
@@ -44,9 +43,8 @@ public class GetController extends Controller {
             Me me = (Me) sessionScope("me");
             if (me != null) {
                 if (service.equals("my_events")) {
-                    EventService es = new EventService();
-                    List<Event> events =
-                            es.getMyEvents(me.getUser().getKey(), offset, limit);
+                    EventService es = new EventService(me.getUser());
+                    List<Event> events = es.getMyEvents(offset, limit);
                     JSONArray out = new JSONArray();
                     for (Event e : events)
                         out.put(e.toJSONObject());

@@ -78,6 +78,15 @@ public class PreEvent implements Serializable {
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
+    
+    // shops:Array (e.g. A, B, C)
+    private List<String> shops;
+    public List<String> getShops() {
+        return shops;
+    }
+    public void setShops(List<String> shops) {
+        this.shops = shops;
+    }
     //-------
 
     @Override
@@ -128,13 +137,18 @@ public class PreEvent implements Serializable {
         for (String r : genres) {
             jgenres.put(r);
         }
+        JSONArray jshops = new JSONArray();
+        for (String r : shops) {
+            jshops.put(r);
+        }
         
         return new JSONObject()
         //.put("key", KeyFactory.keyToString(key))
         .put("dates", jdates)
         .put("places", jplaces)
         .put("budgets", jbudgets)
-        .put("genres", jgenres);
+        .put("genres", jgenres)
+        .put("shops", jshops);
     }
 
 }

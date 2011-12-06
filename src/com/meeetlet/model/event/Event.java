@@ -94,6 +94,15 @@ public class Event implements Serializable {
         this.genre = genre;
     }
     
+    // shop :String
+    private String shop;
+    public String getShop() {
+        return shop;
+    }
+    public void setShop(String shop) {
+        this.shop = shop;
+    }
+    
     // User relation (owner)
     private ModelRef<User> ownerRef = new ModelRef<User>(User.class);
     public ModelRef<User> getOwnerRef() {
@@ -121,6 +130,15 @@ public class Event implements Serializable {
     private ModelRef<PreEvent> preEventRef = new ModelRef<PreEvent>(PreEvent.class);
     public ModelRef<PreEvent> getPreEventRef() {
         return preEventRef;
+    }
+    
+    // isCanceled
+    private boolean canceled;
+    public boolean isCanceled() {
+        return canceled;
+    }
+    public void setCanceled(boolean canceled) {
+        this.canceled = canceled;
     }
     
     // timestamp
@@ -180,10 +198,12 @@ public class Event implements Serializable {
         .put("place", place)
         .put("budget", budget)
         .put("genre", genre)
+        .put("shop", shop)
         .put("owner", ownerRef.getModel().toJSONObject())
         .put("participants", participants)
         .put("comment", comment)
         .put("preEvent", (preEventRef.getModel() == null ? null  : preEventRef.getModel().toJSONObject()))
+        .put("canceled", canceled)
         .put("timestamp", DateUtil.toString(timestamp));
     }
 }

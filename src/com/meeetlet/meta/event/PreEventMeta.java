@@ -1,6 +1,6 @@
 package com.meeetlet.meta.event;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-03 14:03:24")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-07 00:01:50")
 /** */
 public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.event.PreEvent> {
 
@@ -18,6 +18,9 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
 
     /** */
     public final org.slim3.datastore.StringCollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.lang.String>> places = new org.slim3.datastore.StringCollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.lang.String>>(this, "places", "places", java.util.List.class);
+
+    /** */
+    public final org.slim3.datastore.StringCollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.lang.String>> shops = new org.slim3.datastore.StringCollectionAttributeMeta<com.meeetlet.model.event.PreEvent, java.util.List<java.lang.String>>(this, "shops", "shops", java.util.List.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.PreEvent, java.lang.Long> version = new org.slim3.datastore.CoreAttributeMeta<com.meeetlet.model.event.PreEvent, java.lang.Long>(this, "version", "version", java.lang.Long.class);
@@ -44,6 +47,7 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
         model.setGenres(toList(java.lang.String.class, entity.getProperty("genres")));
         model.setKey(entity.getKey());
         model.setPlaces(toList(java.lang.String.class, entity.getProperty("places")));
+        model.setShops(toList(java.lang.String.class, entity.getProperty("shops")));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
     }
@@ -61,6 +65,7 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
         entity.setProperty("dates", m.getDates());
         entity.setProperty("genres", m.getGenres());
         entity.setProperty("places", m.getPlaces());
+        entity.setProperty("shops", m.getShops());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
         return entity;
@@ -160,6 +165,14 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
             }
             writer.endArray();
         }
+        if(m.getShops() != null){
+            writer.setNextPropertyName("shops");
+            writer.beginArray();
+            for(java.lang.String v : m.getShops()){
+                encoder0.encode(writer, v);
+            }
+            writer.endArray();
+        }
         if(m.getVersion() != null){
             writer.setNextPropertyName("version");
             encoder0.encode(writer, m.getVersion());
@@ -240,6 +253,23 @@ public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetl
                     }
                 }
                 m.setPlaces(elements);
+            }
+        }
+        reader = rootReader.newObjectReader("shops");
+        {
+            java.util.ArrayList<java.lang.String> elements = new java.util.ArrayList<java.lang.String>();
+            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("shops");
+            if(r != null){
+                reader = r;
+                int n = r.length();
+                for(int i = 0; i < n; i++){
+                    r.setIndex(i);
+                    java.lang.String v = decoder0.decode(reader, (java.lang.String)null)                    ;
+                    if(v != null){
+                        elements.add(v);
+                    }
+                }
+                m.setShops(elements);
             }
         }
         reader = rootReader.newObjectReader("version");

@@ -22,10 +22,12 @@ function dump_event(event, tag) {
 			' place=' + event.place +
 			' budget=' + event.budget +
 			' genre=' + event.genre +
+			' shop=' + event.shop +
 			' comment=' + event.comment +
 			' owner=' + event.owner.name +
 			' participants=' + JSON.stringify(event.participants) +
 			' preEvent=' + JSON.stringify(event.preEvent) +
+			' canceled=' + event.canceled +
 			' timestamp=' + event.timestamp 
 	);
 }

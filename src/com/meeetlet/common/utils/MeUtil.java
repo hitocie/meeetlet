@@ -12,6 +12,7 @@ public class MeUtil {
             if (friend.getUserid().equals(id))
                 return friend;
         }
+        
         return null;
     }
 }

@@ -66,7 +66,7 @@ public class UpdateController extends Controller {
             Me me = (Me) sessionScope("me");
             if (me != null) {
 
-                EventService es = new EventService();
+                EventService es = new EventService(me.getUser());
                 if (service.equals("create_pre_event")) {
                     // service=create_pre_event
                     // TODO: update (only title, comment, participants)
@@ -95,9 +95,14 @@ public class UpdateController extends Controller {
                     for (int i = 0; i < jgenres.length(); i++)
                         pe.getGenres().add(jgenres.getString(i));
 
+                    pe.setShops(new ArrayList<String>());
+                    JSONArray jshops = new JSONArray(asString("shops"));
+                    for (int i = 0; i < jshops.length(); i++)
+                        pe.getShops().add(jshops.getString(i));
+
                     e.setComment(asString("comment"));
                     
-                    e = es.createEvent(me.getUser(), e, participants, pe);
+                    e = es.createEvent(e, participants, pe);
                     e.toJSONObject().write(response.getWriter());
 
                     return null;
@@ -111,10 +116,11 @@ public class UpdateController extends Controller {
                     e.setPlace(asString("place"));
                     e.setBudget(asString("budget"));
                     e.setGenre(asString("genre"));
+                    e.setShop(asString("shop"));
                     List<User> participants = makeParticipants(me, asString("participants"));
                     e.setComment(asString("comment"));
 
-                    e = es.createEvent(me.getUser(), e, participants, null);
+                    e = es.createEvent(e, participants, null);
                     e.toJSONObject().write(response.getWriter());
 
                     return null;
@@ -151,13 +157,14 @@ public class UpdateController extends Controller {
                     for (int i = 0; i < jgenres.length(); i++)
                         pp.getGenres().add(getAttend(jgenres.getInt(i)));
 
+                    pp.setShops(new ArrayList<Response>());
+                    JSONArray jshops = new JSONArray(asString("shops"));
+                    for (int i = 0; i < jshops.length(); i++)
+                        pp.getShops().add(getAttend(jshops.getInt(i)));
+
                     pp.setComment(asString("comment"));
                     
-                    Participant p = 
-                            es.replyPreEvent(
-                                me.getUser(), 
-                                es.getEvent(asString("eventid")),
-                                pp);
+                    Participant p = es.replyPreEvent(asString("eventid"), pp);
                     p.toJSONObject().write(response.getWriter());
 
                     return null;
@@ -166,10 +173,24 @@ public class UpdateController extends Controller {
                     // service=reply_event (== update)
                     Event e =
                             es.replyEvent(
-                                me.getUser(),
-                                es.getEvent(asString("eventid")), 
+                                asString("eventid"), 
                                 getAttend(asInteger("attend")), 
                                 asString("comment"));
+                    e.toJSONObject().write(response.getWriter());
+
+                    return null;
+                
+                } else if (service.equals("invite_friends")) {
+                    // service=invite_friends
+                    List<User> friends = makeParticipants(me, asString("friends"));
+                    Event e = es.inviteFriends(asString("eventid"), friends);
+                    e.toJSONObject().write(response.getWriter());
+
+                    return null;
+                    
+                } else if (service.equals("cancel_event")) {
+                    // service=cancel_event
+                    Event e = es.cancelEvent(asString("eventid"));
                     e.toJSONObject().write(response.getWriter());
 
                     return null;

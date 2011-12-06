@@ -1,57 +1,62 @@
 
-- Top page
+[ Top page ]
   http://localhost:8888
   
 
-- DTO / Database entities
+[ DTO / Database entities]
  User
-   -key
-   -id (userid)
-   -name (username)
-   -token
-   -timestamp
+   -key :Key
+   -id :String(userid)
+   -name :String(username)
+   -token :String (if logged in.)
+   -timestamp :Date
    
  Event
-   -key
-   -id (eventid)
+   -key :Key
+   -id :String(eventid)
    -title :String
    -eventDate :Date
    -place :String
    -budget :String
    -genre :String(?)
-   //-restaurant
+   -shop :String
    -owner :User(ownerRef)
-   -participants :Array<Participant>(participantsRef)
+   -participants :(participantsRef --> Array<Participant>)
    -comment :String
    -preEvent :PreEvent(preEventRef)
+   -canceled :bool
    -timestamp :Date
 
  PreEvent
-   -key
-   -dates:Array (e.g. 11/23, 11/24, 11/25)
-   -places:Array (e.g. Boston, NY, LA)
-   -budges:Array (e.g. 1000-2000, 2000-3000, 3000-4000)
-   -genres:Array (e.g. Japanese, Chinese, Western)
-   //-restaurants:Array (e.g. A, B, C)
+   -key :Key
+   -dates :Array<Date> (e.g. 11/23, 11/24, 11/25)
+   -places :Array<String> (e.g. Boston, NY, LA)
+   -budges :Array<String> (e.g. 1000-2000, 2000-3000, 3000-4000)
+   -genres :Array<String> (e.g. Japanese, Chinese, Western)
+   -shops :Array<String> (e.g. A, B, C)
  
  Response(enum)
    - OK(0), NG(1), Pending(2)
 
  Participant
-   -key
-   -event (eventRef --> Event)
-   -user (userRef --> User)
+   -key :Key
+   -event :(eventRef --> Event)
+   -user :(userRef --> User)
    -attend :Response
+   -comment :String
+   -preParticipant :(preParticipantRef --> PreParticipant)
+
+ PreParticipant
+   -key
    -dates :Array<Response>
    -places :Array<Response>
    -budges :Array<Response>
    -genres :Array<Response>
-   //-restaurants :Array<Response>
+   -shops :Array<Response>
    -comment :String
 
 
-- Web services
-  *root: http://localhost:8888/api/v1/
+[ Web services ] *root: http://localhost:8888/api/v1/
 
  auth/facebook/
  auth/facebook/token
@@ -61,30 +66,32 @@
  
  
  me/get
-   service=me
-   service=my_friends
+   service=get_me
+   service=get_my_friends
  
  me/update
    nothing   
 
  event/get
-   #service=all_events
-   service=my_events
-   service=search(keyword)
+   service=get_my_events
+   // TODO: find/search events
+   // service=search(keyword)
+   // service=get_all_events
    
      offset=int(first position)
      limit=int(last position)
 
  event/update
    service=create_pre_event(title, dates, places, budgets, genres, participants, comment)
-   service=update_pre_event(eventid, <same as above>)
    service=create_event(title, date, place, budget, genre, participants, comment)
-   service=update_event(eventid, <same as above>)
+   // TODO: update event.
+   //service=update_pre_event(eventid, <same as above>)
+   //service=update_event(eventid, <same as above>)
    
    service=reply_pre_event(eventid, dates, places, budgets, genres, comment)
    service=reply_event(eventid, attend, comment)
    service=cancel_event(eventid)
-   service=add_friend([userid, userid, ....])
+   service=invite_friend(eventid, [userid, userid, ....])
 
 
 // TODO list
