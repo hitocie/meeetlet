@@ -55,7 +55,8 @@ public class TokenController extends Controller {
 
             Me me = login(buf.substring("access_token=".length()));
 
-            boolean isMobile = false;
+            boolean isMobile = false; // FIXME: asBoolean("isMobile");
+            log.info("mobile? = " + isMobile);
             Writer writer = this.response.getWriter();
             if (isMobile) {
                 // for mobile
@@ -67,7 +68,8 @@ public class TokenController extends Controller {
                 // for web page
                 writer.write("Top page: " + me.getUser().getUsername()); // TODO: HTML
                 
-                return redirect(Const.topPageUrl);
+                //return redirect(Const.topPageUrl);
+                return redirect(Const.topPageUrl + "/mobile2/assets/www/main.html");
             }
         }
         

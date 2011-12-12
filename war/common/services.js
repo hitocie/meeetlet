@@ -68,6 +68,7 @@ function isLogin() {
 
 
 // me
+// NOTE: The way to get picture: https://graph.facebook.com/<uid>/picture 
 function get_me(p) {
 	async_request({
 			url: '/api/v1/me/get?service=me', 
