@@ -199,3 +199,8 @@ function cancel_event(eventid) {
 	});
 	return response;
 }
+
+// TODO:
+// get_all_prefectures()
+// find_cities(prefecture)
+// find_stations(name) or get_stations(prefecture)

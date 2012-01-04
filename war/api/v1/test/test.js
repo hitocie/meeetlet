@@ -101,3 +101,47 @@ $(function() {
 		
 	});	
 });
+
+
+
+// internal use
+function create_prefectures(prefs) {
+	var response = sync_request({
+		url: '/api/v1/internal/pref',
+		data: JSON.stringify(prefs),
+		type: 'POST'
+	});
+	return response;
+}
+function create_cities(cities) {
+	var response = sync_request({
+		url: '/api/v1/internal/city',
+		data: JSON.stringify(cities),
+		type: 'POST'
+	});
+	return response;
+}
+function create_stations(stations) {
+	var response = sync_request({
+		url: '/api/v1/internal/station',
+		data: JSON.stringify(stations),
+		type: 'POST'
+	});
+	return response;
+}
+
+$(function() {
+	$('#create_prefs').click(function() {
+		create_prefectures(null);
+	});	
+});
+$(function() {
+	$('#create_cities').click(function() {
+		create_cities(cities);
+	});	
+});
+$(function() {
+	$('#create_stations').click(function() {
+		create_stations(stations);
+	});	
+});
