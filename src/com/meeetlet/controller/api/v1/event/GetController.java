@@ -29,6 +29,7 @@ public class GetController extends Controller {
             int offset = (asInteger("offset") == null ? 0 : asInteger("offset"));
             int limit = (asInteger("limit") == null ? 20 : asInteger("limit"));
 
+            // FIXME: Should not public "all_events"? 
             if (service.equals("all_events")) {
                 List<Event> events = EventService.getEvents(offset, limit);
                 JSONArray out = new JSONArray();
@@ -42,16 +43,23 @@ public class GetController extends Controller {
 
             Me me = (Me) sessionScope("me");
             if (me != null) {
+                List<Event> events = null;
+                EventService es = new EventService(me.getUser());
                 if (service.equals("my_events")) {
-                    EventService es = new EventService(me.getUser());
-                    List<Event> events = es.getMyEvents(offset, limit);
-                    JSONArray out = new JSONArray();
-                    for (Event e : events)
-                        out.put(e.toJSONObject());
-                    out.write(response.getWriter());
-
-                    return null;
+                    events = es.getMyEvents(offset, limit);
+                } else if (service.equals("my_events_by_keyword")) {
+                    events = es.findEvents(asString("keyword"), offset, limit);
                 }
+                if (events != null) {
+                    JSONArray out = new JSONArray();
+                    for (Event e : events) {
+                        out.put(e.toJSONObject());
+                    }
+                    out.write(response.getWriter());
+                } else {
+                    response.getWriter().write("[]");
+                }
+                return null;
             }
         }
 

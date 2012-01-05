@@ -56,6 +56,20 @@ public class EventService {
                 .asSingle();
     }
 
+    public List<Event> findEvents(String keyword, int offset, int limit) {
+        EventMeta m = EventMeta.get();
+        List<FilterCriterion> filters = new ArrayList<FilterCriterion>();
+        filters.add(m.ownerRef.equal(me.getKey()));
+        return Datastore.query(m)
+                .filter(filters.toArray(new FilterCriterion[filters.size()]))
+                .filterInMemory(m.title.contains(keyword))
+                .sort(m.timestamp.desc)
+                .offset(offset)
+                .limit(limit)
+                .asList();
+        // TODO: Should search keyword in "comment", too?
+    }
+
     private Participant getMyParticipant(Event event) throws Exception {
         Key myKey = me.getKey();
         for (Participant p : event.getParticipantsRef().getModelList()) {

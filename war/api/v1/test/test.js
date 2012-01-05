@@ -26,6 +26,7 @@ $(function() {
 $(function() {
 	$('#get_my_events').click(function() {
 
+		// my all events
 		get_my_events(function(events) {
 			for (var i in events) {
 				var e = events[i];
@@ -33,6 +34,20 @@ $(function() {
 			}
 		});
 		
+		// search events
+		find_my_events('2011'/* keyword in title */, function(events) {
+			for (var i in events) {
+				var e = events[i];
+				console.log('[find events1]' + e.id + ' ' + e.title);
+			}
+		});
+		find_my_events('Not Found'/* keyword in title */, function(events) {
+			for (var i in events) {
+				var e = events[i];
+				console.log('[find events2]' + e.id + ' ' + e.title);
+			}
+		});
+
 	});	
 });
 
@@ -129,6 +144,34 @@ function create_stations(stations) {
 	});
 	return response;
 }
+
+$(function() {
+	$('#get_areas').click(function() {
+
+		get_all_prefectures(function(prefs) {
+			for (var i in prefs) {
+				var p = prefs[i];
+				console.log('[Prefecture]' + p.code + ' ' + p.name);
+			}
+		});
+		
+		find_cities('名古屋市', function(cities) {
+			for (var i in cities) {
+				var c = cities[i];
+				console.log('[City]' + c.name + ' ' + c.prefecture);
+			}
+		});
+
+		find_stations('大', function(stations) {
+			for (var i in stations) {
+				var s = stations[i];
+				console.log('[Station]' + s.name + ' ' + s.line + ' ' + s.prefecture + ' ' + s.lat + ' ' + s.lng);
+			}
+		});
+
+	});	
+});
+
 
 $(function() {
 	$('#create_prefs').click(function() {

@@ -102,7 +102,7 @@ public class City implements Serializable {
         return new JSONObject()
         //.put("key", KeyFactory.keyToString(key))
         .put("name", name)
-        .put("yoimi", yomi)
+        .put("yomi", yomi)
         .put("prefecture", prefecture)
         .put("timestamp", DateUtil.toString(timestamp));
     }

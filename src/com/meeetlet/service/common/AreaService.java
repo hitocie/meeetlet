@@ -79,7 +79,9 @@ public class AreaService {
     
     public List<Prefecture> getAllPrefectures() {
         PrefectureMeta m = PrefectureMeta.get();
-        return Datastore.query(m).asList();
+        return Datastore.query(m)
+                .sort(m.code.asc)
+                .asList();
     }
     
     
@@ -143,13 +145,19 @@ public class AreaService {
         return Datastore.query(m).asList();
     }
     
-    public List<City> findCities(String prefecture) {
+    public List<City> getCities(String prefecture) {
         CityMeta m = CityMeta.get();
         return Datastore.query(m)
                 .filter(m.prefecture.equal(prefecture))
                 .asList();
     }
     
+    public List<City> findCities(String name) {
+        CityMeta m = CityMeta.get();
+        return Datastore.query(m)
+                .filter(m.name.startsWith(name))
+                .asList();
+    }
     
     // Stations
     private void createStation(Station station) throws Exception {

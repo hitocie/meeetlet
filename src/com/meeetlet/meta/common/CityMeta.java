@@ -1,6 +1,6 @@
 package com.meeetlet.meta.common;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2012-01-04 23:57:28")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2012-01-05 23:31:32")
 /** */
 public final class CityMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.common.City> {
 

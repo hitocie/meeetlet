@@ -87,9 +87,19 @@ function get_my_friends(p) {
 }
 
 // event
+// TODO: "offset", "limit" support
 function get_my_events(p) {
 	async_request({
 			url: '/api/v1/event/get?service=my_events',
+			success_handler: function(data, status) {
+				p(data);
+			}
+	});
+}
+function find_my_events(keyword, p) {
+	async_request({
+			url: '/api/v1/event/get?service=my_events_by_keyword',
+			data: {keyword: keyword},
 			success_handler: function(data, status) {
 				p(data);
 			}
@@ -200,7 +210,47 @@ function cancel_event(eventid) {
 	return response;
 }
 
-// TODO:
-// get_all_prefectures()
-// find_cities(prefecture)
-// find_stations(name) or get_stations(prefecture)
+function get_all_prefectures(p) {
+	async_request({
+		url: '/api/v1/common/area?service=all_prefectures',
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+function get_cities(prefecture, p) {
+	async_request({
+		url: '/api/v1/common/area?service=cities_by_prefecture',
+		data: {prefecture: prefecture},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+function find_cities(name, p) {
+	async_request({
+		url: '/api/v1/common/area?service=cities_by_name',
+		data: {name: name},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+function get_stations(prefecture, p) {
+	async_request({
+		url: '/api/v1/common/area?service=stations_by_prefecture',
+		data: {prefecture: prefecture},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+function find_stations(name, p) {
+	async_request({
+		url: '/api/v1/common/area?service=stations_by_name',
+		data: {name: name},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
