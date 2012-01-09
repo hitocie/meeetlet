@@ -1,7 +1,10 @@
 
 // common
 var error_handler = function(data, status) {
-	alert("error!! " + JSON.stringify(data));
+	var e = new Error();
+	e.name = 'MeeetletNetworkError';
+	e.message = "error!! " + JSON.stringify(data);
+	throw e;
 };
 
 function async_request(args) {
@@ -28,7 +31,6 @@ function async_request(args) {
 
 function sync_request(args) {
 	var url = args.url;
-	//var success_handler = args.success_handler;
 	var data = args.data;
 	var type = args.type;
 	if (type == undefined)
@@ -42,8 +44,6 @@ function sync_request(args) {
 		dataType: 'json',
 		cache: false,
 		contentType: 'application/json; charset=utf-8'//,
-		//success: success_handler,
-		//error: error_handler
 	}).responseText;
 	
 	return JSON.parse(response);
@@ -51,16 +51,7 @@ function sync_request(args) {
 
 
 // auth
-//function login_local(userid) {
-//	// FIXME: this is a test. Should remove it.
-//	async_request({
-//			url: '/api/v1/test/?service=login&userid=' + userid,
-//			success_handler: function(data, status) {
-//				//alert(status);
-//			}
-//	});
-//}
-function isLogin() {
+function is_login() {
 	return sync_request({
 		url: '/api/v1/auth/facebook/check?service=login'
 	});

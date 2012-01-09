@@ -1,8 +1,10 @@
 
 [ Top page ]
-  http://localhost:8888
+  [Development] http://localhost:8888
+  [Production]  http://meeetlet.appspot.com
+  [Admin]       https://appengine.google.com
   
-
+  
 [ DTO / Database entities]
  User
    -key :Key

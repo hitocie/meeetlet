@@ -1,7 +1,7 @@
 // loaded
 $(window).load(function(){
 	console.log('Loaded index.html');
-	if (isLogin()) {
+	if (is_login()) {
 		console.log('You have already logged in.');
 		//document.getElementById('login').innerText = "";
 	} else {

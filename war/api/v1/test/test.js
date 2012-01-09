@@ -2,6 +2,11 @@
 // loaded
 $(window).load(function(){
 	console.log('Loaded /api/v1/test/test.html');
+	if (is_login()) {
+		console.log('You have already logged in.');
+	} else {
+		console.log('Not logged in.');
+	}
 });
 
 // event handlers
@@ -172,7 +177,7 @@ $(function() {
 	});	
 });
 
-
+/*
 $(function() {
 	$('#create_prefs').click(function() {
 		create_prefectures(null);
@@ -188,3 +193,4 @@ $(function() {
 		create_stations(stations);
 	});	
 });
+*/

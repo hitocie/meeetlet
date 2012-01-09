@@ -1,6 +1,5 @@
 package com.meeetlet.controller.api.v1.auth.facebook;
 
-import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Logger;
@@ -13,21 +12,23 @@ import com.meeetlet.common.Me;
 import com.meeetlet.common.facebook.App;
 import com.meeetlet.common.facebook.MeForFacebook;
 
+// NOTE: This is for Web version.
 public class TokenController extends Controller {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
     
-    private Me login(String accessToken) throws Exception {
+    protected Me login(String accessToken) throws Exception {
+        
         // TODO: switch facebook/google+
         Me me = new MeForFacebook(accessToken);
         sessionScope("me", me);
         log.info(me.getUser().getUsername() + " logged in");
+        
         return me;
     }
     
-    @Override
-    public Navigation run() throws Exception {
+    protected String getAccessToken() throws Exception {
         
         response.setContentType(Const.charEncoding);
 
@@ -53,26 +54,26 @@ public class TokenController extends Controller {
             }
             log.info(buf.toString()); // access_token
 
-            Me me = login(buf.substring("access_token=".length()));
-
-            boolean isMobile = false; // FIXME: asBoolean("isMobile");
-            log.info("mobile? = " + isMobile);
-            Writer writer = this.response.getWriter();
-            if (isMobile) {
-                // for mobile
-                writer.write("");
-
-                return null;
-
-            } else {
-                // for web page
-                writer.write("Top page: " + me.getUser().getUsername()); // TODO: HTML
-                
-                //return redirect(Const.topPageUrl);
-                return redirect(Const.topPageUrl + "/mobile2/assets/www/main.html");
-            }
+            return buf.substring("access_token=".length());
         }
         
+        return null;
+    }
+    
+    @Override
+    public Navigation run() throws Exception {
+ 
+        String token = getAccessToken();
+        if (token != null) {
+            Me me = login(token);
+            log.info("Your device is browser.");
+
+            // TODO: HTML
+            this.response.getWriter().write("Top page: " + me.getUser().getUsername());
+
+            //return redirect(Const.topPageUrl);
+            return redirect(Const.topPageUrl + "/mobile2/assets/www/main.html");
+        }
         return null;
     }
 

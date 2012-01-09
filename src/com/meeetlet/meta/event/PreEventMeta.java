@@ -1,6 +1,6 @@
 package com.meeetlet.meta.event;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-12-07 00:01:50")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2012-01-09 10:44:09")
 /** */
 public final class PreEventMeta extends org.slim3.datastore.ModelMeta<com.meeetlet.model.event.PreEvent> {
 
