@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="jquery-ui-1.8.16.custom.css">
+<link rel="stylesheet" href="jquery-ui-1.8.17.custom.css">
 <link rel="stylesheet" href="new.css">
-<script src="jquery-1.6.2.min.js"></script>
-<script src="jquery-ui-1.8.16.custom.min.js"></script>
+<script src="jquery-1.7.1.min.js"></script>
+<script src="jquery-ui-1.8.17.custom.min.js"></script>
 <script src="new.js"></script>
 <title>meeetlet!</title>
 </head>
@@ -20,9 +20,16 @@
   <span class="titlemenu">
   <ul id="umenu">
     <li>
+      <a href="main.html">ホーム</a>
+    </li>
+    <li>
+      <a href="new.html">イベント作成</a>
+    </li>
+    <li>
       <a href="#">Katsushi Fukui</a>
       <ul>
-        <li><a href="#">プロフィール</a></li>
+        <li><a href="#">Myイベント</a></li>
+        <li><a href="#">欠席イベント</a></li>
         <li><a href="#">ログアウト</a></li>
       </ul>
     </li>
@@ -41,7 +48,29 @@
       <label id="titleLabel">タイトルは？</label><input type="text" id="titleText" name="titleText" maxlength="40">
     </div>
     <div class="newDate paletteTopMargin">
-      <label id="dateCalLabel" for="dateCal">いつ？</label><span id="dateCal" name="dateCal"></span>
+      <label id="dateSelLabel" for="dateSel">いつ？</label>
+      <span id="dateSel">
+	      <input id="cal" name="calType" type="radio" value="cal" checked />日指定
+	      <input id="multi" name="calType" type="radio" value="multi" />複数日指定
+	      <input id="fromTo" name="calType" type="radio" value="fromTo" />範囲指定
+   	  </span>
+   	  <div id="calCalendar" class="showNow">
+		  <input type="text" id="dateCal" class="dateCal">
+	  </div>
+	  <div id="multiCalendar">
+	  	  <div id="multiCalList">
+		  	<p><input type="text" id="multiCal1" class="dateCal"></p>
+		  	<p><input type="text" id="multiCal2" class="dateCal"></p>
+	  		<p><input type="text" id="multiCal3" class="dateCal"></p>
+	  	  	<p><input type="text" id="multiCal4" class="dateCal"></p>
+	  	  	<p><input type="text" id="multiCal5" class="dateCal"></p>
+	  	  </div>
+	  	  <p><button id="addCalendarButton">追加　</button></p>
+	  </div>
+	  <div id="fromToCalendar">
+	  	  <input type="text" id="from">から
+	  	  <input type="text" id="to">まで
+	  </div>
     </div>
     <div class="newCategory paletteTopMargin">
       <label id="categoryLabel" for="category">カテゴリ？</label>

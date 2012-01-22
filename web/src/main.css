@@ -8,24 +8,8 @@ margin-left:20px;
 }
 
 body {
-font-family: "MS ゴシック",Arial;
+font-family: "MS 繧ｴ繧ｷ繝�け",Arial;
 font-size:10px;
-}
-
-#detaildialog{
-font-size:14px;
-}
-
-#detailtitle{
-font-size:18px;
-}
-
-#detaildialog img{
-width:150px;
-}
-
-#detailmember img{
-float:left;
 }
 
 .base{
@@ -103,29 +87,42 @@ clear:both;
 margin:0 auto;
 padding-top:10px;
 width:1000px;
-height:480px;
+height:600px;
 background:whitesmoke;
 top:310px;
 }
 
-.selector{
-background:papayawhip;
-margin-bottom:10px;
-padding-top:4px;
-padding-bottom:4px;
-border-radius:4px;
+.operation-base{
+width:1000px;
 }
 
-.eventtable{
+.event-base{
+width:380px;
+float:left;
+}
+
+.itemCount{
+color:red;
+}
+	
+.base-label{
+padding-top:8px;
+padding-left:10px;
+padding-bottom:2px;
+vertical-align:bottom;
+}
+
+.invitations{
 background:white;
 padding-top: 8px;
 padding-left:10px;
-width:990px;
-height:384px;
+width:100%;
+height:160px;
 border-radius:4px;
+border:2px groove lightgray;
+overflow-y:scroll;
 }
 
-.column { width: 330px; float: left; padding-bottom: 100px; }
 .portlet { margin: 0 1em 1em 0; }
 .portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
 .portlet-header .ui-icon { float: right; }
@@ -156,15 +153,113 @@ margin-bottom:4px;
 float:right;
 }
 
-.page{
-margin-top:10px;
+.detail-base{
+position:relative;
+background:lightyellow;
+margin-top:20px;
+margin-left:20px;
+width:400px;
+height:560px;
+border-radius:4px;
+border:2px solid lightgray;
+float:left;
+}
+.howto {
+background:blue;
+width:100%;
+height:100%;
+border-radius:4px;
+}
+.event-detail{
+padding:10px;
+font-size:14px;
+display:none;
+}
+.event-detail img{
+width:50px;
+heigth:50px;
+}
+.arrange-detail{
+padding:10px;
+font-size:14px;
+display:none;
+}
+.public-detail{
+padding:10px;
+font-size:14px;
+display:none;
+}
+.arrangeEvent{
+padding:10px;
+font-size:14px;
+display:none;
+}
+#detailtitle{
+font-size:18px;
+}
+.detail-base img{
+width:50px;
+}
+#detailmember {
+}
+#detailmember img{
+}
+.button-base{
+position:absolute;
+padding:4px;
+bottom:2px;
+right:2px;
+}
+.attendbutton{
+margin-right:4px;
+}
+.arrangebutton{
+margin-right:4px;
+}
+.absentbutton{
+}
+
+.invitedFriendsButton{
+font-size:10px;
+}
+#datelist{
+width:100%;
+}
+#dateListTable{
+width:98%;
+margin:0 auto;
+border-spacing:0;
+border: 1px solid tan;
+font-size:12px;
+}
+#dateListTable thead th{
+background:gold;
+border-bottom: 3px double tan;
+align:center;
+}
+#dateListTable td{
+text-align:center;
+}
+#dateListTable .trodd{
+background:white;
+}
+#dateListTable .treven{
+background:wheat;
+}
+
+.news-base{
+position:relative;
+background:white;
+padding:4px;
+width:180px;
+height:550px;
+border:2px solid gray;
 float:right;
 }
-
-.pagebutton{
-margin-right:10px;
+.newsdate{
+color:lightblue;
 }
-
+		
 .fbase{
 width:100%;
 background:dodgerblue;

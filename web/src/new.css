@@ -87,7 +87,7 @@ clear:both;
 margin:0 auto;
 padding-top:10px;
 width:1000px;
-height:480px;
+height:600px;
 background:whitesmoke;
 top:310px;
 }
@@ -127,9 +127,29 @@ height:140px;
 #dateCalLabel{
 }
 
-#dateCal{
+#dateSel{
 position:absolute;
 left:100px;
+font-size:10px;
+}
+#calCalendar{
+position:absolute;
+left:100px;
+font-size:8px;
+}
+#multiCalendar{
+position:absolute;
+left:100px;
+font-size:8px;
+display:none;
+}
+#fromToCalendar{
+position:absolute;
+left:100px;
+font-size:8px;
+display:none;
+}
+#addCalendarButton{
 font-size:8px;
 }
 
