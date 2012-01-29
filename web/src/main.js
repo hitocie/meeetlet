@@ -105,7 +105,13 @@ $(function() {
 
   //// invited friends button
   function showFriendsList(eid) {
-	  alert("show friends!");
+	  $('.friendDialog').dialog({
+		  maxWidth: 340,
+		  width: 340,
+		  height: 400,
+		  title: "参加者リスト",
+		  buttons: {"閉じる":function() {$(this).dialog("close");}}
+	  });
   }
   $('.invitedFriendsButton')
   	.button({icons: {}})
@@ -129,4 +135,11 @@ $(function() {
   	.button({icons: {secondary: "ui-icon-mail-open"}})
   	.click(function(){replyArrange(1);});
   
+  //// friends status button
+  function showFriendsStatus(eid) {
+	  alert("show friends status!");
+  }
+  $('#friendsStatusButton')
+  	.button({})
+  	.click(function(){showFriendsStatus(1);});
 });

@@ -8,7 +8,7 @@ margin-left:20px;
 }
 
 body {
-font-family: "MS ゴシック",Arial;
+font-family: "MS 繧ｴ繧ｷ繝�け",Arial;
 font-size:10px;
 }
 
@@ -231,7 +231,7 @@ margin-left:25px;
 .friendList{
 position:relative;
 width:315px;
-height:330px;
+height:360px;
 margin-top:10px;
 margin-left:25px;
 border:1px solid steelblue;
@@ -256,6 +256,11 @@ height:100px;
 bottom:0px;
 border-top:1px solid gray;
 overflow-x:scroll;
+}
+#initSelectButton{
+margin-top:10px;
+margin-right:58px;
+float:right;
 }
 
 .newSubmit{

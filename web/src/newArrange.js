@@ -61,12 +61,8 @@ var dates = $( "#from, #to" ).datepicker({
 
 function addMultiCalendar() {
 	var txt=$("<p><input type='text' id='multiCal6' class='dateCal'></p>");
-	$("#mulitCalList").append(txt);
-	alert($("#mulitCalList").html());
+	$("#multiCalList").append(txt);
 }
-$("#addCalendarButton")
-	.button({icons: {secondary: "ui-icon-circle-plus"}})
-	.click(function() {addMultiCalendar();});
 
 // drag and drop
 $('.fimg').draggable({
@@ -87,13 +83,35 @@ $('.inviteList').droppable({
 });
 
 function deleteImage( $item ) {
-				$item.find( "a.ui-icon-trash" ).remove();
-				$item.appendTo( $('.inviteList')).fadeIn(function() {
-					$item
-						.animate({ width: "48px" })
-						.find( "img" )
-							.animate({ height: "36px" });
-				});
+	if($item.hasClass('added')) return;
+	$item.addClass('added');
+	var clone = $item.clone();
+	clone.appendTo( $('.inviteList')).dblclick(function() {$(this).remove();});
 }
+
+$('#initSelectButton')
+.button()
+.click(function() {
+	$('.inviteList').empty();
+});
+
+//create event button
+$('#createEventButton')
+	.button()
+	.click(function() {
+		var title = $('#titleText').val();
+		var edate = $('#dateCal').val();
+		var pref = $('#prefecture').val();
+		var station = $('#station').val();
+		var venue = $('#venue').val();
+		var max = $('#max').val();
+		var comment = $('#comment').val();
+		var invList = $('.inviteList').children();
+		var invIdList = "";
+		for (var i=0; i<invList.length; i++) {
+			invIdList += invList[i].id + ' ';
+		}
+		alert(title+' '+edate+' '+pref+' '+station+' '+venue+' '+max+' '+comment+' '+invIdList);
+	});
 
 });
