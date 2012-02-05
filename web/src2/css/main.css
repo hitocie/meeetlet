@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+.event-table tbody tr td img {
+width:40px;
+}
+
+.meeetlet-info p {
+font-size:10px;
+}
+
+.modal .modal-body img {
+width:40px;
+}
