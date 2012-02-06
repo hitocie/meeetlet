@@ -1,0 +1,33 @@
+class ApplicationController < ActionController::Base
+
+  # constants
+  FB_APP_ID = "150258521734656"
+  FB_SITE_PAGE = "http://localhost:3000/users"
+  FB_APP_SECRET = "c9a8e62a8cbd1b3c0b82f498fd2d4882";
+
+
+  protect_from_forgery
+
+  # authenticate check  
+  before_filter :authenticate
+  def authenticate
+    if not session[:user] then
+      raise "Security Error"
+    end
+  end
+
+  # error handling
+  rescue_from RuntimeError, :with => :handle_server_error
+  
+  def handle_server_error(exception = nil)
+    e = {:failed => true}
+    if exception then
+      e[:message] = exception.message
+    else
+      e[:message] = "unknown error"
+    end
+    
+    logger.info "---- ERROR ---- #{e[:message]}"
+    render :json => e, :status => 404
+  end
+end

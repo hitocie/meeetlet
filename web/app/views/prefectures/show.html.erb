@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @prefecture.code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @prefecture.name %>
+</p>
+
+
+<h2>Add City</h2>
+<!-- Go to cities/_form.html.erb -->
+<%= render "cities/form" %>
+<h2>Citiese</h2>
+<!-- Go to cities/_city.html.erb -->
+<%= render @prefecture.cities %>
+
+
+<h2>Add Station</h2>
+<!-- Go to stations/_form.html.erb -->
+<%= render "stations/form" %>
+<h2>Citiese</h2>
+<!-- Go to stations/_station.html.erb -->
+<%= render @prefecture.stations %>
+
+
+<%= link_to 'Edit', edit_prefecture_path(@prefecture) %> |
+<%= link_to 'Back', prefectures_path %>
