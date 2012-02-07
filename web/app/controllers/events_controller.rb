@@ -19,6 +19,7 @@ class EventsController < ApplicationController
       
     end
     
+    # FIXME: except User.token, create_dt and such.
     render :json => @events, :include => [:user, :preEvent, :participants]
   end
 
@@ -44,6 +45,13 @@ class EventsController < ApplicationController
     e = params[:event]
     uid = session[:user][:uid]    
     
+    # create friends' pre-account if not exists.
+    participants = []
+    for p in e[:participants] do
+      participants << p[:id]
+      create_user_if_not_exists(p[:id], p[:name], nil)
+    end
+    
     case params[:service]
     when "create-event"
       Event.transaction do
@@ -62,7 +70,7 @@ class EventsController < ApplicationController
           :user_id => session[:user][:id] # owner
         )
         @event.save!
-        users = User.where(:uid => e[:participants])
+        users = User.where(:uid => participants)
         for u in users do
           participant = @event.participants.build(:user_id => u.id)
           participant.save!
@@ -88,20 +96,16 @@ class EventsController < ApplicationController
           :user_id => session[:user][:id],
           :preEvent_id => pre_event.id)
         @event.save!
-        users = User.where(:uid => e[:participants])
+        users = User.where(:uid => participants)
         for u in users do
           participant = @event.participants.build(:user_id => u.id)
           participant.save!
         end
       end
+      
     end
 
-    # FIXME: unneed the following @event.save
-    if @event.save
-      render :json => @event, :status => :created, :location => @event
-    else
-      render :json => @event.errors, :status => :unprocessable_entity
-    end
+    render :json => @event, :status => :created, :location => @event
   end
 
   # PUT /events/1
@@ -140,20 +144,24 @@ class EventsController < ApplicationController
 
     when "invite-event"
       Event.transaction do
-        for uid in params[:friends] do
-          # TODO: if it has already had the same uid, it should return error.
-          @event.participants.build(:user_id => session[:user][:id])
+        # create friends' pre-account if not exists.
+        ids = []
+        for f in params[:friends] do
+          user = create_user_if_not_exists(f[:id], f[:name], nil)
+          ids << user.id
+        end
+    
+        for id in ids do
+          # TODO: if it has already had the same uid, it should return error. or "uniqueness validation"
+          @event.participants.build(:user_id => id)
           # TODO: send private message to Facebook.
         end
       end
-
+      @event.update_attributes(params[:event])
+      @event.save!
     end
 
-    if @event.update_attributes(params[:event])
-      head :ok
-    else
-      render :json => @event.errors, :status => :unprocessable_entity
-    end
+    head :ok
   end
 
   # DELETE /events/1
@@ -173,9 +181,6 @@ class EventsController < ApplicationController
     when "delete-event"
       @event.destroy
     end
-
-    # @event = Event.find(params[:id])
-    # @event.destroy
 
     head :ok
   end

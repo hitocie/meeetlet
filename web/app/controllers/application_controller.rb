@@ -30,4 +30,17 @@ class ApplicationController < ActionController::Base
     logger.info "---- ERROR ---- #{e[:message]}"
     render :json => e, :status => 404
   end
+  
+  
+  # common apis
+  def create_user_if_not_exists(uid, name, token)
+    user = User.where(:uid => uid).first
+    if not user then
+      user = User.new(:uid => uid, :name => name, :token => token)
+    elsif token then
+      user.update_attributes(:token => token)
+    end
+    user.save
+    return user
+  end
 end

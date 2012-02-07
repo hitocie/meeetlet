@@ -4,17 +4,6 @@ class UsersController < ApplicationController
   skip_before_filter :authenticate, :only => [:index]
   skip_before_filter :verify_authenticity_token
   
-  def create_user_if_not_exists(uid, name, token)
-    user = User.where(:uid => uid).first
-    if not user then
-      user = User.new(:uid => uid, :name => name, :token => token)
-    else
-      user.update_attributes(:token => token)
-    end
-    user.save
-    return user
-  end
-
 
   # GET /users
   def index

@@ -4,36 +4,32 @@
   
 [ DTO / Database entities]
  User
-  x -key :Key
    *id :int
-  x -id :String(userid)
    -uid :String(userid)
    -name :String(username)
    -token :String (if logged in.)
-  x -timestamp :Date
    
  Event
-  x -key :Key
-  x -id :String(eventid)
    *id :int
    -title :String
    -date :Date
    -place :String
+   -station :String
    -budget :String
    -genre :String(?)
    -shop :String
    -[owner :User(ownerRef)]
-  x -[participants :(participantsRef --> Array<Participant>)]
+   -maxNumber :int
    -comment :String
    -[preEvent :PreEvent(preEventRef)]
    -canceled :bool
-  x -timestamp :Date
+   -privateOnly :bool
 
  PreEvent
-  x -key :Key
    *id :int
    -dates :Array<Date> (e.g. 11/23, 11/24, 11/25)
    -places :Array<String> (e.g. Boston, NY, LA)
+   -stations :Array<String>
    -budgets :Array<String> (e.g. 1000-2000, 2000-3000, 3000-4000)
    -genres :Array<String> (e.g. Japanese, Chinese, Western)
    -shops :Array<String> (e.g. A, B, C)
@@ -42,7 +38,6 @@
    - OK(0), NG(1), Pending(2)
 
  Participant
-  x -key :Key
    *id :int
    -event :(eventRef --> Event)
    -user :(userRef --> User)
@@ -52,31 +47,26 @@
 
  PreParticipant
   x -key
-   *id :int
    -dates :Array<Response>
    -places :Array<Response>
+   -stations :Array<Response>
    -budgets :Array<Response>
    -genres :Array<Response>
    -shops :Array<Response>
    -comment :String
    
  Prefecture
-  x -key :Key
    *id :int
    -code :String
    -name :String
-  x -timestamp :Date
    
  City
-  x -key :Key
    *id :int
    -name :String
    -yomi :String
    -[prefecture --> Prefecture]
-  x -timestamp :Date
    
  Station
-  x -key :Key
    -id :int
    -name :String
    -yomi :String
@@ -84,24 +74,13 @@
    -[prefecture --> Prefecture]
    -lat :String
    -lng :String
-  x -timestamp :Date
 
    
-[ Web services ] *root: http://localhost:8888/api/v1/
-
- auth/facebook/
- auth/facebook/token
- 
- auth/facebook/check
-   service=login
- 
- 
+[ Web services ]
+  
  me/get
    service=get_me
-   service=get_my_friends
- 
- me/update
-   nothing   
+   service=get_my_friends 
 
  event/get
    service=get_my_events
