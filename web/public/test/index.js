@@ -18,30 +18,36 @@ $(function() {
 		});
 		
 		var e = create_event(
-				'イベントです。',
-				'2012-01-03',
-				'Tokyo',
-				'$2000', 
-				'chinese', 
-				'ABC',
-				'comments',
-				['300', '400']
+				'イベントです。', // title
+				'2012-01-03', // date
+				'Tokyo', // place
+				'田町駅', // station
+				'$2000', // budget
+				'chinese', // genre
+				'ABC', // shop
+				'comments', // comment
+				10, // max number
+				true, // private?
+				['300', '400'] // participants
 		);
 		console.log(e);
 		reply_event(e.id, 0, 'comment');
 		invite_friends(e.id, ['400']);
 		
 		var pe = create_pre_event(
-				'title_pre_1',
-				['2012-09-10', '2012-12-12'],
-				['Chiba', '東京', '京都'],
-				['2000円'],
-				['AA', 'BB'],
-				['aa','bb','cc'],
-				'あああああああ',
-				['100', '200', '300']
+				'title_pre_1', // title
+				['2012-09-10', '2012-12-12'], // dates
+				['Chiba', '東京', '京都'], // places
+				['大手町', '新橋'], // stations
+				['2000円'], // budgets
+				['AA', 'BB'], // genres
+				['aa','bb','cc'], // shops
+				'あああああああ', // comment
+				-1, // max number
+				true, // private?
+				['100', '200', '300'] // participants
 		);
-		reply_pre_event(pe.id, [1,1], [0,0,0], [0], [0,0], [0,0,0], 'comment');
+		reply_pre_event(pe.id, [1,1], [0,0,0], [1, 0] [0], [0,0], [0,0,0], 'comment');
 		
 		find_events('title_pre', function(events) {
 			//console.log(JSON.stringify(events))
@@ -53,6 +59,8 @@ $(function() {
 						+ e.comment + ' '
 						+ e.user + ' '
 						+ e.preEvent + ' '
+						+ e.maxNumber + ' '
+						+ e.privateOnly + ' '
 						+ e.participants);
 				delete_event(e.id);
 			}

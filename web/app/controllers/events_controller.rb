@@ -51,11 +51,14 @@ class EventsController < ApplicationController
           :title => e[:title], 
           :date => e[:date],
           :place => e[:place],
+          :station => e[:station],
           :budget => e[:budget], 
           :genre => e[:genre],
           :shop => e[:shop],
+          :maxNumber => e[:maxNumber],
           :comment => e[:comment],
           :canceled => false,
+          :privateOnly => e[:privateOnly],
           :user_id => session[:user][:id] # owner
         )
         @event.save!
@@ -71,14 +74,17 @@ class EventsController < ApplicationController
         pre_event = PreEvent.new(
           :dates => e[:dates],
           :places => e[:budgets],
+          :stations => e[:stations],
           :genres => e[:genres],
           :shops => e[:shops]
         )
         pre_event.save!
         @event = Event.new(
-          :title => e[:title], 
+          :title => e[:title],
+          :maxNumber => e[:maxNumber], 
           :comment => e[:comment],
           :canceled => false,
+          :privateOnly => e[:privateOnly],
           :user_id => session[:user][:id],
           :preEvent_id => pre_event.id)
         @event.save!

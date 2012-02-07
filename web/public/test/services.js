@@ -120,15 +120,18 @@ function delete_user(uid) {
 
 
 // event
-function create_event(title, date, place, budget, genre, shop, comment, participants) {	
+function create_event(title, date, place, station, budget, genre, shop, comment, maxNumber, privateOnly, participants) {	
 	var e = {
 			title: title,
 			date: date,
 			place: place,
+			station: station,
 			budget: budget, 
 			genre: genre,
 			shop: shop,
 			comment: comment,
+			maxNumber: maxNumber,
+			privateOnly: privateOnly,
 			participants: participants
 	};
 	var response = sync_request({
@@ -138,15 +141,18 @@ function create_event(title, date, place, budget, genre, shop, comment, particip
 	});
 	return response;
 }
-function create_pre_event(title, dates, places, budgets, genres, shops, comment, participants) {	
+function create_pre_event(title, dates, places, stations, budgets, genres, shops, comment, maxNumber, privateOnly, participants) {	
 	var e = {
 			title: title,
 			dates: dates,
 			places: places,
+			stations: stations,
 			budgets: budgets, 
 			genres: genres,
 			shops: shops,
 			comment: comment,
+			maxNumber: maxNumber,
+			privateOnly: privateOnly,
 			participants: participants
 	};
 	var response = sync_request({
@@ -157,10 +163,11 @@ function create_pre_event(title, dates, places, budgets, genres, shops, comment,
 	return response;
 }
 
-function reply_pre_event(event_id, dates, places, budgets, genres, shops, comment) {
+function reply_pre_event(event_id, dates, places, stations, budgets, genres, shops, comment) {
 	var pp = {
 			dates: dates,
 			places: places,
+			stations: stations,
 			budgets: budgets,
 			genres: genres,
 			shops: shops,

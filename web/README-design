@@ -137,7 +137,8 @@
      http://localhost:3000/cities.json?name=AB
 
 // TODO list
-- send message to friends
-
+- Send private message to friends
+- Solve CSRF token authenticity issue
+- Create initial data
 
    
