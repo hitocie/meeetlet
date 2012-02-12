@@ -107,7 +107,9 @@
             <div class="control-group">
               <label class="control-label" for="event-date">日程</label>
               <div class="controls">
-                <input id="event-date" type="text" /> <span class="label label-important">必須</span>
+                <input id="event-date" type="text" />
+                <span class="label label-important">必須</span>
+                <a href="#date-type-modal" class="btn btn-info" data-toggle="modal">複数日選択</a>
               </div>
             </div>
           </form>
@@ -118,6 +120,7 @@
               <label class="control-label" for="event-category">カテゴリ</label>
               <div class="controls">
                 <select id="event-category">
+                  <option>調整中</option>
                   <option>飲み会</option>
                   <option>ランチ</option>
                   <option>カフェ</option>
@@ -139,6 +142,7 @@
               <label class="control-label" for="event-prefecture">都道府県</label>
               <div class="controls">
                 <select id="event-prefecture">
+                  <option>調整中</option>
                   <option>東京</option>
                   <option>千葉</option>
                   <option>埼玉</option>
@@ -156,6 +160,7 @@
               <label class="control-label" for="event-station">最寄り駅</label>
               <div class="controls">
                 <select id="event-station">
+                  <option>調整中</option>
                   <option>東京</option>
                   <option>赤坂</option>
                   <option>六本木</option>
@@ -231,22 +236,22 @@
         <table class="table table-condensed">
           <tbody>
             <tr>
-              <td><input type="checkbox" class=".checkbox" name="invited"/></td>
+              <td><input type="checkbox" class="checkbox" name="invited"/></td>
               <td><img src="images/friend1.png" /></td>
               <td>Katsushi Fukui</td>
             </tr>
             <tr>
-              <td><input type="checkbox" class=".checkbox" name="invited"/></td>
+              <td><input type="checkbox" class="checkbox" name="invited"/></td>
               <td><img src="images/friend1.png" /></td>
               <td>Hideyoshi Toyotomi</td>
             </tr>
             <tr>
-              <td><input type="checkbox" class=".checkbox" name="invited"/></td>
+              <td><input type="checkbox" class="checkbox" name="invited"/></td>
               <td><img src="images/friend1.png" /></td>
               <td>Nobunaga Oda</td>
             </tr>
             <tr>
-              <td><input type="checkbox" class=".checkbox" name="invited"/></td>
+              <td><input type="checkbox" class="checkbox" name="invited"/></td>
               <td><img src="images/friend1.png" /></td>
               <td>Ieyasu Tokugawa</td>
             </tr>
@@ -271,7 +276,44 @@
 	    <a href="#" class="btn btn-primary">作成</a>
 	  </div>
 	</div>
-	        
+	
+	<div class="modal hide fade" id="date-type-modal">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal">x</a>
+	    <h3>日程候補の選択</h3>
+	  </div>
+	  <div class="modal-body">
+	    <div class="tabbable">
+	      <ul class="nav nav-tabs">
+	        <li class="active"><a href="#choice" data-toggle="tab">複数日選択</a></li>
+	        <li><a href="#period" data-toggle="tab">期間選択</a></li>
+	      </ul>
+	      <div class="tab-content">
+	        <div class="tab-pane active" id="choice">
+	          候補日を指定してください。
+	          <p>
+  	            <input type="text" class="date-choice" id="date-choice1" />
+	            <input type="text" class="date-choice" id="date-choice2" />
+	            <input type="text" class="date-choice" id="date-choice3" />
+	            <input type="text" class="date-choice" id="date-choice4" />
+	            <input type="text" class="date-choice" id="date-choice5" />
+	          </p>
+	        </div>
+	        <div class="tab-pane" id="period">
+	          候補期間を指定してください。
+	          <p>
+	            <input type="text" id="from" />から<input type="text" id="to" />まで
+	          </p>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+      <div class="modal-footer">
+	    <a href="#" class="btn" data-dismiss="modal">キャンセル</a>
+	    <a href="#" class="btn btn-primary">設定</a>
+	  </div>
+	</div>
+
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -282,6 +324,7 @@
     <script src="assets/js/bootstrap-dropdown.js"></script>
     <script src="assets/js/bootstrap-modal.js"></script>
     <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
     <script src="js/createArrange.js"></script>
 
   </body>
