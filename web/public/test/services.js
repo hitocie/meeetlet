@@ -120,7 +120,19 @@ function delete_user(uid) {
 
 
 // event
-function create_event(title, date, place, station, budget, genre, shop, comment, maxNumber, privateOnly, participants) {	
+function create_event(
+		title,
+		date,
+		place,
+		station,
+		budget,
+		genre,
+		shop,
+		comment,
+		maxNumber,
+		deadline,
+		privateOnly,
+		participants) {	
 	var e = {
 			title: title,
 			date: date,
@@ -131,6 +143,7 @@ function create_event(title, date, place, station, budget, genre, shop, comment,
 			shop: shop,
 			comment: comment,
 			maxNumber: maxNumber,
+			deadline: deadline,
 			privateOnly: privateOnly,
 			participants: participants
 	};
@@ -141,7 +154,19 @@ function create_event(title, date, place, station, budget, genre, shop, comment,
 	});
 	return response;
 }
-function create_pre_event(title, dates, places, stations, budgets, genres, shops, comment, maxNumber, privateOnly, participants) {	
+function create_pre_event(
+		title,
+		dates,
+		places,
+		stations,
+		budgets,
+		genres,
+		shops,
+		comment,
+		maxNumber,
+		deadline,
+		privateOnly,
+		participants) {	
 	var e = {
 			title: title,
 			dates: dates,
@@ -152,6 +177,7 @@ function create_pre_event(title, dates, places, stations, budgets, genres, shops
 			shops: shops,
 			comment: comment,
 			maxNumber: maxNumber,
+			deadline: deadline,
 			privateOnly: privateOnly,
 			participants: participants
 	};
@@ -219,7 +245,7 @@ function invite_friends(event_id, friends) {
 }
 
 
-function get_events(p) {
+function get_all_events(p) {
 	async_request({
 			url: root_url + 'events.json', 
 			data: {service: 'all-events'},
@@ -237,7 +263,7 @@ function get_my_events(p) {
 			}
 	});
 }
-function find_events(keyword, p) {
+function find_my_events(keyword, p) {
 	async_request({
 			url: root_url + 'events.json',
 			data: {service: 'find-events', keyword: keyword},

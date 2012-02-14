@@ -1,7 +1,7 @@
 class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
-      t.string :title
+      t.string :title, :null => false
       t.date :date
       t.string :place
       t.string :station
@@ -10,9 +10,11 @@ class CreateEvents < ActiveRecord::Migration
       t.string :shop
       t.string :comment
       t.integer :maxNumber
-      t.boolean :canceled
-      t.boolean :privateOnly
-      t.references :user
+      t.date :deadline
+      t.boolean :closed, :default => false
+      t.boolean :canceled, :default => false
+      t.boolean :privateOnly, :default => true
+      t.references :user, :null => false
       t.references :preEvent
 
       t.timestamps

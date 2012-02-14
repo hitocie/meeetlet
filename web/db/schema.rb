@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20120130154935) do
   add_index "cities", ["prefecture_id"], :name => "index_cities_on_prefecture_id"
 
   create_table "events", :force => true do |t|
-    t.string   "title"
+    t.string   "title",                          :null => false
     t.date     "date"
     t.string   "place"
     t.string   "station"
@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(:version => 20120130154935) do
     t.string   "shop"
     t.string   "comment"
     t.integer  "maxNumber"
-    t.boolean  "canceled"
-    t.boolean  "privateOnly"
-    t.integer  "user_id"
+    t.date     "deadline"
+    t.boolean  "closed",      :default => false
+    t.boolean  "canceled",    :default => false
+    t.boolean  "privateOnly", :default => true
+    t.integer  "user_id",                        :null => false
     t.integer  "preEvent_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -18,12 +18,14 @@
    -budget :String
    -genre :String(?)
    -shop :String
-   -[owner :User(ownerRef)]
-   -maxNumber :int
    -comment :String
-   -[preEvent :PreEvent(preEventRef)]
+   -maxNumber :int
+   -deadline :Date
+   -closed :bool
    -canceled :bool
    -privateOnly :bool
+   -[owner :User(ownerRef)]
+   -[preEvent :PreEvent(preEventRef)]
 
  PreEvent
    *id :int
@@ -46,7 +48,7 @@
    -preParticipant :(preParticipantRef --> PreParticipant)
 
  PreParticipant
-  x -key
+   *id :int
    -dates :Array<Response>
    -places :Array<Response>
    -stations :Array<Response>
@@ -75,49 +77,14 @@
    -lat :String
    -lng :String
 
-   
-[ Web services ]
-  
- me/get
-   service=get_me
-   service=get_my_friends 
 
- event/get
-   service=get_my_events
-   service=find_my_events(keyword) // search
-   // service=get_all_events
-   
-     offset=int(first position)
-     limit=int(last position)
-
- event/update
-   service=create_pre_event(title, dates, places, budgets, genres, participants, comment)
-   service=create_event(title, date, place, budget, genre, participants, comment)
-   // TODO: update event.
-   //service=update_pre_event(eventid, <same as above>)
-   //service=update_event(eventid, <same as above>)
-   
-   service=reply_pre_event(eventid, dates, places, budgets, genres, comment)
-   service=reply_event(eventid, attend, comment)
-   service=cancel_event(eventid)
-   service=invite_friends(eventid, [userid, userid, ....])
-
- common/area
-   service=get_all_prefectures()
-     http://localhost:3000/prefectures.json
-   service=get_cities(prefecture)
-     http://localhost:3000/cities.json?prefecture_id=1
-   service=find_cities(name)
-     http://localhost:3000/cities.json?name=AB
-     
-   service=get_stations(prefecture)
-     http://localhost:3000/stations.json?prefecture_id=1
-   service=find_stations(name)
-     http://localhost:3000/cities.json?name=AB
-
-// TODO list
+// TODO list (hokada memo)
 - Send private message to friends
 - Solve CSRF token authenticity issue
+- Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
+- Change date => datetime?
+- require "Event.title, Event.date"
 - Create initial data
-
-   
+- Create test data
+- shop/city/station/budget/genre... data
+- invite-event from "who?" => private message.

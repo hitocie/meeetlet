@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
+
+prefs = ["–kŠC“¹", "ÂX"]
+count = 1
+for pref in prefs do
+  p = Prefecture.new(:code => count, :name => pref)
+  p.save!
+  count += 1
+end

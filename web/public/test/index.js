@@ -25,6 +25,7 @@ $(function() {
 					'ABC', // shop
 					'comments', // comment
 					10, // max number
+					'2012-04-04', // deadline
 					true, // private?
 					[friends[10], friends[20]] // participants
 			);
@@ -42,12 +43,13 @@ $(function() {
 					['aa','bb','cc'], // shops
 					'あああああああ', // comment
 					-1, // max number
+					'9999-12-31', // deadline(=forever)
 					true, // private?
 					[friends[1], friends[2], friends[3]] // participants
 			);
 			reply_pre_event(pe.id, [1,1], [0,0,0], [1, 0] [0], [0,0], [0,0,0], 'comment');
 			
-			find_events('title_pre', function(events) {
+			find_my_events('title_pre', function(events) {
 				console.log(JSON.stringify(events))
 				for (var i in events) {
 					var e = events[i];

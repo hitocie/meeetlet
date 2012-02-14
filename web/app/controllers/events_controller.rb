@@ -8,14 +8,14 @@ class EventsController < ApplicationController
     
     case params[:service]
     when "all-events"
-      @events = Event.all
+      @events = Event.order("date desc").all
     
     when "my-events"
-      @events = Event.where(:user_id => session[:user][:id], :canceled => false).all
+      @events = Event.where(:user_id => session[:user][:id], :canceled => false).order("date desc").all
     
     when "find-events"
       q = "%#{params[:keyword]}%"
-      @events = Event.where("user_id = ? AND canceled = ? AND title LIKE ?", session[:user][:id], false, q).all
+      @events = Event.where("user_id = ? AND canceled = ? AND title LIKE ?", session[:user][:id], false, q).order("date desc").all
       
     end
     
@@ -64,7 +64,9 @@ class EventsController < ApplicationController
           :genre => e[:genre],
           :shop => e[:shop],
           :maxNumber => e[:maxNumber],
+          :deadline => e[:deadline],
           :comment => e[:comment],
+          :closed => false,
           :canceled => false,
           :privateOnly => e[:privateOnly],
           :user_id => session[:user][:id] # owner
@@ -90,7 +92,9 @@ class EventsController < ApplicationController
         @event = Event.new(
           :title => e[:title],
           :maxNumber => e[:maxNumber], 
+          :deadline => e[:deadline],
           :comment => e[:comment],
+          :closed => false,
           :canceled => false,
           :privateOnly => e[:privateOnly],
           :user_id => session[:user][:id],
@@ -111,6 +115,10 @@ class EventsController < ApplicationController
   # PUT /events/1
   def update
     @event = Event.find(params[:id])
+    # Check if closed event.
+    if @event.closed or @event.deadline < Date.today then
+      raise "This event has been closed!"
+    end
     uid = session[:user][:uid] 
 
     case params[:service]
@@ -143,10 +151,17 @@ class EventsController < ApplicationController
       end
 
     when "invite-event"
+      friends = params[:friends]
+      max_num = @event.maxNumber
+      if max_num != -1 then
+        if max_num - @event.participants.size - friends.size < 0 then
+          raise "Could not invite due to overcrowded!"
+        end
+      end
       Event.transaction do
         # create friends' pre-account if not exists.
         ids = []
-        for f in params[:friends] do
+        for f in friends do
           user = create_user_if_not_exists(f[:id], f[:name], nil)
           ids << user.id
         end
@@ -170,7 +185,8 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     user_id = session[:user][:id]
     if @event.user_id != user_id then
-      # TODO: error (Not own event.)  
+      # Not own event.  
+      raise "You cannot delete this event!"
     end
     
     case params[:service]
