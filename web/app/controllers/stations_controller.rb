@@ -5,34 +5,16 @@ class StationsController < ApplicationController
 
   def index
     @staions = nil;
-    if params[:prefecture_id] != nil then
-      @stations = Station.where(:prefecture_id => params[:prefecture_id]).order(:name).all
+    if params[:train_id] != nil then
+      @stations = Station.where(:train_id => params[:train_id]).all
     elsif params[:name] then
       q = "%#{params[:name]}%"
-      @stations = Station.where("name like ?", q).order(:name).all
+      @stations = Station.where("name like ? or yomi like ?", q, q).all
     else
-      # TODO: error
-      @stations = Station.all
+      raise "Not keyword error." # FIXME
     end
 
-    render :json => @stations
-  end
-
-  def show 
-    @prefecture = Prefecture.find(params[:id])
-    render :json => @prefecture.stations
+    render :json => @stations, :except => [:created_at, :updated_at]
   end
   
-  # def create
-    # @prefecture = Prefecture.find(params[:prefecture_id])
-    # @station = @prefecture.stations.create(params[:station])
-    # redirect_to prefecture_path(@prefecture)
-  # end
-  
-  # def destroy
-    # @prefecture = Prefecture.find(params[:prefecture_id])
-    # @station = @prefecture.stations.find(params[:id])
-    # @station.destroy
-    # redirect_to prefecture_path(@prefecture)
-  # end
 end

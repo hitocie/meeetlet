@@ -11,9 +11,10 @@ Meeetlet::Application.routes.draw do
     resources :cities
     resources :stations
   end
-  
   resources :cities
+  resources :trains
   resources :stations
+  resources :budgets
   
   
   

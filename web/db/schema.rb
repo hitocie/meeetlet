@@ -10,7 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120130154935) do
+ActiveRecord::Schema.define(:version => 20120215132255) do
+
+  create_table "budgets", :force => true do |t|
+    t.string   "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cities", :force => true do |t|
     t.string   "name"
@@ -24,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20120130154935) do
 
   create_table "events", :force => true do |t|
     t.string   "title",                          :null => false
-    t.date     "date"
+    t.datetime "date"
     t.string   "place"
     t.string   "station"
     t.string   "budget"
@@ -32,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20120130154935) do
     t.string   "shop"
     t.string   "comment"
     t.integer  "maxNumber"
-    t.date     "deadline"
+    t.datetime "deadline"
     t.boolean  "closed",      :default => false
     t.boolean  "canceled",    :default => false
     t.boolean  "privateOnly", :default => true
@@ -85,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20120130154935) do
   create_table "prefectures", :force => true do |t|
     t.string   "code"
     t.string   "name"
+    t.string   "yomi"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -102,15 +109,23 @@ ActiveRecord::Schema.define(:version => 20120130154935) do
   create_table "stations", :force => true do |t|
     t.string   "name"
     t.string   "yomi"
-    t.string   "line"
     t.string   "lat"
     t.string   "lng"
+    t.integer  "train_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stations", ["train_id"], :name => "index_stations_on_train_id"
+
+  create_table "trains", :force => true do |t|
+    t.string   "name"
     t.integer  "prefecture_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "stations", ["prefecture_id"], :name => "index_stations_on_prefecture_id"
+  add_index "trains", ["prefecture_id"], :name => "index_trains_on_prefecture_id"
 
   create_table "users", :force => true do |t|
     t.string   "uid"

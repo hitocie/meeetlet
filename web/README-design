@@ -12,7 +12,7 @@
  Event
    *id :int
    -title :String
-   -date :Date
+   -date :Datetime
    -place :String
    -station :String
    -budget :String
@@ -20,7 +20,7 @@
    -shop :String
    -comment :String
    -maxNumber :int
-   -deadline :Date
+   -deadline :Datetime
    -closed :bool
    -canceled :bool
    -privateOnly :bool
@@ -29,7 +29,7 @@
 
  PreEvent
    *id :int
-   -dates :Array<Date> (e.g. 11/23, 11/24, 11/25)
+   -dates :Array<Datetime> (e.g. 11/23, 11/24, 11/25)
    -places :Array<String> (e.g. Boston, NY, LA)
    -stations :Array<String>
    -budgets :Array<String> (e.g. 1000-2000, 2000-3000, 3000-4000)
@@ -61,19 +61,24 @@
    *id :int
    -code :String
    -name :String
+   -yomi :String
    
  City
    *id :int
    -name :String
    -yomi :String
    -[prefecture --> Prefecture]
+
+ Train (=Line)
+   -id :int
+   -name :String
+   -[prefecture --> Prefecture]
    
  Station
    -id :int
    -name :String
    -yomi :String
-   -line :String
-   -[prefecture --> Prefecture]
+   -[train --> Train]
    -lat :String
    -lng :String
 
@@ -81,10 +86,10 @@
 // TODO list (hokada memo)
 - Send private message to friends
 - Solve CSRF token authenticity issue
+
 - Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
-- Change date => datetime?
-- require "Event.title, Event.date"
+* master/common => send "id" instead of "name" from client to server. (e.g. "train id", "budget id" ...)- require "Event.title, Event.date", ....
 - Create initial data
+  - shop/city/station/budget/genre... data
 - Create test data
-- shop/city/station/budget/genre... data
 - invite-event from "who?" => private message.

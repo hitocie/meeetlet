@@ -272,3 +272,71 @@ function find_my_events(keyword, p) {
 			}
 	});
 }
+
+// -- common services --
+// budgets
+function get_all_budgets(p) {
+	async_request({
+		url: root_url + 'budgets.json',
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+
+function get_all_prefectures(p) {
+	async_request({
+		url: root_url + 'prefectures.json',
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+
+function get_cities(prefecture_id, p) {
+	async_request({
+		url: root_url + 'cities.json',
+		data: {prefecture_id: prefecture_id},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+function find_cities(name, p) {
+	async_request({
+		url: root_url + 'cities.json',
+		data: {name: name},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+
+function get_trains(prefecture_id, p) {
+	async_request({
+		url: root_url + 'trains.json',
+		data: {prefecture_id: prefecture_id},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+
+function get_stations(train_id, p) {
+	async_request({
+		url: root_url + 'stations.json',
+		data: {train_id: train_id},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
+function find_stations(name, p) {
+	async_request({
+		url: root_url + 'stations.json',
+		data: {name: name},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}

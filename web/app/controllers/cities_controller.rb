@@ -4,25 +4,22 @@ class CitiesController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    @cities = City.where(:prefecture_id => params[:prefecture_id]).order(:name).all
-    render :json => @cities
+    @cities = nil;
+    if params[:prefecture_id] != nil then
+      @cities = City.where(:prefecture_id => params[:prefecture_id]).all
+    elsif params[:name] then
+      q = "%#{params[:name]}%"
+      @cities = City.where("name like ? or yomi like ?", q, q).all
+    else
+      raise "Not keyword error." # FIXME
+    end
+    
+    render :json => @cities, :except => [:created_at, :updated_at]
   end
   
   def show 
     @prefecture = Prefecture.find(params[:id])
-    render :json => @prefecture.cities
+    render :json => @prefecture.cities, :except => [:created_at, :updated_at]
   end
   
-  # def create
-    # @prefecture = Prefecture.find(params[:prefecture_id])
-    # @city = @prefecture.cities.create(params[:city])
-    # redirect_to prefecture_path(@prefecture)
-  # end
-
-  # def destroy
-    # @prefecture = Prefecture.find(params[:prefecture_id])
-    # @city = @prefecture.cities.find(params[:id])
-    # @city.destroy
-    # redirect_to prefecture_path(@prefecture)
-  # end
 end

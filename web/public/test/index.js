@@ -17,7 +17,7 @@ $(function() {
 			//console.log(JSON.stringify(friends));
 			var e = create_event(
 					'イベントです。', // title
-					'2012-01-03', // date
+					'2012-01-03 10:10:10', // date
 					'Tokyo', // place
 					'田町駅', // station
 					'$2000', // budget
@@ -25,7 +25,7 @@ $(function() {
 					'ABC', // shop
 					'comments', // comment
 					10, // max number
-					'2012-04-04', // deadline
+					'2012-04-04 10:10:10', // deadline
 					true, // private?
 					[friends[10], friends[20]] // participants
 			);
@@ -35,7 +35,7 @@ $(function() {
 			
 			var pe = create_pre_event(
 					'title_pre_1', // title
-					['2012-09-10', '2012-12-12'], // dates
+					['2012-09-10 20:00:00', '2012-12-12 20:00:00'], // dates
 					['Chiba', '東京', '京都'], // places
 					['大手町', '新橋'], // stations
 					['2000円'], // budgets
@@ -43,7 +43,7 @@ $(function() {
 					['aa','bb','cc'], // shops
 					'あああああああ', // comment
 					-1, // max number
-					'9999-12-31', // deadline(=forever)
+					'9999-12-31 00:00:00', // deadline(=forever)
 					true, // private?
 					[friends[1], friends[2], friends[3]] // participants
 			);
@@ -65,6 +65,32 @@ $(function() {
 					delete_event(e.id);
 				}
 			});
+			
+			
+			// common
+			//get_all_budgets(function(budgets) {
+			//	console.log(JSON.stringify(budgets));
+			//});
+			//get_all_prefectures(function(prefs) {
+			//	console.log(JSON.stringify(prefs));
+			//});
+			//get_cities(13, function(cities) {
+			//	console.log(JSON.stringify(cities));
+			//});
+			find_cities('やまちょう', function(cities) {
+				console.log(JSON.stringify(cities));
+			});
+			//get_trains(13, function(trains) {
+			//	console.log(JSON.stringify(trains));
+			//});
+			//get_stations(100, function(stations) {
+			//	console.log(JSON.stringify(stations));
+			//});
+			//find_stations('やまな', function(stations) {
+			//	console.log(JSON.stringify(stations));
+			//});
+			
+
 		});
 	});
 });

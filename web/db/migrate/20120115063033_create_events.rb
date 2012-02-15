@@ -2,7 +2,7 @@ class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
       t.string :title, :null => false
-      t.date :date
+      t.datetime :date
       t.string :place
       t.string :station
       t.string :budget
@@ -10,7 +10,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :shop
       t.string :comment
       t.integer :maxNumber
-      t.date :deadline
+      t.datetime :deadline
       t.boolean :closed, :default => false
       t.boolean :canceled, :default => false
       t.boolean :privateOnly, :default => true
