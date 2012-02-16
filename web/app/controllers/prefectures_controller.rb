@@ -5,7 +5,14 @@ class PrefecturesController < ApplicationController
 
   # GET /prefectures
   def index
-    @prefectures = Prefecture.all
-    render :json => @prefectures, :except => [:created_at, :updated_at]
+    @prefectures = Prefecture.find(:all)
+    ret = @prefectures.collect do |p|
+      {
+        :id => p.id,
+        :name => p.name,
+        :yomi => p.yomi
+      }
+    end.to_json
+    render :json => ret
   end
 end

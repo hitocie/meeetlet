@@ -5,7 +5,13 @@ class BudgetsController < ApplicationController
 
   def index
     @budgets = Budget.order(:id).all
-    render :json => @budgets, :except => [:created_at, :updated_at]
+    ret = @budgets.collect do |b|
+      {
+        :id => b.id,
+        :id => b.price
+      }
+    end.to_json
+    render :json => ret
   end
   
 end

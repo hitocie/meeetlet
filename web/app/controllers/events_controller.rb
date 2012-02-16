@@ -3,36 +3,92 @@ class EventsController < ApplicationController
   # FIXME: The follows is workaround to use sessions. (CSRF token authenticity)
   skip_before_filter :verify_authenticity_token
   
+  def participants_as_object(participants)
+    participants.collect do |p|
+      {
+        :id => p.id,
+        :attend => p.attend,
+        :comment => p.comment
+      }
+    end
+  end
+  
+  def event_as_object(e)
+      {
+        :id => e.id, 
+        :title => e.title,
+        :date => e.date,
+        :place => e.place,
+        :station => e.station,
+        :budget => e.budget,
+        :genre => e.genre,
+        :shop => e.shop,
+        :comment => e.comment,
+        :maxNumber => e.maxNumber,
+        :deadline => e.deadline,
+        :closed => e.closed,
+        :canceled => e.canceled,
+        :privateOnly => e.privateOnly,
+        :user => {
+          :id => e.user.id,
+          :uid => e.user.uid,
+          :name => e.user.name
+        },
+        :preEvent => {
+          :id => e.preEvent.id,
+          :dates => e.preEvent.dates,
+          :places => e.preEvent.places,
+          :stations => e.preEvent.stations,
+          :budgets => e.preEvent.budgets,
+          :genres => e.preEvent.genres,
+          :shops => e.preEvent.shops
+        },
+        :participants => participants_as_object(e.participants)
+      }
+  end
+  
+  def events_as_object(events)
+    events.collect do |e|
+      event_as_object(e)
+    end
+  end
+  
+  
   # GET /events
   def index
     
     case params[:service]
     when "all-events"
-      @events = Event.order("date desc").all
+      @events = Event.find(:all, :order => :date, :include => [:user, :preEvent, :participants])
     
     when "my-events"
-      @events = Event.where(:user_id => session[:user][:id], :canceled => false).order("date desc").all
+      @events = Event.find(:all, 
+                           :conditions => ["user_id = ? and canceled =?", session[:user][:id], false],
+                           :order => :date,
+                           :include => [:user, :preEvent, :participants])
     
     when "find-events"
       q = "%#{params[:keyword]}%"
-      @events = Event.where("user_id = ? AND canceled = ? AND title LIKE ?", session[:user][:id], false, q).order("date desc").all
+      @events = Event.find(:all,
+                           :conditions => ["user_id = ? AND canceled = ? AND title LIKE ?", session[:user][:id], false, q], 
+                           :order => :date,
+                           :include => [:user, :preEvent, :participants])
       
     end
     
-    # FIXME: except User.token, create_dt and such.
-    render :json => @events, :include => [:user, :preEvent, :participants]
+    render :json => events_as_object(@events).to_json
   end
 
   # GET /events/1
   def show
     @event = Event.find(params[:id])
-    render :json => @event
+    render :json => event_as_object(@event).to_json
   end
 
   # GET /events/new
   def new
     @event = Event.new
-    render :json => @event
+    render :json => event_as_object(@event).to_json
   end
 
   # GET /events/1/edit
@@ -114,7 +170,7 @@ class EventsController < ApplicationController
 
   # PUT /events/1
   def update
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:id], :include => [:user, :preEvent, :participants])
     # Check if closed event.
     if @event.closed or @event.deadline < Date.today then
       raise "This event has been closed!"
@@ -182,7 +238,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   def destroy
     
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:id], :include => [:user, :preEvent, :participants])
     user_id = session[:user][:id]
     if @event.user_id != user_id then
       # Not own event.  

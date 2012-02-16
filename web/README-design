@@ -79,8 +79,8 @@
    -name :String
    -yomi :String
    -[train --> Train]
-   -lat :String
-   -lng :String
+   -lat :float
+   -lng :float
 
 
 // TODO list (hokada memo)
@@ -89,7 +89,10 @@
 
 - Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
 * master/common => send "id" instead of "name" from client to server. (e.g. "train id", "budget id" ...)- require "Event.title, Event.date", ....
-- Create initial data
-  - shop/city/station/budget/genre... data
+- Create initial shop date(Gnavi?)
 - Create test data
 - invite-event from "who?" => private message.
+- find/get-events: :conditions => privateOnly/canceled/closed ...
+- add index to database
+
+

@@ -37,14 +37,20 @@ class UsersController < ApplicationController
     case service     
     when "get-me"
       @user = session[:user]
-      render :json => @user
+      render :json => {:id => @user.id, :uid => @user.uid, :name => @user.name}.to_json 
       return
       
     when "get-my-friends"
       @user = session[:user]
       graph = Koala::Facebook::API.new(@user.token)
       friends = graph.get_connections("me", "friends")
-      render :json => friends
+      ret = friends.collect do |f|
+        {
+          :uid => f["id"],
+          :name => f["name"]
+        }
+      end.to_json
+      render :json => ret
       return
 
     end
@@ -53,44 +59,44 @@ class UsersController < ApplicationController
   end
 
   # GET /users/new
-  def new
-    @user = User.new
-    render :json => @user
-  end
+  # def new
+    # @user = User.new
+    # render :json => @user
+  # end
 
   # GET /users/1/edit
-  def edit
-    @user = User.find(params[:id])
-  end
+  # def edit
+    # @user = User.find(params[:id])
+  # end
 
   # POST /users
-  def create
-    p params[:user][:name] # [:user]
-    @user = User.new(params[:user])
-
-    if @user.save
-      render :json => @user, :status => :created, :location => @user
-    else
-      render :json => @user.errors, :status => :unprocessable_entity
-    end
-  end
+  # def create
+    # p params[:user][:name] # [:user]
+    # @user = User.new(params[:user])
+# 
+    # if @user.save
+      # render :json => @user, :status => :created, :location => @user
+    # else
+      # render :json => @user.errors, :status => :unprocessable_entity
+    # end
+  # end
 
   # PUT /users/1
-  def update
-    @user = User.find(params[:id])
-
-    if @user.update_attributes(params[:user])
-      head :ok
-    else
-      render :json => @user.errors, :status => :unprocessable_entity
-    end
-  end
+  # def update
+    # @user = User.find(params[:id])
+# 
+    # if @user.update_attributes(params[:user])
+      # head :ok
+    # else
+      # render :json => @user.errors, :status => :unprocessable_entity
+    # end
+  # end
 
   # DELETE /users/1
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    head :ok
-  end
+  # def destroy
+    # @user = User.find(params[:id])
+    # @user.destroy
+# 
+    # head :ok
+  # end
 end

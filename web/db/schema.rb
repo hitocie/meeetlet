@@ -109,8 +109,8 @@ ActiveRecord::Schema.define(:version => 20120215132255) do
   create_table "stations", :force => true do |t|
     t.string   "name"
     t.string   "yomi"
-    t.string   "lat"
-    t.string   "lng"
+    t.float    "lat"
+    t.float    "lng"
     t.integer  "train_id"
     t.datetime "created_at"
     t.datetime "updated_at"

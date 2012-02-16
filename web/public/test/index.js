@@ -66,7 +66,6 @@ $(function() {
 				}
 			});
 			
-			
 			// common
 			//get_all_budgets(function(budgets) {
 			//	console.log(JSON.stringify(budgets));
@@ -77,19 +76,18 @@ $(function() {
 			//get_cities(13, function(cities) {
 			//	console.log(JSON.stringify(cities));
 			//});
-			find_cities('やまちょう', function(cities) {
-				console.log(JSON.stringify(cities));
-			});
+			//find_cities('やまちょう', function(cities) {
+			//	console.log(JSON.stringify(cities));
+			//});
 			//get_trains(13, function(trains) {
 			//	console.log(JSON.stringify(trains));
 			//});
 			//get_stations(100, function(stations) {
 			//	console.log(JSON.stringify(stations));
 			//});
-			//find_stations('やまな', function(stations) {
-			//	console.log(JSON.stringify(stations));
-			//});
-			
+			find_stations('しんばし', function(stations) {
+				console.log(JSON.stringify(stations));
+			});
 
 		});
 	});
