@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+.gray-text {
+color:gray;
+}
+	
 #event-max {
 width:100px;
 }
