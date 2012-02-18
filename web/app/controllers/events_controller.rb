@@ -7,6 +7,11 @@ class EventsController < ApplicationController
     participants.collect do |p|
       {
         :id => p.id,
+        :friend => {
+          :id => p.user.id,
+          :uid => p.user.uid,
+          :name => p.user.name
+        },
         :attend => p.attend,
         :comment => p.comment
       }
@@ -14,44 +19,104 @@ class EventsController < ApplicationController
   end
   
   def event_as_object(e)
-      {
-        :id => e.id, 
-        :title => e.title,
-        :date => e.date,
-        :place => e.place,
-        :station => e.station,
-        :budget => e.budget,
-        :genre => e.genre,
-        :shop => e.shop,
-        :comment => e.comment,
-        :maxNumber => e.maxNumber,
-        :deadline => e.deadline,
-        :closed => e.closed,
-        :canceled => e.canceled,
-        :privateOnly => e.privateOnly,
-        :user => {
-          :id => e.user.id,
-          :uid => e.user.uid,
-          :name => e.user.name
-        },
-        :preEvent => {
-          :id => e.preEvent.id,
-          :dates => e.preEvent.dates,
-          :places => e.preEvent.places,
-          :stations => e.preEvent.stations,
-          :budgets => e.preEvent.budgets,
-          :genres => e.preEvent.genres,
-          :shops => e.preEvent.shops
-        },
-        :participants => participants_as_object(e.participants)
+    obj = {
+      :id => e.id, 
+      :title => e.title,
+      :date => e.date,
+      :shop => e.shop,
+      :comment => e.comment,
+      :maxNumber => e.maxNumber,
+      :deadline => e.deadline,
+      :closed => e.closed,
+      :canceled => e.canceled,
+      :privateOnly => e.privateOnly,
+      :owner => {
+        :id => e.user.id,
+        :uid => e.user.uid,
+        :name => e.user.name
       }
+    }
+      
+    if e.city != nil then
+      obj[:city] = {
+        :id => e.city.id,
+        :name => e.city.name,
+        :pref => {
+          :id => e.city.prefecture.id,
+          :name => e.city.prefecture.name
+        }
+      }
+    end
+    if e.station != nil then
+      obj[:station] = {
+        :id => e.station.id,
+        :name => e.station.name,
+        :train => {
+          :id => e.station.train.id,
+          :name => e.station.train.name
+        }, 
+        :lat => e.station.lat,
+        :lng => e.station.lng
+      }
+    end
+    if e.budget != nil then
+      obj[:budget] = {
+        :id => e.budget.id,
+        :price => e.budget.price
+      }
+    end
+    if e.genre != nil then
+      obj[:genre] = {
+        :id => e.genre.id,
+        :name => e.genre.name
+      }
+    end
+    if e.preEvent != nil then
+      obj[:preEvent] = {
+        :id => e.preEvent.id,
+        :dates => e.preEvent.dates,
+        :cities => e.preEvent.cities,
+        :stations => e.preEvent.stations,
+        :budgets => e.preEvent.budgets,
+        :genres => e.preEvent.genres,
+        :shops => e.preEvent.shops
+      }
+    end
+    if e.participants != nil then
+      obj[:participants] = participants_as_object(e.participants)
+    end
+    return obj
   end
   
   def events_as_object(events)
     events.collect do |e|
-      event_as_object(e)
+      {
+        :id => e.id, 
+        :title => e.title,
+        :date => e.date,
+        :comment => e.comment,
+        :privateOnly => e.privateOnly,
+        :owner => {
+          :id => e.user.id,
+          :uid => e.user.uid,
+          :name => e.user.name
+        },
+        :preEvent => if e.preEvent != nil then {:id => e.preEvent.id} end
+      }
     end
   end
+  
+  def make_common_conditions(conditions, include_closed, include_history)
+    if include_closed == "false" then
+      conditions[0] << " AND closed = ?"
+      conditions << false
+    end
+    if include_history == "false" then
+      conditions[0] << " AND date < ?"
+      conditions << DateTime.now
+    end
+  end
+  
   
   
   # GET /events
@@ -59,20 +124,46 @@ class EventsController < ApplicationController
     
     case params[:service]
     when "all-events"
-      @events = Event.find(:all, :order => :date, :include => [:user, :preEvent, :participants])
+      conditions = ["canceled = ?", false]
+      make_common_conditions(conditions, params[:include_closed], params[:include_history])
+      @events = Event.find(:all, 
+                           :conditions => conditions,
+                           :order => :date, 
+                           :include => [:user, :preEvent]
+                          )
+    
+    when "public-events"
+      conditions = ["privateOnly = ? AND canceled = ?", false, false]
+      make_common_conditions(conditions, params[:include_closed], params[:include_history])
+      @events = Event.find(:all, 
+                           :conditions => conditions,
+                           :order => :date,
+                           :include => [:user, :preEvent, :participants]
+                          )
     
     when "my-events"
+      user_id = session[:user][:id]
+      conditions =
+        ["(events.user_id = ? OR participants.user_id = ?) AND canceled = ?", user_id, user_id, false]
+      make_common_conditions(conditions, params[:include_closed], params[:include_history])
       @events = Event.find(:all, 
-                           :conditions => ["user_id = ? and canceled =?", session[:user][:id], false],
+                           :conditions => conditions,
                            :order => :date,
-                           :include => [:user, :preEvent, :participants])
+                           :include => [:user, :preEvent, :participants]
+                          )
     
     when "find-events"
-      q = "%#{params[:keyword]}%"
+      user_id = session[:user][:id]
+      query = "%#{params[:keyword]}%"
+      conditions =
+        ["(events.user_id = ? OR participants.user_id = ?) AND canceled = ? AND title LIKE ?", 
+          user_id, user_id, false, query]
+      make_common_conditions(conditions, params[:include_closed], params[:include_history])
       @events = Event.find(:all,
-                           :conditions => ["user_id = ? AND canceled = ? AND title LIKE ?", session[:user][:id], false, q], 
+                           :conditions => conditions, 
                            :order => :date,
-                           :include => [:user, :preEvent, :participants])
+                           :include => [:user, :preEvent, :participants]
+                          )
       
     end
     
@@ -81,7 +172,17 @@ class EventsController < ApplicationController
 
   # GET /events/1
   def show
-    @event = Event.find(params[:id])
+    @event = Event.find(:first,
+                        :conditions => ["events.id = ?", params[:id].to_i], 
+                        :include => [:user,
+                                     :preEvent,
+                                     {:city => [:prefecture]}, 
+                                     {:station => [:train]}, 
+                                     :budget, 
+                                     :genre, 
+                                     {:participants => [:user]}
+                                    ]
+                       )
     render :json => event_as_object(@event).to_json
   end
 
@@ -104,8 +205,8 @@ class EventsController < ApplicationController
     # create friends' pre-account if not exists.
     participants = []
     for p in e[:participants] do
-      participants << p[:id]
-      create_user_if_not_exists(p[:id], p[:name], nil)
+      participants << p[:uid]
+      create_user_if_not_exists(p[:uid], p[:name], nil)
     end
     
     case params[:service]
@@ -114,10 +215,10 @@ class EventsController < ApplicationController
         @event = Event.new(
           :title => e[:title], 
           :date => e[:date],
-          :place => e[:place],
-          :station => e[:station],
-          :budget => e[:budget], 
-          :genre => e[:genre],
+          :city_id => e[:city],
+          :station_id => e[:station],
+          :budget_id => e[:budget], 
+          :genre_id => e[:genre],
           :shop => e[:shop],
           :maxNumber => e[:maxNumber],
           :deadline => e[:deadline],
@@ -139,8 +240,9 @@ class EventsController < ApplicationController
       Event.transaction do
         pre_event = PreEvent.new(
           :dates => e[:dates],
-          :places => e[:budgets],
+          :cities => e[:cities],
           :stations => e[:stations],
+          :budgets => e[:budgets],
           :genres => e[:genres],
           :shops => e[:shops]
         )
@@ -218,7 +320,7 @@ class EventsController < ApplicationController
         # create friends' pre-account if not exists.
         ids = []
         for f in friends do
-          user = create_user_if_not_exists(f[:id], f[:name], nil)
+          user = create_user_if_not_exists(f[:uid], f[:name], nil)
           ids << user.id
         end
     
@@ -238,7 +340,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   def destroy
     
-    @event = Event.find(params[:id], :include => [:user, :preEvent, :participants])
+    @event = Event.find(params[:id])
     user_id = session[:user][:id]
     if @event.user_id != user_id then
       # Not own event.  

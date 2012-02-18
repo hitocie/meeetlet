@@ -8,6 +8,7 @@
 
 # delete all
 Budget.delete_all
+Genre.delete_all
 City.delete_all
 Station.delete_all
 Train.delete_all
@@ -65,6 +66,29 @@ prices = [
   "¥25,000〜¥29,999",
   "¥30,000〜"]
 for p in prices do
-  b = Budget.new(:price => p)
-  b.save!
+  Budget.new(:price => p).save!
+end
+
+# genres
+genres = [
+  "和食",
+  "日本料理", "寿司", "魚介・海鮮料理", "そば・うどん", "しゃぶしゃぶ", "天ぷら", "うなぎ",
+  "お好み焼き・もんじゃ焼き", "焼き鳥", "とんかつ", "串揚げ", "鍋", 
+  
+  "洋食",
+  "フレンチ", "イタリアン", "スペイン料理",
+  "ステーキ", "ハンバーグ", "カフェ", "バー",
+  
+  "中華料理",
+  "ラーメン",
+  
+  "韓国料理",
+  "焼き肉",
+  
+  "アジア料理",
+  "タイ料理", "インド料理", "カレー"
+]
+
+for g in genres do
+  Genre.new(:name => g).save!
 end

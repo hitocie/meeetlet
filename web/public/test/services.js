@@ -123,7 +123,7 @@ function delete_user(uid) {
 function create_event(
 		title,
 		date,
-		place,
+		city,
 		station,
 		budget,
 		genre,
@@ -136,7 +136,7 @@ function create_event(
 	var e = {
 			title: title,
 			date: date,
-			place: place,
+			city: city,
 			station: station,
 			budget: budget, 
 			genre: genre,
@@ -157,7 +157,7 @@ function create_event(
 function create_pre_event(
 		title,
 		dates,
-		places,
+		cities,
 		stations,
 		budgets,
 		genres,
@@ -170,7 +170,7 @@ function create_pre_event(
 	var e = {
 			title: title,
 			dates: dates,
-			places: places,
+			cities: cities,
 			stations: stations,
 			budgets: budgets, 
 			genres: genres,
@@ -189,10 +189,10 @@ function create_pre_event(
 	return response;
 }
 
-function reply_pre_event(event_id, dates, places, stations, budgets, genres, shops, comment) {
+function reply_pre_event(event_id, dates, cities, stations, budgets, genres, shops, comment) {
 	var pp = {
 			dates: dates,
-			places: places,
+			cities: cities,
 			stations: stations,
 			budgets: budgets,
 			genres: genres,
@@ -245,36 +245,60 @@ function invite_friends(event_id, friends) {
 }
 
 
-function get_all_events(p) {
+//function get_all_events(p) {
+//	async_request({
+//			url: root_url + 'events.json', 
+//			data: {service: 'all-events'},
+//			success_handler: function(data, status) {
+//				p(data);
+//			}
+//	});
+//}
+function get_public_events(include_closed, include_history, p) {
 	async_request({
-			url: root_url + 'events.json', 
-			data: {service: 'all-events'},
+			url: root_url + 'events.json',
+			data: {service: 'public-events', include_closed: include_closed, include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
 			}
 	});
 }
-function get_my_events(p) {
+function get_my_events(include_closed, include_history, p) {
 	async_request({
 			url: root_url + 'events.json',
-			data: {service: 'my-events'},
+			data: {service: 'my-events', include_closed: include_closed, include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
 			}
 	});
 }
-function find_my_events(keyword, p) {
+function find_my_events(keyword, include_closed, include_history, p) {
 	async_request({
 			url: root_url + 'events.json',
-			data: {service: 'find-events', keyword: keyword},
+			data: {service: 'find-events', keyword: keyword, include_closed: include_closed, include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
 			}
+	});
+}
+function get_event(id, p) {
+	async_request({
+		url: root_url + 'events/' + id + '.json',
+		success_handler: function(data, status) {
+			p(data);
+		}
 	});
 }
 
 // -- common services --
-// budgets
+function get_all_genres(p) {
+	async_request({
+		url: root_url + 'genres.json',
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
 function get_all_budgets(p) {
 	async_request({
 		url: root_url + 'budgets.json',

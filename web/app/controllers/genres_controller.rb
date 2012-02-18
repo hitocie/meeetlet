@@ -1,17 +1,16 @@
-class BudgetsController < ApplicationController
-
+class GenresController < ApplicationController
+  
   # FIXME: The follows is workaround to use sessions. (CSRF token authenticity)
   skip_before_filter :verify_authenticity_token
 
   def index
-    @budgets = Budget.order(:id).all
-    ret = @budgets.collect do |b|
+    @genres = Genre.order(:id).all
+    ret = @genres.collect do |g|
       {
-        :id => b.id,
-        :price => b.price
+        :id => g.id,
+        :name => g.name
       }
     end.to_json
     render :json => ret
   end
-  
 end

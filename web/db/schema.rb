@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120215132255) do
+ActiveRecord::Schema.define(:version => 20120218054900) do
 
   create_table "budgets", :force => true do |t|
     t.string   "price"
@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(:version => 20120215132255) do
   create_table "events", :force => true do |t|
     t.string   "title",                          :null => false
     t.datetime "date"
-    t.string   "place"
-    t.string   "station"
-    t.string   "budget"
-    t.string   "genre"
+    t.integer  "city_id"
+    t.integer  "station_id"
+    t.integer  "budget_id"
+    t.integer  "genre_id"
     t.string   "shop"
     t.string   "comment"
     t.integer  "maxNumber"
@@ -48,8 +48,18 @@ ActiveRecord::Schema.define(:version => 20120215132255) do
     t.datetime "updated_at"
   end
 
+  add_index "events", ["budget_id"], :name => "index_events_on_budget_id"
+  add_index "events", ["city_id"], :name => "index_events_on_city_id"
+  add_index "events", ["genre_id"], :name => "index_events_on_genre_id"
   add_index "events", ["preEvent_id"], :name => "index_events_on_preEvent_id"
+  add_index "events", ["station_id"], :name => "index_events_on_station_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
+
+  create_table "genres", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "participants", :force => true do |t|
     t.integer  "attend"
@@ -67,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20120215132255) do
 
   create_table "pre_events", :force => true do |t|
     t.text     "dates"
-    t.text     "places"
+    t.text     "cities"
     t.text     "stations"
     t.text     "budgets"
     t.text     "genres"
@@ -78,7 +88,7 @@ ActiveRecord::Schema.define(:version => 20120215132255) do
 
   create_table "pre_participants", :force => true do |t|
     t.text     "dates"
-    t.text     "places"
+    t.text     "cities"
     t.text     "stations"
     t.text     "budgets"
     t.text     "genres"

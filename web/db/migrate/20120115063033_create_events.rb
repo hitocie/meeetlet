@@ -3,10 +3,10 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.string :title, :null => false
       t.datetime :date
-      t.string :place
-      t.string :station
-      t.string :budget
-      t.string :genre
+      t.references :city
+      t.references :station
+      t.references :budget
+      t.references :genre
       t.string :shop
       t.string :comment
       t.integer :maxNumber
@@ -19,6 +19,10 @@ class CreateEvents < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :events, :city_id
+    add_index :events, :station_id
+    add_index :events, :budget_id
+    add_index :events, :genre_id
     add_index :events, :user_id
     add_index :events, :preEvent_id
   end

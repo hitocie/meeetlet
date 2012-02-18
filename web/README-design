@@ -13,7 +13,7 @@
    *id :int
    -title :String
    -date :Datetime
-   -place :String
+   -city :String
    -station :String
    -budget :String
    -genre :String(?)
@@ -30,7 +30,7 @@
  PreEvent
    *id :int
    -dates :Array<Datetime> (e.g. 11/23, 11/24, 11/25)
-   -places :Array<String> (e.g. Boston, NY, LA)
+   -cities :Array<String> (e.g. Boston, NY, LA)
    -stations :Array<String>
    -budgets :Array<String> (e.g. 1000-2000, 2000-3000, 3000-4000)
    -genres :Array<String> (e.g. Japanese, Chinese, Western)
@@ -50,7 +50,7 @@
  PreParticipant
    *id :int
    -dates :Array<Response>
-   -places :Array<Response>
+   -cities :Array<Response>
    -stations :Array<Response>
    -budgets :Array<Response>
    -genres :Array<Response>
@@ -88,11 +88,9 @@
 - Solve CSRF token authenticity issue
 
 - Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
-* master/common => send "id" instead of "name" from client to server. (e.g. "train id", "budget id" ...)- require "Event.title, Event.date", ....
 - Create initial shop date(Gnavi?)
 - Create test data
 - invite-event from "who?" => private message.
-- find/get-events: :conditions => privateOnly/canceled/closed ...
-- add index to database
+
 
 
