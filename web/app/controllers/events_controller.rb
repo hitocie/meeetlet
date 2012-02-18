@@ -123,14 +123,14 @@ class EventsController < ApplicationController
   def index
     
     case params[:service]
-    when "all-events"
-      conditions = ["canceled = ?", false]
-      make_common_conditions(conditions, params[:include_closed], params[:include_history])
-      @events = Event.find(:all, 
-                           :conditions => conditions,
-                           :order => :date, 
-                           :include => [:user, :preEvent]
-                          )
+    # when "all-events"
+      # conditions = ["canceled = ?", false]
+      # make_common_conditions(conditions, params[:include_closed], params[:include_history])
+      # @events = Event.find(:all, 
+                           # :conditions => conditions,
+                           # :order => :date, 
+                           # :include => [:user, :preEvent]
+                          # )
     
     when "public-events"
       conditions = ["privateOnly = ? AND canceled = ?", false, false]

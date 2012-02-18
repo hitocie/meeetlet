@@ -5,13 +5,29 @@ class CitiesController < ApplicationController
 
   def index
     @cities = nil;
-    if params[:prefecture_id] != nil then
-      @cities = City.find(:all, :conditions => ["prefecture_id = ?", params[:prefecture_id]], :include => :prefecture)
-    elsif params[:name] then
-      q = "%#{params[:name]}%"
-      @cities = City.find(:all, :conditions => ["name like ? or yomi like ?", q, q], :include => :prefecture)
-    else
-      raise "Not keyword error." # FIXME
+    case params[:service]
+    when "get-cities"
+      @cities = City.find(:all, 
+                          :conditions => ["prefecture_id = ?", params[:prefecture_id]], 
+                          :include => :prefecture
+                         )
+                         
+    when "find-cities"
+      query = "%#{params[:name]}%"
+      pref_id = params[:prefecture_id].to_i
+      conditions = ["(name like ? OR yomi like ?)", query, query]
+      if pref_id > 0 then
+        conditions[0] << " AND prefecture_id = ?"
+        conditions << pref_id
+      end
+      @cities = City.find(:all, 
+                          :conditions => conditions, 
+                          :include => :prefecture
+                         )
+            
+    end
+    if @cities == nil then
+      raise "Not find City objects."
     end
     
     ret = @cities.collect do |c|

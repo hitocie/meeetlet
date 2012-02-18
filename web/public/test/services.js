@@ -67,7 +67,7 @@ function sync_request(args) {
 // login
 function is_login(p) {
 	async_request({
-		url: root_url + 'auths/1.json',
+		url: root_url + 'auths/1',
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -77,7 +77,7 @@ function is_login(p) {
 // NOTE: The way to get picture: https://graph.facebook.com/<uid>/picture 
 function get_me(p) {
 	async_request({
-		url: root_url + 'users/1.json',
+		url: root_url + 'users/1',
 		data: {service: 'get-me'},
 		success_handler: function(data, status) {
 			p(data);
@@ -86,35 +86,11 @@ function get_me(p) {
 }
 function get_my_friends(p) {
 	async_request({
-		url: root_url + 'users/1.json',
+		url: root_url + 'users/1',
 		data: {service: 'get-my-friends'},
 		success_handler: function(data, status) {
 			p(data);
 		}
-	});
-}
-
-
-function get_users(p) {
-	async_request({
-			url: root_url + 'users.json', 
-			success_handler: function(data, status) {
-				p(data);
-			}
-	});
-}
-function create_user(uid, name) {
-	var response = sync_request({
-		url: root_url + 'users.json',
-		type: 'POST',
-		data: JSON.stringify({user: {uid: uid, name: name}})
-	});
-	return response;
-}
-function delete_user(uid) {
-	sync_request({
-		url: root_url + 'users/' + uid + '.json',
-		type: 'DELETE'
 	});
 }
 
@@ -148,7 +124,7 @@ function create_event(
 			participants: participants
 	};
 	var response = sync_request({
-		url: root_url + 'events.json',
+		url: root_url + 'events',
 		type: 'POST',
 		data: JSON.stringify({service: 'create-event', event: e})
 	});
@@ -182,7 +158,7 @@ function create_pre_event(
 			participants: participants
 	};
 	var response = sync_request({
-		url: root_url + 'events.json',
+		url: root_url + 'events',
 		type: 'POST',
 		data: JSON.stringify({service: 'create-pre-event', event: e})
 	});
@@ -200,7 +176,7 @@ function reply_pre_event(event_id, dates, cities, stations, budgets, genres, sho
 			comment: comment
 	};
 	var response = sync_request({
-		url: root_url + 'events/' + event_id + '.json',
+		url: root_url + 'events/' + event_id,
 		type: 'PUT',
 		data: JSON.stringify({service: 'reply-pre-event', pre_participant: pp})
 	});
@@ -212,7 +188,7 @@ function reply_event(event_id, attend, comment) {
 			comment: comment
 	};
 	var response = sync_request({
-		url: root_url + 'events/' + event_id + '.json',
+		url: root_url + 'events/' + event_id,
 		type: 'PUT',
 		data: JSON.stringify({service: 'reply-event', participant: p})
 	});
@@ -221,7 +197,7 @@ function reply_event(event_id, attend, comment) {
 
 function cancel_event(event_id) {
 	var response = sync_request({
-		url: root_url + 'events/' + event_id + '.json',
+		url: root_url + 'events/' + event_id,
 		type: 'DELETE',
 		data: JSON.stringify({service: 'cancel-event'})
 	});
@@ -229,7 +205,7 @@ function cancel_event(event_id) {
 }
 function delete_event(event_id) {
 	var response = sync_request({
-		url: root_url + 'events/' + event_id + '.json',
+		url: root_url + 'events/' + event_id,
 		type: 'DELETE',
 		data: JSON.stringify({service: 'delete-event'})
 	});
@@ -237,7 +213,7 @@ function delete_event(event_id) {
 }
 function invite_friends(event_id, friends) {
 	var response = sync_request({
-		url: root_url + 'events/' + event_id + '.json',
+		url: root_url + 'events/' + event_id,
 		type: 'PUT',
 		data: JSON.stringify({service: 'invite-event', friends: friends})
 	});
@@ -245,18 +221,9 @@ function invite_friends(event_id, friends) {
 }
 
 
-//function get_all_events(p) {
-//	async_request({
-//			url: root_url + 'events.json', 
-//			data: {service: 'all-events'},
-//			success_handler: function(data, status) {
-//				p(data);
-//			}
-//	});
-//}
 function get_public_events(include_closed, include_history, p) {
 	async_request({
-			url: root_url + 'events.json',
+			url: root_url + 'events',
 			data: {service: 'public-events', include_closed: include_closed, include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
@@ -265,7 +232,7 @@ function get_public_events(include_closed, include_history, p) {
 }
 function get_my_events(include_closed, include_history, p) {
 	async_request({
-			url: root_url + 'events.json',
+			url: root_url + 'events',
 			data: {service: 'my-events', include_closed: include_closed, include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
@@ -274,7 +241,7 @@ function get_my_events(include_closed, include_history, p) {
 }
 function find_my_events(keyword, include_closed, include_history, p) {
 	async_request({
-			url: root_url + 'events.json',
+			url: root_url + 'events',
 			data: {service: 'find-events', keyword: keyword, include_closed: include_closed, include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
@@ -283,7 +250,7 @@ function find_my_events(keyword, include_closed, include_history, p) {
 }
 function get_event(id, p) {
 	async_request({
-		url: root_url + 'events/' + id + '.json',
+		url: root_url + 'events/' + id,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -293,7 +260,7 @@ function get_event(id, p) {
 // -- common services --
 function get_all_genres(p) {
 	async_request({
-		url: root_url + 'genres.json',
+		url: root_url + 'genres',
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -301,7 +268,7 @@ function get_all_genres(p) {
 }
 function get_all_budgets(p) {
 	async_request({
-		url: root_url + 'budgets.json',
+		url: root_url + 'budgets',
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -310,7 +277,7 @@ function get_all_budgets(p) {
 
 function get_all_prefectures(p) {
 	async_request({
-		url: root_url + 'prefectures.json',
+		url: root_url + 'prefectures',
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -319,17 +286,17 @@ function get_all_prefectures(p) {
 
 function get_cities(prefecture_id, p) {
 	async_request({
-		url: root_url + 'cities.json',
-		data: {prefecture_id: prefecture_id},
+		url: root_url + 'cities',
+		data: {service: "get-cities", prefecture_id: prefecture_id},
 		success_handler: function(data, status) {
 			p(data);
 		}
 	});
 }
-function find_cities(name, p) {
+function find_cities(name, prefecture_id, p) {
 	async_request({
-		url: root_url + 'cities.json',
-		data: {name: name},
+		url: root_url + 'cities',
+		data: {service: 'find-cities', name: name, prefecture_id: prefecture_id},
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -348,8 +315,8 @@ function get_trains(prefecture_id, p) {
 
 function get_stations(train_id, p) {
 	async_request({
-		url: root_url + 'stations.json',
-		data: {train_id: train_id},
+		url: root_url + 'stations',
+		data: {service: 'get-stations', train_id: train_id},
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -357,10 +324,15 @@ function get_stations(train_id, p) {
 }
 function find_stations(name, p) {
 	async_request({
-		url: root_url + 'stations.json',
-		data: {name: name},
+		url: root_url + 'stations',
+		data: {service: 'find-stations', name: name},
 		success_handler: function(data, status) {
 			p(data);
 		}
 	});
 }
+
+function find_shops(keyword, city_id, station_id, genre_id, p) {
+	// TODO: gnavi
+}
+

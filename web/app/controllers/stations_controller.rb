@@ -5,14 +5,24 @@ class StationsController < ApplicationController
 
   def index
     @staions = nil;
-    if params[:train_id] != nil then
-      @stations = Station.find(:all, :conditions => ["train_id = ?", params[:train_id]], :include => {:train => :prefecture})
-    elsif params[:name] then
-      q = "%#{params[:name]}%"
+    case params[:service]
+    when "get-stations"
+      @stations = Station.find(:all, 
+                               :conditions => ["train_id = ?", params[:train_id]], 
+                               :include => {:train => :prefecture}
+                              )
+    
+    when "find-stations"
+      query = "%#{params[:name]}%"
       @stations = 
-        Station.find(:all, :conditions => ["name like ? or yomi like ?", q, q], :include => {:train => :prefecture})
-    else
-      raise "Not keyword error." # FIXME
+        Station.find(:all, 
+                     :conditions => ["name like ? or yomi like ?", query, query], 
+                     :include => {:train => :prefecture}
+                    )
+      
+    end
+    if @stations == nil then
+      raise "Cannot find Station objects." 
     end
 
     ret = @stations.collect do |s|

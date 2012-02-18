@@ -32,7 +32,7 @@
    -dates :Array<Datetime> (e.g. 11/23, 11/24, 11/25)
    -cities :Array<String> (e.g. Boston, NY, LA)
    -stations :Array<String>
-   -budgets :Array<String> (e.g. 1000-2000, 2000-3000, 3000-4000)
+   -budgets :Array<String> (e.g. \1000-\2000, \2000-\3000, \3000-\4000)
    -genres :Array<String> (e.g. Japanese, Chinese, Western)
    -shops :Array<String> (e.g. A, B, C)
  

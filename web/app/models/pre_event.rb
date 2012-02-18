@@ -1,6 +1,6 @@
 class PreEvent < ActiveRecord::Base
   serialize :dates, Array
-  serialize :places, Array
+  serialize :cities, Array
   serialize :stations, Array
   serialize :budgets, Array
   serialize :genres, Array
