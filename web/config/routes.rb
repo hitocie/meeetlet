@@ -16,6 +16,7 @@ Meeetlet::Application.routes.draw do
   resources :stations
   resources :budgets
   resources :genres
+  resources :shops
   
   
   

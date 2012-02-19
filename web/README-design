@@ -85,10 +85,11 @@
 
 // TODO list (hokada memo)
 - Send private message to friends
+- Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
 - Solve CSRF token authenticity issue
 
-- Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
-- Create initial shop date(Gnavi?)
+- shop search (Gnavi) find-shops(TODO: Supports genre_id, lat, lng.) 
+- Store shop data to database.
 - Create test data
 - invite-event from "who?" => private message.
 

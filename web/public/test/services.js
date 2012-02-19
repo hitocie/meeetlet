@@ -332,7 +332,19 @@ function find_stations(name, p) {
 	});
 }
 
-function find_shops(keyword, city_id, station_id, genre_id, p) {
-	// TODO: gnavi
+// TODO: lat, lng, genre
+function find_shops(keyword, prefecture_id, city_id, station_id, genre_id, p) {
+	async_request({
+		url: root_url + 'shops',
+		data: {service: 'find-shops', 
+			   prefecture_id: prefecture_id, 
+			   city_id: city_id,
+			   station_id: station_id,
+			   genre_id: genre_id,
+			   keyword: keyword},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
 }
 
