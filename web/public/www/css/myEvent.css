@@ -1,5 +1,16 @@
 @CHARSET "UTF-8";
 
+#event-max {
+width:100px;
+}
+.comment-textarea {
+width:340px;
+resize:none;
+}
+#update-btn-group {
+display:none;
+}
+
 .event-table tbody tr td img {
 width:40px;
 }

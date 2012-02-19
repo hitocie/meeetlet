@@ -52,4 +52,15 @@ $(function() {
 	  title: '参加できそうな人',
 	  content: '<img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/>'
   });
+  // edit-event button
+  $('#edit-event').click(function(){
+	  $('#edit-btn-group').css('display', 'none');
+	  $('#update-btn-group').css('display', 'inline');
+	  $('#invite-date').html('<input type="text" value="'+$('#invite-date').text()+'" />');
+	  $('#invite-prefecture').html('<input type="text" value="'+$('#invite-prefecture').text()+'" />');
+	  $('#invite-station').html('<input type="text" value="'+$('#invite-station').text()+'" />');
+	  $('#invite-restaurant').html('<input type="text" value="'+$('#invite-restaurant').text()+'" />');
+	  $('#invite-max').html('<input id="event-max" type="number" value="'+$('#invite-max').text()+'" min="2" />');
+	  $('#invite-comment').html('<textarea id="event-comment" class="comment-textarea" rows="4" cols="30" maxlength="100" style="resize:none;" >'+$('#invite-comment').text()+'</textarea>');
+  });
 });

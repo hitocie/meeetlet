@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>meeetlet!</title>
-    <meta name="description" content="meeetlet! main page. with bootstrap">
+    <meta name="description" content="meeetlet! attend event page. with bootstrap">
     <meta name="author" content="Kats Fukui">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -21,7 +21,7 @@
     </style>
     <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="assets/css/jquery-ui-1.8.17.custom.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <link href="css/attendEvent.css" rel="stylesheet">
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
@@ -43,7 +43,7 @@
           <a class="brand" href="#">meeetlet!</a>
           <div class="nav-collapse">
 			<ul class="nav pull-right">
-			  <li class="active"><a href="#"><i class="icon-envelope icon-white"></i>お誘い掲示板</a></li>
+			  <li><a href="main.html"><i class="icon-envelope icon-white"></i>お誘い掲示板</a></li>
 			  <li class="dropdown" id="create-menu">
 			    <a class="dropdown-toggle" data-toggle="dropdown" href="#create-menu">
 			      <i class="icon-pencil icon-white"></i>
@@ -55,14 +55,14 @@
 			      <li><a href="createArrange.html">調整イベント</a></li>
 			    </ul>
 			  </li>
-			  <li class="dropdown" id="my-menu">
+			  <li class="dropdown active" id="my-menu">
 			    <a class="dropdown-toggle" data-toggle="dropdown" href="#my-menu">
 			      <i class="icon-pencil icon-white"></i>
 			      Myイベント
 			      <b class="caret"></b>
 			    </a>
 			    <ul class="dropdown-menu">
-			      <li><a href="attendEvent.html">参加予定のイベント</a></li>
+			      <li><a href="#">参加予定のイベント</a></li>
 			      <li><a href="absentEvent.html">欠席予定のイベント</a></li>
 			      <li><a href="myEvent.html">主催するイベント</a></li>
 			    </ul>
@@ -95,13 +95,6 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><a href="#invite-modal" data-toggle="modal">◯◯部プライベート新人歓迎会</a></td>
-                  <td>2012年5月23日</td>
-                  <td>今年も新人さんが３名入りました。公式歓迎会とは別に、若手だけで歓迎しましょう！</td>
-                  <td><a href="#" rel="tooltip" title="Kats"><img src="images/friend1.png" /></a></td>
-				  <td><a href="#invite-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
-                </tr>
-                <tr>
                   <td><a href="#" class="arrange-modal-btn" data-toggle="modal">△△さん送別会</a></td>
                   <td>2012年5月</td>
                   <td>残念ながら５月で△△さんが退社します。送別会に参加する人募集！</td>
@@ -116,13 +109,6 @@
 				  <td><a href="#arrange-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
                 </tr>
                 <tr>
-                  <td><a href="#" class="arrange-modal-btn" data-toggle="modal">飲み会</a></td>
-                  <td>2012年6月</td>
-                  <td>飲ませろ下さい。</td>
-                  <td><a href="#" rel="tooltip" title="Okada"><img src="images/friend1.png" /></a></td>
-				  <td><a href="#arrange-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
-                </tr>
-                <tr>
                   <td><a href="#invite-modal" data-toggle="modal">◯◯さんと飲む</a></td>
                   <td>2012年6月12日</td>
                   <td>◯◯さんがタイから一時帰国しています。来れる方募集！</td>
@@ -130,39 +116,11 @@
 				  <td><a href="#invite-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
                 </tr>
                 <tr>
-                  <td><a href="#public-modal" data-toggle="modal">NoSQL勉強会</a></td>
-                  <td>2012年6月21日</td>
-                  <td>NoSQLに興味ある方、どなたでも参加してください。当方、初心者です。会場は未定ですが、現在調整中です。</td>
-                  <td><a href="#" rel="tooltip" title="Kats"><img src="images/friend1.png" /></a></td>
-				  <td><a href="#public-friends-modal" data-toggle="modal" class="btn btn-small btn-info">参加予定者</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#" class="arrange-modal-btn" data-toggle="modal">飲み部３回目</a></td>
-                  <td>2012年7月</td>
-                  <td>最近活動してなかった飲み部ですが、久々に開催します。とりあえず7月ですが、調整しましょう！</td>
-                  <td><a href="#" rel="tooltip" title="Kats"><img src="images/friend1.png" /></a></td>
-				  <td><a href="#arrange-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
-                </tr>
-                <tr>
                   <td><a href="#invite-modal" data-toggle="modal">ランチ</a></td>
                   <td>2012年7月4日</td>
                   <td>誰かランチしません？</td>
                   <td><a href="#" rel="tooltip" title="Sugawara"><img src="images/friend1.png" /></a></td>
 				  <td><a href="#invite-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#invite-modal" data-toggle="modal">△△さん歓迎会</a></td>
-                  <td>2012年9月3日</td>
-                  <td>△△さんが当部に来ます。歓迎しましょう。</td>
-                  <td><a href="#" rel="tooltip" title="Inoko"><img src="images/friend1.png" /></a></td>
-				  <td><a href="#invite-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#" class="arrange-modal-btn" data-toggle="modal">2012年忘年会</a></td>
-                  <td>2012年12月</td>
-                  <td>ちょっと早いけど忘年会を企画します！</td>
-                  <td><a href="#" rel="tooltip" title="Katsushi Fukui"><img src="images/friend1.png" /></a></td>
-				  <td><a href="#arrange-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
                 </tr>
               </tbody>
             </table>
@@ -208,7 +166,6 @@
 	  <div class="modal-footer">
 	    <a href="#" class="btn" data-dismiss="modal">閉じる</a>
 	    <a href="#" class="btn btn-danger">欠席する</a>
-	    <a href="#" class="btn btn-primary">参加する</a>
 	  </div>
 	</div>
 	
@@ -230,7 +187,6 @@
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
-	    <a href="#" class="btn btn-danger">欠席する</a>
 	    <a href="#" class="btn btn-primary" id="arrange-btn">調整する</a>
 	  </div>
 	</div>
@@ -617,7 +573,7 @@
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/attendEvent.js"></script>
 
   </body>
 </html>
