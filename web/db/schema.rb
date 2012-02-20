@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120218054900) do
 
   create_table "genres", :force => true do |t|
     t.string   "name"
+    t.string   "gcode"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

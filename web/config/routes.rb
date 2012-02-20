@@ -1,23 +1,21 @@
 Meeetlet::Application.routes.draw do
   
-  
-  resources :auths #get "auths/index"
-  
-  resources :events
+  scope "api/v1" do
+    resources :auths #get "auths/index"
+    resources :users
 
-  resources :users
-
-  resources :prefectures do
+    resources :events
+    resources :prefectures do
+      resources :cities
+      resources :stations
+    end
     resources :cities
+    resources :trains
     resources :stations
+    resources :budgets
+    resources :genres
+    resources :shops
   end
-  resources :cities
-  resources :trains
-  resources :stations
-  resources :budgets
-  resources :genres
-  resources :shops
-  
   
   
   # The priority is based upon order of creation:

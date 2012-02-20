@@ -39,10 +39,10 @@ $(function() {
 			//find_stations('しんばし', function(stations) {
 			//	console.log(JSON.stringify(stations));
 			//});
-			find_shops('あ', 13/*東京都*/, 658/*東京都港区*/, 2734/*新橋駅*/, -1/*No use*/, function(shops) {
-				console.log(JSON.stringify(shops));
-			});
-
+			//find_shops('あ', 13/*東京都*/, 658/*東京都港区*/, 2734/*新橋駅*/, -1/*No use*/, function(shops) {
+			//	console.log(JSON.stringify(shops));
+			//});
+			
 			var e = create_event(
 					'イベントです。', // title
 					'2012-01-03 10:10:10', // date

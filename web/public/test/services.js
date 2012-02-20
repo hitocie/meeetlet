@@ -1,5 +1,5 @@
 
-var root_url = '/';
+var root_url = '/api/v1/';
 
 // common
 function async_request(args) {
@@ -332,7 +332,7 @@ function find_stations(name, p) {
 	});
 }
 
-// TODO: lat, lng, genre
+// TODO: Add lat and lng if necessary.
 function find_shops(keyword, prefecture_id, city_id, station_id, genre_id, p) {
 	async_request({
 		url: root_url + 'shops',

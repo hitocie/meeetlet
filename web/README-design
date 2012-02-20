@@ -88,8 +88,7 @@
 - Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
 - Solve CSRF token authenticity issue
 
-- shop search (Gnavi) find-shops(TODO: Supports genre_id, lat, lng.) 
-- Store shop data to database.
+- Store shop data to shop_histories table, and then, insert summarized records into shops table.
 - Create test data
 - invite-event from "who?" => private message.
 

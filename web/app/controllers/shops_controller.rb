@@ -31,11 +31,11 @@ class ShopsController < ApplicationController
         query[:freeword] << "," << station.name
       end
       # genre
-      # FIXME: category_l, category_s
+      # NOTE: only category_l (not support category_s)
       genre_id = params[:genre_id].to_i
       if genre_id > 0 then
         genre = Genre.find(genre_id)
-        query[:freeword] << "," << genre.name
+        query[:category_l] = "CTG" << genre.gcode
       end
       
       u = GNAVI_SITE_PAGE << "RestSearchAPI/"
