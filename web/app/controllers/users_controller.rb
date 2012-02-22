@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     session[:user] = @user
     
     # FIXME: Top page
-    redirect_to "http://localhost:3000/www/"
+    redirect_to "http://localhost:3000/www/main.html"
   end
 
   # GET /users/1
