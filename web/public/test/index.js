@@ -87,6 +87,9 @@ $(function() {
 					delete_event(e.id);
 				}
 			});
+			//logout(function() {
+			//	console.log('logged out.')
+			//});
 		});
 	});
 });

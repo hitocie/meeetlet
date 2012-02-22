@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
 
-  # FIXME: The follows is workaround to use sessions. (CSRF token authenticity)
   skip_before_filter :authenticate, :only => [:index]
-  skip_before_filter :verify_authenticity_token
-  
 
   # GET /users
   def index
@@ -27,8 +24,7 @@ class UsersController < ApplicationController
     reset_session
     session[:user] = @user
     
-    # FIXME: Top page
-    redirect_to "http://localhost:3000/www/main.html"
+    redirect_to MAIN_PAGE
   end
 
   # GET /users/1
@@ -57,46 +53,4 @@ class UsersController < ApplicationController
     
     raise "No Service #{service}" 
   end
-
-  # GET /users/new
-  # def new
-    # @user = User.new
-    # render :json => @user
-  # end
-
-  # GET /users/1/edit
-  # def edit
-    # @user = User.find(params[:id])
-  # end
-
-  # POST /users
-  # def create
-    # p params[:user][:name] # [:user]
-    # @user = User.new(params[:user])
-# 
-    # if @user.save
-      # render :json => @user, :status => :created, :location => @user
-    # else
-      # render :json => @user.errors, :status => :unprocessable_entity
-    # end
-  # end
-
-  # PUT /users/1
-  # def update
-    # @user = User.find(params[:id])
-# 
-    # if @user.update_attributes(params[:user])
-      # head :ok
-    # else
-      # render :json => @user.errors, :status => :unprocessable_entity
-    # end
-  # end
-
-  # DELETE /users/1
-  # def destroy
-    # @user = User.find(params[:id])
-    # @user.destroy
-# 
-    # head :ok
-  # end
 end

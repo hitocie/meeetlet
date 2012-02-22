@@ -68,8 +68,19 @@ function sync_request(args) {
 function is_login(p) {
 	async_request({
 		url: root_url + 'auths/1',
+		data: {service: 'is-login'},
 		success_handler: function(data, status) {
 			p(data);
+		}
+	});
+}
+// logout
+function logout(p) {
+	async_request({
+		url: root_url + 'auths/1',
+		data: {service: 'logout'},
+		success_handler: function(data, status) {
+			p();
 		}
 	});
 }

@@ -1,8 +1,5 @@
 class CitiesController < ApplicationController
 
-  # FIXME: The follows is workaround to use sessions. (CSRF token authenticity)
-  skip_before_filter :verify_authenticity_token
-
   def index
     @cities = nil;
     case params[:service]

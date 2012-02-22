@@ -1,8 +1,5 @@
 class EventsController < ApplicationController
   
-  # FIXME: The follows is workaround to use sessions. (CSRF token authenticity)
-  skip_before_filter :verify_authenticity_token
-  
   def participants_as_object(participants)
     participants.collect do |p|
       {

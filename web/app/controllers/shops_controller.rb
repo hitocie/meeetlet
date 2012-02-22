@@ -1,9 +1,6 @@
 require 'rexml/document'
 class ShopsController < ApplicationController
 
-  # FIXME: The follows is workaround to use sessions. (CSRF token authenticity)
-  skip_before_filter :verify_authenticity_token
-
   def index
     # Gnavi (http://api.gnavi.co.jp/api/manual.htm)
     case params[:service]

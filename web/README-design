@@ -86,7 +86,6 @@
 // TODO list (hokada memo)
 - Send private message to friends
 - Put wall post using "@graph.put_wall_post("hey, i'm learning kaola")"
-- Solve CSRF token authenticity issue
 
 - Store shop data to shop_histories table, and then, insert summarized records into shops table.
 - Create test data

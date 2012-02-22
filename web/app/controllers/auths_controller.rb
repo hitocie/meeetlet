@@ -1,18 +1,34 @@
 class AuthsController < ApplicationController
 
-  # FIXME: The follows is workaround to use sessions. (CSRF token authenticity)
-  skip_before_filter :authenticate, :verify_authenticity_token
+  skip_before_filter :authenticate
 
+  def is_login
+    session[:user] ? true : false
+  end
+  
   def index
     # auth
-    url = "https://graph.facebook.com/oauth/authorize?client_id="
-    url << FB_APP_ID << "&redirect_uri=" << FB_SITE_PAGE << "&scope=manage_pages,publish_stream,offline_access,manage_pages"
-    redirect_to url
+    if (not is_login) then
+      url = "https://graph.facebook.com/oauth/authorize?client_id="
+      url << FB_APP_ID << "&redirect_uri=" << FB_SITE_PAGE << "&scope=manage_pages,publish_stream,offline_access,manage_pages"
+      redirect_to url
+    else
+      redirect_to MAIN_PAGE
+    end
   end
   
   def show
     # is-login
-    @user = session[:user]
-    render :json => (@user ? true : false)
+    case params[:service]
+    when "is-login"
+      render :json => is_login
+      
+    when "logout"
+      reset_session
+      render :json => true
+      
+    else
+      raise "No Services"
+    end
   end
 end
