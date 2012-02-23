@@ -87,10 +87,28 @@ $(function() {
 					delete_event(e.id);
 				}
 			});
-			//logout(function() {
-			//	console.log('logged out.')
-			//});
 		});
 	});
 });
 
+$(function() {
+	$('#news').click(function() {
+		post_news('2012/09/10', 'News1ですよ〜');
+		post_news('2012/09/11', 'News2ですよ〜');
+		post_news('2012/09/12', 'News3ですよ〜');
+		get_news(function(news) {
+			console.log(JSON.stringify(news));
+		});
+	});
+});
+
+$(function() {
+	$('#logout').click(function() {
+		logout(function() {
+			console.log('logout!!');
+			is_login(function(r) {
+				console.log('login?=' + r);
+			});
+		});
+	});
+});

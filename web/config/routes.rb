@@ -3,6 +3,7 @@ Meeetlet::Application.routes.draw do
   scope "api/v1" do
     resources :auths #get "auths/index"
     resources :users
+    resources :news
 
     resources :events
     resources :prefectures do

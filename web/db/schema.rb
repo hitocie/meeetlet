@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120218054900) do
+ActiveRecord::Schema.define(:version => 20120223145722) do
 
   create_table "budgets", :force => true do |t|
     t.string   "price"
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(:version => 20120218054900) do
   create_table "genres", :force => true do |t|
     t.string   "name"
     t.string   "gcode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "news", :force => true do |t|
+    t.date     "date"
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

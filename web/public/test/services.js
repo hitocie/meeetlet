@@ -359,3 +359,20 @@ function find_shops(keyword, prefecture_id, city_id, station_id, genre_id, p) {
 	});
 }
 
+// news
+function post_news(date, content) {
+	sync_request({
+		url: root_url + 'news',
+		type: 'POST',
+		data: JSON.stringify({service: 'post-news', news: {date: date, content: content}})
+	});
+}
+function get_news(p) {
+	async_request({
+		url: root_url + 'news',
+		data: {service: 'get-news'},
+		success_handler: function(data, status) {
+			p(data);
+		}
+	});
+}
