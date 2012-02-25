@@ -1,5 +1,7 @@
 Meeetlet::Application.routes.draw do
   
+  
+  # meeetlet APIs
   scope "api/v1" do
     resources :auths #get "auths/index"
     resources :users

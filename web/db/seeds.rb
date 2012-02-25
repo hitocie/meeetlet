@@ -14,6 +14,13 @@ Station.delete_all
 Train.delete_all
 Prefecture.delete_all
 
+# reset id
+ActiveRecord::Base.connection.execute('ALTER TABLE prefectures AUTO_INCREMENT = 1')
+ActiveRecord::Base.connection.execute('ALTER TABLE cities AUTO_INCREMENT = 1')
+ActiveRecord::Base.connection.execute('ALTER TABLE trains AUTO_INCREMENT = 1')
+ActiveRecord::Base.connection.execute('ALTER TABLE stations AUTO_INCREMENT = 1')
+ActiveRecord::Base.connection.execute('ALTER TABLE budgets AUTO_INCREMENT = 1')
+ActiveRecord::Base.connection.execute('ALTER TABLE genres AUTO_INCREMENT = 1')
 
 # prefectures
 prefs = ActiveSupport::JSON.decode(File.read("#{Rails.root}/db/resources/prefs.json"))

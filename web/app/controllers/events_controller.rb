@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   
   def participants_as_object(participants)
     participants.collect do |p|
-      {
+      obj = {
         :id => p.id,
         :friend => {
           :id => p.user.id,
@@ -12,6 +12,20 @@ class EventsController < ApplicationController
         :attend => p.attend,
         :comment => p.comment
       }
+      pp = p.preParticipant
+      if pp != nil then
+        obj[:preParticipant] = {
+          :id => pp.id,
+          :dates => pp.dates,
+          :cities => pp.cities,
+          :stations => pp.stations,
+          :budgets => pp.budgets,
+          :genres => pp.genres,
+          :shops => pp.shops,
+          :comment => pp.comment
+        }
+      end
+      obj
     end
   end
   
@@ -109,7 +123,7 @@ class EventsController < ApplicationController
       conditions << false
     end
     if include_history == "false" then
-      conditions[0] << " AND date < ?"
+      conditions[0] << " AND date > ?"
       conditions << DateTime.now
     end
   end
@@ -177,7 +191,7 @@ class EventsController < ApplicationController
                                      {:station => [:train]}, 
                                      :budget, 
                                      :genre, 
-                                     {:participants => [:user]}
+                                     {:participants => [:user, :preParticipant]}
                                     ]
                        )
     render :json => event_as_object(@event).to_json
@@ -227,6 +241,14 @@ class EventsController < ApplicationController
         )
         @event.save!
         users = User.where(:uid => participants)
+        # own data
+        participant = 
+          @event.participants.build(
+            :user_id => session[:user][:id],
+            :attend => true
+          )
+        participant.save!
+        # friends data
         for u in users do
           participant = @event.participants.build(:user_id => u.id)
           participant.save!
@@ -256,6 +278,24 @@ class EventsController < ApplicationController
           :preEvent_id => pre_event.id)
         @event.save!
         users = User.where(:uid => participants)
+        # own data
+        pp = PreParticipant.new(
+          :dates => Array.new(e[:dates].size, 0),
+          :cities => Array.new(e[:cities].size, 0),
+          :stations => Array.new(e[:stations].size, 0),
+          :budgets => Array.new(e[:budgets].size, 0),
+          :genres => Array.new(e[:genres].size, 0),
+          :shops => Array.new(e[:shops].size, 0)
+        )
+        pp.save!
+        participant = 
+          @event.participants.build(
+            :user_id => session[:user][:id],
+            :attend => true,
+            :preParticipant_id => pp.id
+          )
+        participant.save!
+        # friends data
         for u in users do
           participant = @event.participants.build(:user_id => u.id)
           participant.save!
@@ -284,6 +324,8 @@ class EventsController < ApplicationController
             pp = p.preParticipant
             if pp == nil then
               pp = PreParticipant.new(params[:pre_participant])
+              pp.save!
+              p.preParticipant = pp
               p.save!
             else 
               pp.attributes = params[:pre_participant]
