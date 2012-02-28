@@ -123,7 +123,7 @@ class EventsController < ApplicationController
       conditions << false
     end
     if include_history == "false" then
-      conditions[0] << " AND date > ?"
+      conditions[0] << " AND (date IS NULL OR date > ?)"
       conditions << DateTime.now
     end
   end

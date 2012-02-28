@@ -133,7 +133,7 @@ $(function() {
 
 		var e = create_event(
 				'○○イベントです。', // title
-				'2012-01-03 10:10:10', // date
+				'2012-12-03 10:10:10', // date
 				_n(1800), // city
 				_n(10000), // station
 				_n(15), // budget
@@ -169,11 +169,11 @@ $(function() {
 $(function() {
 	$('#test3').click(function() {
 		// get_my_events or find_my_events
-		get_my_events(true, true, function(events) {
+		get_my_events(true, false, function(events) {
 			for (var i in events) {
 				var e = events[i];
 				get_event(e.id, function(event) {
-					console.log('[Event=' + event.id + '] title=' + event.title + ' owner=' + event.owner.name);
+					console.log('[Event=' + event.id + '] title=' + event.title + ' owner=' + event.owner.name + ' date=' + event.date);
 					//console.log('[Event] ' + JSON.stringify(e));
 					console.log('  +details: comment=' + event.comment + ' shop=' + event.shop + ' private?=' + event.privateOnly);
 					//console.log(' [Event detail] ' + JSON.stringify(event));
