@@ -1,5 +1,5 @@
 require 'rexml/document'
-class ShopsController < ApplicationController
+class ShopsController < ApiController
 
   def index
     # Gnavi (http://api.gnavi.co.jp/api/manual.htm)

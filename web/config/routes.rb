@@ -1,23 +1,24 @@
-Meeetlet::Application.routes.draw do
+Meeetlet::Application.routes.draw do 
   
-  
+  # meeetlet screens
+  root :to => "static#index"
+  match "main" => "static#main", :via => :get
+  match "foo" => "static#foo", :via => :get
+  match "hoge" => "static#hoge", :via => :get
+
+
   # meeetlet APIs
   scope "api/v1" do
     resources :auths #get "auths/index"
     resources :users
-    resources :news
+    resources :news 
 
     resources :events
     resources :prefectures do
       resources :cities
       resources :stations
     end
-    resources :cities
-    resources :trains
-    resources :stations
-    resources :budgets
-    resources :genres
-    resources :shops
+    resources :cities, :trains, :stations, :budgets, :genres, :shops
   end
   
   
@@ -78,3 +79,4 @@ Meeetlet::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

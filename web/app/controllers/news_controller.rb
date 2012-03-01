@@ -1,4 +1,4 @@
-class NewsController < ApplicationController
+class NewsController < ApiController
 
   def index
     @news = News.order(:date).all

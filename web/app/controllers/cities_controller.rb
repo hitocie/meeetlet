@@ -1,4 +1,4 @@
-class CitiesController < ApplicationController
+class CitiesController < ApiController
 
   def index
     @cities = nil;

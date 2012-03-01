@@ -1,4 +1,4 @@
-class TrainsController < ApplicationController
+class TrainsController < ApiController
   
   def index
     @trains = Train.find(:all, :conditions => ["prefecture_id = ?", params[:prefecture_id]], :include => :prefecture)

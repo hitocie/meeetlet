@@ -1,4 +1,4 @@
-class AuthsController < ApplicationController
+class AuthsController < ApiController
 
   skip_before_filter :authenticate
 

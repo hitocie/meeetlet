@@ -1,4 +1,4 @@
-class BudgetsController < ApplicationController
+class BudgetsController < ApiController
 
   def index
     @budgets = Budget.order(:id).all

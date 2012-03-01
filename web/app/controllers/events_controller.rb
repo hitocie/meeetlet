@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class EventsController < ApiController
   
   def participants_as_object(participants)
     participants.collect do |p|

@@ -1,4 +1,4 @@
-class GenresController < ApplicationController
+class GenresController < ApiController
   
   def index
     @genres = Genre.order(:id).all

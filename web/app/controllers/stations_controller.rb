@@ -1,4 +1,4 @@
-class StationsController < ApplicationController
+class StationsController < ApiController
 
   def index
     @staions = nil;

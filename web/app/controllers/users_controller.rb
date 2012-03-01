@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApiController
 
   skip_before_filter :authenticate, :only => [:index]
 

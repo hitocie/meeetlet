@@ -1,4 +1,4 @@
-class PrefecturesController < ApplicationController
+class PrefecturesController < ApiController
 
   # GET /prefectures
   def index
