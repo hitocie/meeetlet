@@ -91,83 +91,72 @@
     
       <div class="row show-grid">
         <div class="span6"> 
-          <div class="alert alert-info">作成するイベントのタイトルを入れてください。（２０文字まで）</div>
+          <div class="alert alert-info">作成するイベントのタイトルを入れてください。（２０文字まで）<span class="label label-important">必須</span></div>
           <form class="form-horizontal">
-            <div class="control-group">
+            <div id="title-control" class="control-group">
               <label class="control-label" for="event-title">タイトル</label>
               <div class="controls">
-                <input id="event-title" class="input-xlarge" type="text" maxlength="20"/> <span class="label label-important">必須</span>
+                <input id="event-title" class="input-xlarge" type="text" maxlength="20"/>
               </div>
             </div>
           </form>
           
-          <div class="alert alert-info">作成するイベントの日程を入れてください。</div>
+          <div class="alert alert-info">作成するイベントの日程を入れてください。<span class="label label-important">必須</span></div>
           <form class="form-horizontal">
-            <div class="control-group">
+            <div id="date-control" class="control-group">
               <label class="control-label" for="event-date">日程</label>
               <div class="controls">
-                <input id="event-date" type="text" /> <span class="label label-important">必須</span>
+                <input id="event-date" type="text" />
               </div>
             </div>
           </form>
           
-          <div class="alert alert-info">イベントを開催する都道府県を選択してください。</div>
+          <div class="alert alert-info">イベントを開催する都道府県を選択してください。<span class="label label-important">必須</span></div>
           <form class="form-horizontal">
-            <div class="control-group">
+            <div id="prefecture-control" class="control-group">
               <label class="control-label" for="event-prefecture">都道府県</label>
               <div class="controls">
-                <select id="event-prefecture">
-                  <option>東京</option>
-                  <option>千葉</option>
-                  <option>埼玉</option>
-                  <option>神奈川</option>
-                  <option>静岡</option>
+                <select id="event-prefecture" class="inline">
+                	<option></option>
                 </select>
-                <span class="label label-important">必須</span>
               </div>
             </div>
           </form>
           
-          <div class="alert alert-info">イベントを開催する最寄り駅を選択してください。</div>
+          <div class="alert alert-info">イベントを開催する最寄り駅を選択してください。<span class="label label-important">必須</span></div>
           <form class="form-horizontal">
-            <div class="control-group">
+			<div id="train-control" class="control-group warning">
+              <label class="control-label" for="event-train">路線</label>
+              <div class="controls">
+                <select id="event-train" class="inline" disabled>
+                	<option>都道府県を選んでください</option>
+                </select>
+              </div>
+            </div>
+            <div id="station-control" class="control-group warning">
               <label class="control-label" for="event-station">最寄り駅</label>
               <div class="controls">
-                <select id="event-station">
-                  <option>東京</option>
-                  <option>赤坂</option>
-                  <option>六本木</option>
-                  <option>渋谷</option>
-                  <option>豊洲</option>
-                  <option>銀座</option>
+                <select id="event-station" disabled>
+                  <option>路線を選んでください</option>
                 </select>
-                <span class="label label-important">必須</span>
               </div>
             </div>
           </form>
 
         <div class="alert alert-info">お店のカテゴリを選択してください。</div>
           <form class="form-horizontal">
-            <div class="control-group">
+            <div id="category-control" class="control-group">
               <label class="control-label" for="event-category">カテゴリ</label>
               <div class="controls">
                 <select id="event-category">
-                  <option>和食</option>
-                  <option>居酒屋</option>
-                  <option>カフェ</option>
-                  <option>イタリアン</option>
-                  <option>フレンチ</option>
-                  <option>焼き肉</option>
-                  <option>その他</option>
                 </select>
-                <span class="label label-important">必須</span>
               </div>
             </div>
           </form>
                
           <div class="alert alert-info">開催場所を指定してください。</div>
           <div class="form-horizontal">
-            <div class="control-group">
+            <div id="venue-control" class="control-group">
               <label class="control-label" for="event-venue">店・場所</label>
               <div class="controls">
                 <input id="event-venue" class="input-xlarge" type="text" />
@@ -181,17 +170,17 @@
           
           <div class="alert alert-info">最大人数を指定してください。</div>
           <div class="form-horizontal">
-            <div class="control-group">
+            <div id="max-control" class="control-group">
               <label class="control-label" for="event-max">最大人数</label>
               <div class="controls">
-                <input id="event-max" class="input-xlarge" type="number" min="2" />
+                <input id="event-max" class="input-xlarge" type="number" min="2" value="2"/>
               </div>
             </div>
           </div>
 
           <div class="alert alert-info">コメント（100文字以内）</div>
           <div class="form-horizontal">
-            <div class="control-group">
+            <div id="comment-control" class="control-group">
               <label class="control-label" for="event-comment">コメント</label>
               <div class="controls">
                 <textarea id="event-comment" rows="4" cols="30" maxlength="100" style="resize:none;"></textarea>
@@ -202,11 +191,10 @@
           <form class="well">このイベントに招待する友達を選択してください。
             <a href="#invite-friends-list" class="btn btn-info" data-toggle="modal"><i class="icon-user icon-white"></i>友達リスト</a>
             <div id="event-friends">
-              <a href="#" rel="tooltip" title="Kats"><img src="images/friend1.png" /></a>
             </div>
           </form>
           
-          <a href="#confirm-event" class="btn btn-primary btn-large offset2" data-toggle="modal">確認</a>
+          <a href="#" id="confirm-btn" class="btn btn-primary btn-large offset2">確認</a>
         </div>
       </div>
             
@@ -225,33 +213,13 @@
       </div>
       <div class="modal-body">
         <table class="table table-condensed">
-          <tbody>
-            <tr>
-              <td><input type="checkbox" class="checkbox" name="invited"/></td>
-              <td><img src="images/friend1.png" /></td>
-              <td>Katsushi Fukui</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox" name="invited"/></td>
-              <td><img src="images/friend1.png" /></td>
-              <td>Hideyoshi Toyotomi</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox" name="invited"/></td>
-              <td><img src="images/friend1.png" /></td>
-              <td>Nobunaga Oda</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox" name="invited"/></td>
-              <td><img src="images/friend1.png" /></td>
-              <td>Ieyasu Tokugawa</td>
-            </tr>
+          <tbody id="friends-table">
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
 	    <a href="#" class="btn" data-dismiss="modal">キャンセル</a>
-	    <a href="#" class="btn btn-warning">選択</a>
+	    <a id="friend-select-btn" href="#" class="btn btn-warning">選択</a>
 	  </div>
     </div>
     
@@ -261,6 +229,28 @@
 	    <h3>イベント情報の確認</h3>
       </div>
       <div class="modal-body">
+      	<dl>
+          <dt>タイトル</dt>
+		  <dd id="ctitle"></dd>
+		  <dt>日程</dt>
+		  <dd id="cdate"></dd>
+		  <dt>場所</dt>
+		  <dd id="cstation"></dd>
+		  <dt>ジャンル</dt>
+		  <dd id="ccategory"></dd>
+		  <dt>店</dt>
+		  <dd id="crestaurant"></dd>
+		  <dt>最大人数</dt>
+		  <dd id="cmax"></dd>
+		  <dt>コメント</dt>
+		  <dd id="ccomment"></dd>
+		</dl>
+		<label class="radio inline">
+			<input type="radio" name="check-radio" id="check-private" value="private">友人のみ公開
+		</label>
+		<label class="radio inline">
+			<input type="radio" name="check-radio" id="check-public" value="public">全てのユーザに公開
+		</label>
       </div>
       <div class="modal-footer">
 	    <a href="#" class="btn" data-dismiss="modal">編集</a>
@@ -273,7 +263,10 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/jquery-ui-1.8.17.custom.min.js"></script>
+	<script src="assets/js/jquery.ui.datepicker-ja.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/initData.js"></script>
     <script src="js/createInvite.js"></script>
 
   </body>

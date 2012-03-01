@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+.news-date {
+color:#808080;
+}
 .event-table tbody tr td img {
 width:40px;
 }

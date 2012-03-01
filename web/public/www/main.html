@@ -74,7 +74,7 @@
 			      <b class="caret"></b>
 			    </a>
 			    <ul class="dropdown-menu">
-			      <li><a href="index.html">ログアウト</a></li>
+			      <li><a href="#" id="logout">ログアウト</a></li>
 			    </ul>
 			  </li>
 			</ul>
@@ -172,10 +172,8 @@
           <div class="well meeetlet-info">
             <h4>お知らせ</h4>
             <hr />
-            <p>meeetlet! v0.2 リリース</p>
-            <p>meeetlet! v0.1 リリース</p>
-            <p><a href="#">meeetlet! for iPhone</a>をリリースしました。</p>
-            <p><a href="#">meeetlet! for Android</a>をリリースしました。</p>
+			<div id="news">
+			</div>
           </div>
         </div>
       </div>
@@ -609,7 +607,7 @@
 	    <a href="#" class="btn btn-warning">確認</a>
 	  </div>
 	</div>
-	
+
 	<div class="modal hide fade" id="back-modal"></div>
     <!-- Le javascript
     ================================================== -->
@@ -617,6 +615,8 @@
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/initData.js"></script>
     <script src="js/main.js"></script>
 
   </body>

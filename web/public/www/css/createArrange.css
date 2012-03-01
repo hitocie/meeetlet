@@ -26,3 +26,8 @@ width:40px;
 #invite-friends-list td {
 vertical-align:middle;
 }
+
+.ui-datepicker {
+font-size:10px;
+}
+

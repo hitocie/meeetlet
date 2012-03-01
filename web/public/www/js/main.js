@@ -1,4 +1,5 @@
 $(function() {
+  /// for web ui
   // dropdown
   $('.dropdown-toggle').dropdown();
   // tooltip
@@ -52,4 +53,48 @@ $(function() {
 	  title: '参加できそうな人',
 	  content: '<img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/>'
   });
+
+  /// for server api
+  // logout
+  $('#logout').click(function() {
+	  logout(function() {
+		  document.location.href="index.html";
+	  })
+  });
+ 
+  // get my event list.
+  get_my_events(true, false, function(data) {
+	  for (var i in data) {
+		  var e = data[i];
+		  get_event(e.id, function(event) {
+			  alert(JSON.stringify(event));
+		  });
+	  }
+  });
+  
+  // get news list.
+  if (typeof sessionStorage != 'undefined') {
+	var sstr = sessionStorage;
+	var news = JSON.parse(sstr.getItem("news"));
+	if (news != null) {
+		for (var i in news) {
+			$('#news').append('<p><span class="news-date">['+news[i].date+']</span> '+news[i].content+'</p>');
+		}
+	} else {
+		get_news(function(data) {
+			for (var i in data) {
+				$('#news').append('<p><span class="news-date">['+data[i].date+']</span> '+data[i].content+'</p>');
+			}; 
+		});	
+	}
+  } else {
+	  // may use hash?
+	  get_news(function(data) {
+		  for (var i in data) {
+			  $('#news').append('<p><span class="news-date">['+data[i].date+']</span> '+data[i].content+'</p>');
+		  }; 
+	  });
+  }
+
+  
 });
