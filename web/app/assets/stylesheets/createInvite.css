@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+#event-max {
+width:100px;
+}
+#event-comment {
+width:340px;
+resize:none;
+}
+#event-friends {
+background:white;
+height:180px;
+overflow:scroll;
+}
+#event-friends img {
+width:40px;
+}
+
+#invite-friends-list img {
+width:40px;
+}
+#invite-friends-list td {
+vertical-align:middle;
+}
+
+.ui-datepicker {
+font-size:12px;
+}
