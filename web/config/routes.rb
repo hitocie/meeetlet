@@ -3,8 +3,11 @@ Meeetlet::Application.routes.draw do
   # meeetlet screens
   root :to => "static#index"
   match "main" => "static#main", :via => :get
-  match "foo" => "static#foo", :via => :get
-  match "hoge" => "static#hoge", :via => :get
+  match "absentEvent" => "static#absentEvent", :via => :get
+  match "attendEvent" => "static#attendEvent", :via => :get
+  match "createArrange" => "static#createArrange", :via => :get
+  match "createInvite" => "static#createInvite", :via => :get
+  match "myEvent" => "static#myEvent", :via => :get
 
 
   # meeetlet APIs

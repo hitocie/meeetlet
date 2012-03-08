@@ -1,3 +1,95 @@
-<h1>Static#index</h1>
-<a href="/foo">foo</a>
-<a href="/hoge">hoge</a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>meeetlet!</title>
+    <meta name="description" content="meeetlet! start page. with bootstrap">
+    <meta name="author" content="Kats Fukui">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/ico/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/ico/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/ico/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="i-bar"></span>
+            <span class="i-bar"></span>
+            <span class="i-bar"></span>
+          </a>
+          <a class="brand" href="#">meeetlet!</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+			<ul class="nav pull-right">
+			  <li><a href="/api/v1/auths">ログイン</a></li>
+			</ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>meeetlet!</h1>
+        <p>『meeetlet!』は様々なカテゴリのイベントをユーザ主体で開催し、ビジネスや趣味、勉強会などのリアルなネットワークを広げるためのソーシャルイベントサービスです。</p>
+        <p><a class="btn btn-primary btn-large" href="/api/v1/auths">ログイン</a></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Create an Event!</h2>
+           <p>飲み会や食事、会合などのイベントを作成し、みんなの意見を集めてスケジュールを調整します。別の友達にオススメしたり、公開イベントにしてネットワークを広げましょう！</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+        <div class="span4">
+          <h2>Arrange an Event!</h2>
+           <p>みんなの意見を集めて時間や場所を調整します。特に何も決まっていなくても、とりあえずイベントを開催してみんなで予定を決めましょう！</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+       </div>
+        <div class="span4">
+          <h2>Join an Event!</h2>
+          <p>楽しそうなイベントのお誘いが来たら、積極的に参加しましょう！たまには公開イベントに飛び入りで参加し、友達や仕事の仲間を増やすのもいいですね！</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; meeetlet! 2012 All rights reserved.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+  </body>
+</html>

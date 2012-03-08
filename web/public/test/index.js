@@ -169,7 +169,7 @@ $(function() {
 $(function() {
 	$('#test3').click(function() {
 		// get_my_events or find_my_events
-		get_my_events(true, false, function(events) {
+		get_my_events(false, false, function(events) {
 			for (var i in events) {
 				var e = events[i];
 				get_event(e.id, function(event) {

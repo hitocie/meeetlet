@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>meeetlet!</title>
+    <meta name="description" content="meeetlet! abesent event page. with bootstrap">
+    <meta name="author" content="Kats Fukui">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="assets/absentEvent.css" rel="stylesheet">
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/ico/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/ico/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/ico/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="i-bar"></span>
+            <span class="i-bar"></span>
+            <span class="i-bar"></span>
+          </a>
+          <a class="brand" href="#">meeetlet!</a>
+          <div class="nav-collapse">
+			<ul class="nav pull-right">
+			  <li><a href="main.html"><i class="icon-envelope icon-white"></i>お誘い掲示板</a></li>
+			  <li class="dropdown" id="create-menu">
+			    <a class="dropdown-toggle" data-toggle="dropdown" href="#create-menu">
+			      <i class="icon-pencil icon-white"></i>
+			      イベント作成
+			      <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu">
+			      <li><a href="createInvite.html">お誘いイベント</a></li>
+			      <li><a href="createArrange.html">調整イベント</a></li>
+			    </ul>
+			  </li>
+			  <li class="dropdown active" id="my-menu">
+			    <a class="dropdown-toggle" data-toggle="dropdown" href="#my-menu">
+			      <i class="icon-pencil icon-white"></i>
+			      Myイベント
+			      <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu">
+			      <li><a href="attendEvent.html">参加予定のイベント</a></li>
+			      <li><a href="#">欠席予定のイベント</a></li>
+			      <li><a href="myEvent.html">主催するイベント</a></li>
+			    </ul>
+			  </li>
+			  <li class="dropdown" id="usermenu">
+			    <a class="dropdown-toggle" data-toggle="dropdown" href="#usermenu">
+			      <i class="icon-user icon-white"></i>
+			      Katsushi Fukui
+			      <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu">
+			      <li><a href="index.html">ログアウト</a></li>
+			    </ul>
+			  </li>
+			</ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span10">
+          <div>
+            <table class="table table-striped table-condensed event-table">
+              <thead>
+                <tr><th>招待状</th><th></th><th></th><th>主催者</th><th></th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="#invite-modal" data-toggle="modal">◯◯部プライベート新人歓迎会</a></td>
+                  <td>2012年5月23日</td>
+                  <td>今年も新人さんが３名入りました。公式歓迎会とは別に、若手だけで歓迎しましょう！</td>
+                  <td><a href="#" rel="tooltip" title="Kats"><img src="images/friend1.png" /></a></td>
+				  <td><a href="#invite-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
+                </tr>
+                <tr>
+                  <td><a href="#public-modal" data-toggle="modal">NoSQL勉強会</a></td>
+                  <td>2012年6月21日</td>
+                  <td>NoSQLに興味ある方、どなたでも参加してください。当方、初心者です。会場は未定ですが、現在調整中です。</td>
+                  <td><a href="#" rel="tooltip" title="Kats"><img src="images/friend1.png" /></a></td>
+				  <td><a href="#public-friends-modal" data-toggle="modal" class="btn btn-small btn-info">参加予定者</a></td>
+                </tr>
+                <tr>
+                  <td><a href="#invite-modal" data-toggle="modal">△△さん歓迎会</a></td>
+                  <td>2012年9月3日</td>
+                  <td>△△さんが当部に来ます。歓迎しましょう。</td>
+                  <td><a href="#" rel="tooltip" title="Inoko"><img src="images/friend1.png" /></a></td>
+				  <td><a href="#invite-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
+                </tr>
+                <tr>
+                  <td><a href="#" class="arrange-modal-btn" data-toggle="modal">2012年忘年会</a></td>
+                  <td>2012年12月</td>
+                  <td>ちょっと早いけど忘年会を企画します！</td>
+                  <td><a href="#" rel="tooltip" title="Katsushi Fukui"><img src="images/friend1.png" /></a></td>
+				  <td><a href="#arrange-friends-modal" data-toggle="modal" class="btn btn-small btn-info">お誘い中</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>		
+        </div>
+        <div class="span2">
+          <div class="well meeetlet-info">
+            <h4>お知らせ</h4>
+            <hr />
+            <p>meeetlet! v0.2 リリース</p>
+            <p>meeetlet! v0.1 リリース</p>
+            <p><a href="#">meeetlet! for iPhone</a>をリリースしました。</p>
+            <p><a href="#">meeetlet! for Android</a>をリリースしました。</p>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; meeetlet! 2012 All rights reserved.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+	<!-- modal -->
+	<div class="modal hide fade" id="invite-modal">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal">x</a>
+	    <h3>◯◯部プライベート新人歓迎会</h3>
+	  </div>
+	  <div class="modal-body">
+	    <dl>
+	      <dt>日程</dt><dd>2012年5月23日</dd>
+	      <dt>場所</dt><dd>東京</dd>
+	      <dt>最寄り駅</dt><dd>豊洲駅</dd>
+	      <dt>店</dt><dd>ららぽーと豊洲 焼き肉ららぽーと</dd>
+	      <dt>主催者</dt><dd>Kats</dd>
+	      <dt>最大参加人数</dt><dd>10人</dd>
+	      <dt>コメント</dt><dd>今年も新人さんが３名入りました。公式歓迎会とは別に、若手だけで歓迎しましょう！</dd>
+	    </dl>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" data-dismiss="modal">閉じる</a>
+	    <a href="#" class="btn btn-primary">参加する</a>
+	  </div>
+	</div>
+	
+	<div class="modal hide fade" id="arrange-modal">
+	  <div class="modal-header">
+	    <a class="close close-back" data-dismiss="modal">x</a>
+	    <h3>△△さん送別会</h3>
+	  </div>
+	  <div class="modal-body">
+	     <dl>
+	      <dt>候補日程</dt><dd>2012年5月23日から2012年5月31日まで</dd>
+	      <dt>候補駅</dt><dd>豊洲駅、有楽町駅、銀座一丁目駅</dd>
+	      <dt>候補ジャンル</dt><dd>焼き肉、居酒屋</dd>
+	      <dt>候補店</dt><dd>叙々苑 豊洲店、高級居酒屋 銀材飲み屋</dd>
+	      <dt>主催者</dt><dd>Kats</dd>
+	      <dt>最大参加人数</dt><dd>10人</dd>
+	      <dt>コメント</dt><dd>有楽町線沿いで会社帰りに飲みましょう。焼き肉でもいいよ。</dd>
+	    </dl>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
+	    <a href="#" class="btn btn-primary" id="arrange-btn">調整する</a>
+	  </div>
+	</div>
+	
+	<div class="modal hide fade" id="public-modal">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal">x</a>
+	    <h3>NoSQL勉強会</h3>
+	  </div>
+	  <div class="modal-body">
+	    <dl>
+	      <dt>日程</dt><dd>2012年6月21日</dd>
+	      <dt>場所</dt><dd>東京</dd>
+	      <dt>最寄り駅</dt><dd>豊洲駅</dd>
+	      <dt>店</dt><dd>未定</dd>
+	      <dt>主催者</dt><dd>Kats</dd>
+	      <dt>最大参加人数</dt><dd>50人</dd>
+	      <dt>コメント</dt><dd>NoSQLに興味ある方、どなたでも参加してください。当方、初心者です。会場は未定ですが、現在調整中です。</dd>
+	    </dl>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" data-dismiss="modal">閉じる</a>
+	    <a href="#" class="btn btn-primary">参加する</a>
+	  </div>
+	</div>
+	
+	<div class="modal hide fade" id="invite-friends-modal">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal">x</a>
+	    <h3>お誘い中の友達</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>
+  	      <img src="assets/friend1.png" /><span class="label">未回答</span>
+  	    </p>
+  	    <p>
+  	      <img src="assets/friend1.png" /><span class="label label-success">参加</span>
+  	      <span>参加します！</span>
+  	    </p>
+  	    <p>
+	      <img src="assets/friend1.png" /><span class="label label-important">欠席</span>
+  	      <span>ごめんなさい、欠席です。</span>
+	    </p>
+	    <p>
+	      <img src="assets/friend1.png" /><span class="label label-success">参加</span>
+  	      <span>参加です</span>
+	    </p>
+	    <p>
+	      <img src="images/friend1.png" /><span class="label label-success">参加</span>
+  	      <span>多分行けると思う</span>
+	    </p>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" data-dismiss="modal">閉じる</a>
+	    <a href="#" class="btn btn-warning">招待する</a>
+	  </div>
+	</div>
+	
+	<div class="modal hide fade" id="arrange-friends-modal">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal">x</a>
+	    <h3>お誘い中の友達</h3>
+	  </div>
+	  <div class="modal-body">
+	    <div class="accordion" id="arrange-friends-accordion">
+	      <div class="accordion-group">
+	        <div class="accordion-heading">
+	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend1" href="#friends1" style="text-decoration:none">
+	            <img src="assets/friend1.png" />
+	            <span class="label">未回答</span>
+	          </a>
+	        </div>
+		    <div id="friend1" class="accordion-body collapse">
+		      <div class="accordion-inner">
+              </div>
+            </div>
+          </div>
+	      <div class="accordion-group">
+	        <div class="accordion-heading">
+	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend2" href="#friends2" style="text-decoration:none">
+	            <img src="assets/friend1.png" />
+	            <span class="label label-success">参加</span>
+	          </a>
+	        </div>
+		    <div id="friend2" class="accordion-body collapse">
+		      <div class="accordion-inner">
+		        <dl>
+		          <dt>日程</dt>
+		          <dd>5月12日, 5月13日, 5月14日</dd>
+		          <dt>場所</dt>
+		          <dd>東京</dd>
+		          <dt>最寄り駅</dt>
+		          <dd>東京</dd>
+		          <dt>店</dt>
+		          <dd>おまかせ</dd>
+		          <dt>コメント</dt>
+		          <dd>東京周辺がいいです。</dd>
+		        </dl>
+              </div>
+            </div>
+          </div>
+	      <div class="accordion-group">
+	        <div class="accordion-heading">
+	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend3" href="#friends3" style="text-decoration:none">
+	            <img src="assets/friend1.png" />
+	            <span class="label label-success">参加</span>
+	          </a>
+	        </div>
+		    <div id="friend3" class="accordion-body collapse">
+		      <div class="accordion-inner">
+		        <dl>
+		          <dt>日程</dt>
+		          <dd>おまかせ</dd>
+		          <dt>場所</dt>
+		          <dd>東京</dd>
+		          <dt>最寄り駅</dt>
+		          <dd>おまかせ</dd>
+		          <dt>店</dt>
+		          <dd>おまかせ</dd>
+		          <dt>コメント</dt>
+		          <dd>とくに予定はないです。よろしくお願いします。</dd>
+		        </dl>
+              </div>
+            </div>
+          </div>
+	      <div class="accordion-group">
+	        <div class="accordion-heading">
+	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend4" href="#friends4" style="text-decoration:none">
+	            <img src="assets/friend1.png" />
+	            <span class="label label-success">参加</span>
+	          </a>
+	        </div>
+		    <div id="friend4" class="accordion-body collapse">
+		      <div class="accordion-inner">
+	            <dl>
+		          <dt>日程</dt>
+		          <dd>5月12日</dd>
+		          <dt>場所</dt>
+		          <dd>東京</dd>
+		          <dt>最寄り駅</dt>
+		          <dd>おまかせ</dd>
+		          <dt>店</dt>
+		          <dd>おまかせ</dd>
+		          <dt>コメント</dt>
+		          <dd>12日以外は不可。</dd>
+		        </dl>
+              </div>
+            </div>
+          </div>
+	      <div class="accordion-group">
+	        <div class="accordion-heading">
+	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend5" href="#friends5" style="text-decoration:none">
+	            <img src="assets/friend1.png" />
+	            <span class="label label-important">欠席</span>
+	          </a>
+	        </div>
+		    <div id="friend5" class="accordion-body collapse">
+		      <div class="accordion-inner">
+		        ごめんなさい、欠席です。
+              </div>
+            </div>
+          </div>
+	    </div>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" data-dismiss="modal">閉じる</a>
+	    <a href="#" class="btn btn-warning">招待する</a>
+	  </div>
+	</div>
+	
+	<div class="modal hide fade" id="public-friends-modal">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal">x</a>
+	    <h3>参加予定者</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>
+	      <img src="assets/friend1.png" />
+  	      <span>参加ですー。</span>
+	    </p>
+	    <p>
+	      <img src="assets/friend1.png" />
+  	      <span>当方、参加したいと思います。</span>
+	    </p>	    
+	    <p>
+	      <img src="assets/friend1.png" />
+  	      <span>こういうのって、初めてですがよろしく</span>
+	    </p>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" data-dismiss="modal">閉じる</a>
+	  </div>
+	</div>
+
+	<div class="modal hide fade" id="arrange-reply-modal">
+	  <div class="modal-header">
+	    <a class="close close-back" data-dismiss="modal">x</a>
+	    <h3>△△さん送別会の調整</h3>
+	  </div>
+	  <div class="modal-body">
+	    <div class="tabbable">
+	      <ul class="nav nav-tabs">
+	        <li class="active"><a href="#cdate" data-toggle="tab">候補日選択</a></li>
+	        <li><a href="#cstation" data-toggle="tab">候補駅選択</a></li>
+	        <li><a href="#ccategory" data-toggle="tab">ジャンル選択</a></li>
+	        <li><a href="#crestaurant" data-toggle="tab">お店候補</a></li>
+	      </ul>
+	      <div class="tab-content">
+	        <div class="tab-pane active" id="cdate">
+	          <p>候補日：2012年5月23日から2012年5月31日まで
+	            <label class="checkbox pull-right">
+	              <input type="checkbox" class="checkbox" id="date-anything" value="anything">おまかせ！
+	            </label>
+	          </p>
+	          <hr/>
+	          <div id="arrange-table-base">
+  	            <table class="table table-striped">
+  	              <thead>
+  	                <tr><th>候補日</th><th>◯</th><th>✕</th></tr>
+  	              </thead>
+  	              <tbody>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月23日</span></td>
+  	                  <td><input type="radio" name="20120523" id="OK20120523" value="20120523" checked /></td>
+  	                  <td><input type="radio" name="20120523" id="NG20120523" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月24日</span></td>
+  	                  <td><input type="radio" name="20120524" id="OK20120524" value="20120524" checked /></td>
+  	                  <td><input type="radio" name="20120524" id="NG20120524" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月25日</span></td>
+  	                  <td><input type="radio" name="20120525" id="OK20120525" value="20120525" checked /></td>
+  	                  <td><input type="radio" name="20120525" id="NG20120525" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月26日</span></td>
+  	                  <td><input type="radio" name="20120526" id="OK20120526" value="20120526" checked /></td>
+  	                  <td><input type="radio" name="20120526" id="NG20120526" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月27日</span></td>
+  	                  <td><input type="radio" name="20120527" id="OK20120527" value="20120527" checked /></td>
+  	                  <td><input type="radio" name="20120527" id="NG20120527" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月28日</span></td>
+  	                  <td><input type="radio" name="20120528" id="OK20120528" value="20120528" checked /></td>
+  	                  <td><input type="radio" name="20120528" id="NG20120528" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月29日</span></td>
+  	                  <td><input type="radio" name="20120529" id="OK20120529" value="20120529" checked /></td>
+  	                  <td><input type="radio" name="20120529" id="NG20120529" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月30日</span></td>
+  	                  <td><input type="radio" name="20120530" id="OK20120530" value="20120530" checked /></td>
+  	                  <td><input type="radio" name="20120530" id="NG20120530" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td><span class="cdate-item">2012年5月31日</span></td>
+  	                  <td><input type="radio" name="20120531" id="OK20120531" value="20120531" checked /></td>
+  	                  <td><input type="radio" name="20120531" id="NG20120531" value="NG" /></td>
+  	                </tr>
+  	              </tbody>
+  	            </table>
+	          </div>
+	        </div>
+	        <div class="tab-pane" id="cstation">
+	          <p>候補駅：豊洲駅、有楽町駅、銀座一丁目駅
+		        <label class="checkbox pull-right">
+	              <input type="checkbox" class="checkbox" id="station-anything" value="anything">おまかせ！
+	            </label>
+	          </p>
+	          <hr/>
+	          <div id="arrange-table-base">
+  	            <table class="table table-striped">
+  	              <thead>
+  	                <tr><th>候補駅</th><th>◯</th><th>✕</th></tr>
+  	              </thead>
+  	              <tbody>
+  	                <tr>
+  	                  <td>豊洲駅</td>
+  	                  <td><input type="radio" name="station1" id="OKStation1" value="OK" checked /></td>
+  	                  <td><input type="radio" name="station1" id="NGStation1" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td>有楽町駅</td>
+  	                  <td><input type="radio" name="station2" id="OKStation2" value="OK" checked /></td>
+  	                  <td><input type="radio" name="station2" id="NGStation2" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td>銀座一丁目駅</td>
+  	                  <td><input type="radio" name="station3" id="OKStation3" value="OK" checked /></td>
+  	                  <td><input type="radio" name="station3" id="NGStation3" value="NG" /></td>
+  	                </tr>
+  	              </tbody>
+  	            </table>
+  	          </div>
+	        </div>
+	        <div class="tab-pane" id="ccategory">
+	          <p>候補ジャンル：焼き肉、居酒屋
+	            <label class="checkbox pull-right">
+	              <input type="checkbox" class="checkbox" id="category-anything" value="anything">おまかせ！
+	            </label>
+	          </p>
+	          <hr/>
+	          <div id="arrange-table-base">
+  	            <table class="table table-striped">
+  	              <thead>
+  	                <tr><th>候補ジャンル</th><th>◯</th><th>✕</th></tr>
+  	              </thead>
+  	              <tbody>
+  	                <tr>
+  	                  <td>焼き肉</td>
+  	                  <td><input type="radio" name="category1" id="OKCategory1" value="OK" checked /></td>
+  	                  <td><input type="radio" name="category1" id="NGCategory1" value="NG" /></td>
+  	                </tr>
+  	                <tr>
+  	                  <td>居酒屋</td>
+  	                  <td><input type="radio" name="category2" id="OKCategory2" value="OK" checked /></td>
+  	                  <td><input type="radio" name="category2" id="NGCategory2" value="NG" /></td>
+  	                </tr>
+  	              </tbody>
+  	            </table>
+  	          </div>
+	        </div>
+	        <div class="tab-pane" id="crestaurant">
+	          <p>候補のお店：叙々苑 豊洲店、高級居酒屋 銀材飲み屋
+	            <label class="checkbox pull-right">
+	              <input type="checkbox" class="checkbox" id="restaurant-anything" value="anything">おまかせ！
+	            </label>
+	          </p>
+	          <div id="arrange-table-base">
+	            <table class="table">
+	              <tbody>
+	                <tr>
+	                  <td>叙々苑 豊洲店</td>
+	                  <td>
+	                    <div class="btn-group pull-right">
+	                      <a href="#" class="btn btn-info btn-mini" id="like-btn1">いいね！</a>
+	                      <a href="#" class="btn btn-mini" id="hate-btn1">いまいち！</a>
+						</div>
+	                  </td>
+	                </tr>
+	                <tr>
+	                  <td>高級居酒屋 銀材飲み屋</td>
+	                  <td>
+	                    <div class="btn-group pull-right">
+	                      <a href="#" class="btn btn-info btn-mini" id="like-btn2">いいね！</a>
+	                      <a href="#" class="btn btn-mini" id="hate-btn2">いまいち！</a>
+						</div>
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+				<hr />
+				<form class="form-horizontal">
+				  <div class="control-group">
+				    <label class="control-label" for="restaurant1">オススメの店を追加</label>
+				    <div class="controls">
+				      <span class="uneditable-input gray-text" id="restaurant1"><i>右のボタンから選択してください</i></span>
+				      <a href="#search-restaurant-modal" class="btn btn-info" data-toggle="modal">お店検索</a>
+				    </div>
+				  </div>
+				</form>
+  	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" id="arrange-reply-cancel-btn">キャンセル</a>
+	    <a href="#" class="btn btn-warning">確認</a>
+	  </div>
+	</div>
+	
+	<div class="modal hide fade" id="back-modal"></div>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="assets/services.js"></script>
+    <script src="assets/absentEvent.js"></script>
+
+  </body>
+</html>
