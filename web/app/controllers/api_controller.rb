@@ -41,6 +41,10 @@ class ApiController < ActionController::Base
   
   
   # common apis
+  def date_to_string(d)
+    return (d != nil ? d.strftime("%Y-%m-%d %H:%M:%S") : nil)
+  end
+  
   def create_user_if_not_exists(uid, name, token)
     user = User.where(:uid => uid).first
     if not user then

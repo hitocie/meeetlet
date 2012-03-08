@@ -5,7 +5,7 @@ class NewsController < ApiController
     ret = @news.collect do |n|
       {
         :id => n.id,
-        :date => n.date,
+        :date => date_to_string(n.date),
         :content => n.content
       }
     end.to_json

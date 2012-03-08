@@ -33,11 +33,11 @@ class EventsController < ApiController
     obj = {
       :id => e.id, 
       :title => e.title,
-      :date => e.date,
+      :date => date_to_string(e.date),
       :shop => e.shop,
       :comment => e.comment,
       :maxNumber => e.maxNumber,
-      :deadline => e.deadline,
+      :deadline => date_to_string(e.deadline),
       :closed => e.closed,
       :canceled => e.canceled,
       :privateOnly => e.privateOnly,
@@ -104,7 +104,7 @@ class EventsController < ApiController
       {
         :id => e.id, 
         :title => e.title,
-        :date => e.date,
+        :date => date_to_string(e.date),
         :comment => e.comment,
         :privateOnly => e.privateOnly,
         :owner => {
