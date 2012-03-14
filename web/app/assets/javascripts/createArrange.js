@@ -1,6 +1,23 @@
 var DATE_TABLE_SIZE = 14;
 
 $(function() {
+	// get me.
+	  if (typeof sessionStorage != 'undefined') {
+	    var sstr = sessionStorage;
+	    var me = JSON.parse(sstr.getItem("me"));
+	    if (me != null) {
+	      $('#myname').html(me.name);
+	    } else {
+	      get_me(function(me) {
+	        $('#myname').html(me.name);
+	      });		  
+	    }
+	  } else {
+	    get_me(function(me) {
+	      alert(me.name);
+	      $('#myname').html(me.name);
+	    });
+	  };
   /// for web ui
   // text in alert.
   $('#date-table-alert').text(DATE_TABLE_SIZE+'日以上は選択できません。');

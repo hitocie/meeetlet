@@ -1,4 +1,21 @@
 $(function() {
+	// get me.
+	  if (typeof sessionStorage != 'undefined') {
+	    var sstr = sessionStorage;
+	    var me = JSON.parse(sstr.getItem("me"));
+	    if (me != null) {
+	      $('#myname').html(me.name);
+	    } else {
+	      get_me(function(me) {
+	        $('#myname').html(me.name);
+	      });		  
+	    }
+	  } else {
+	    get_me(function(me) {
+	      alert(me.name);
+	      $('#myname').html(me.name);
+	    });
+	  };
   /// for web ui
   // dropdown
   $('.dropdown-toggle').dropdown();

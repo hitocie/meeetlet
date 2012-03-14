@@ -24,6 +24,26 @@ height:200px;
 overflow:scroll;
 }
 
+#arrange-reply-comment {
+width:340px;
+resize:none;
+}
+
 .popover h3 {
 font-size:10px;
+}
+
+.both-padding {
+padding-left:10px;
+padding-right:10px;
+}
+
+.gray-comment {
+color:gray;
+font-style:italic;
+}
+
+.skyback {
+background:dodgerblue;
+color:white;
 }
