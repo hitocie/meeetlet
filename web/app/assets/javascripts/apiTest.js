@@ -36,7 +36,7 @@ function load_master() {
 			console.log('[Prefecture] ' + JSON.stringify(v));
 		}
 	});
-	get_cities(13/*東京*/, function(cities) {
+	get_cities(13, function(cities) {
 		g_cities = cities;
 		for (var i = 0; i < cities.length; i++) {
 			if (i > 2) break;
@@ -44,7 +44,7 @@ function load_master() {
 			console.log('[City] ' + JSON.stringify(v));
 		}
 	});
-	find_cities('やま', 13, function(cities) {
+	find_cities('新', 13, function(cities) {
 		//g_citites = cities;
 		for (var i = 0; i < cities.length; i++) {
 			if (i > 2) break;
@@ -52,7 +52,7 @@ function load_master() {
 			console.log('[City] ' + JSON.stringify(v));
 		}
 	});
-	get_trains(13/*東京*/, function(trains) {
+	get_trains(13, function(trains) {
 		g_trains = trains;
 		for (var i = 0; i < trains.length; i++) {
 			if (i > 2) break;
@@ -68,7 +68,7 @@ function load_master() {
 			console.log('[Station] ' + JSON.stringify(v));
 		}
 	});
-	find_stations('しんばし', function(stations) {
+	find_stations('新', function(stations) {
 		// g_stations = stations;
 		for (var i = 0; i < stations.length; i++) {
 			if (i > 2) break;
@@ -76,7 +76,7 @@ function load_master() {
 			console.log('[Station] ' + JSON.stringify(v));
 		}
 	});
-	find_shops('あ', 13/*東京都*/, 658/*東京都港区*/, 2734/*新橋駅*/, -1/*No use*/, function(shops) {
+	find_shops('あ', 13, 658, 2734, -1/*No use*/, function(shops) {
 		g_shops = shops
 		for (var i = 0; i < shops.length; i++) {
 			if (i > 2) break;
@@ -116,9 +116,9 @@ function _n(n) {
 // event handlers
 $(function() {
 	$('#test1').click(function() {
-		post_news('2012/09/10', 'News1ですよ〜');
-		post_news('2012/09/11', 'News2ですよ〜');
-		post_news('2012/09/12', 'News3ですよ〜');
+		post_news('2012/09/10', 'News1だよん。');
+		post_news('2012/09/11', 'News2だよん。');
+		post_news('2012/09/12', 'News3だよん。');
 		get_news(function(news) {
 			for (var i in news) {
 				var v = news[i];
@@ -132,37 +132,37 @@ $(function() {
 	$('#test2').click(function() {
 
 		var e = create_event(
-				'○○イベントです。', // title
+				'おもしろイベント開催', // title
 				'2012-12-03 10:10:10', // date
 				_n(1800), // city
 				_n(10000), // station
 				_n(15), // budget
 				_n(11), // genre
 				g_shops[_n(10)].name, // shop
-				'コメントです。', // comment
+				'いけているよ〜', // comment
 				_n(10), // max number
 				'2012-04-04 10:10:10', // deadline
 				true, // private?
 				[g_friends[0], g_friends[1]] // participants
 		);
-		reply_event(e.id, 0, '参加したいと思います。');
+		reply_event(e.id, 0, '参加したいですね。');
 		invite_friends(e.id, [g_friends[2]]);
 		
 		var pe = create_pre_event(
-				'こちらはイベント調整です。', // title
+				'同窓会', // title
 				['2012-09-10 20:00:00', '2012-12-12 20:00:00'], // dates
 				[g_cities[_n(10)], g_cities[_n(10)], g_cities[_n(10)]], // city objects from get/find_cities function.
 				[g_stations[_n(10)], g_stations[_n(10)]], // station objects from get/find_stations function.
 				[g_budgets[_n(15)]], // budget objects from get_all_genres function.
 				[g_genres[_n(11)], g_genres[_n(11)]], // genre objects from get_all_genres
 				[g_shops[_n(10)], g_shops[_n(10)], g_shops[_n(10)]], // TODO: shops
-				'イベント調整のコメント', // comment
+				'イベント調整しています。', // comment
 				-1, // max number
 				'9999-12-31 00:00:00', // deadline(=forever)
 				true, // private?
 				[g_friends[3], g_friends[4], g_friends[5]] // participants
 		);
-		reply_pre_event(pe.id, [1,1], [0,0,0], [1, 0], [0], [0,0], [0,0,0], '私の調整回答を送ります。');
+		reply_pre_event(pe.id, [1,1], [0,0,0], [1, 0], [0], [0,0], [0,0,0], '是非開催しよう！');
 	});
 });
 

@@ -29,4 +29,9 @@ class StaticController < ApplicationController
   def myEvent
     render :template => "static/myEvent"
   end
+  
+  def apiTest
+    render :template => "static/apiTest"
+  end
+
 end

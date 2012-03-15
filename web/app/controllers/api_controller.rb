@@ -40,7 +40,36 @@ class ApiController < ActionController::Base
   end
   
   
-  # common apis
+  ### common apis ###
+  
+  # Facebook apis
+  def put_to_fb_wall(message)
+    # TODO: Should remove
+    return
+
+    @user = session[:user]
+    graph = Koala::Facebook::API.new(@user.token)
+    graph.put_wall_post(message)
+  end
+  def put_to_fb_event(name, desc, start_time)
+    # TODO: Should remove
+    return
+    
+    @user = session[:user]
+    graph = Koala::Facebook::API.new(@user.token)
+    # TODO
+    #image_path = "XXXXXXX"
+    #picture = Koala::UploadableIO.new(File.open(image_path))
+    params = {
+      #:picture => picture,
+      :name => name,
+      :description => desc,
+      :start_time => start_time
+    }
+    graph.put_object('me', 'events', params)
+  end
+  
+  
   def date_to_string(d)
     return (d != nil ? d.strftime("%Y-%m-%d %H:%M:%S") : nil)
   end

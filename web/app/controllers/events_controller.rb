@@ -253,6 +253,8 @@ class EventsController < ApiController
           participant = @event.participants.build(:user_id => u.id)
           participant.save!
         end
+        # put event to Facebook. TODO: should add meeetlet url
+        put_to_fb_event(@event.title + "\n<here is url.>", @event.comment, @event.date)
       end
       
     when "create-pre-event"
@@ -301,9 +303,10 @@ class EventsController < ApiController
           participant.save!
         end
       end
-      
+      # put message to wall of Facebook.
+      put_to_fb_wall(@event.title + "\n<here is url.>") # TODO: should add meeetlet url
     end
-
+    
     render :json => @event, :status => :created, :location => @event
   end
 

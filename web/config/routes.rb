@@ -8,6 +8,7 @@ Meeetlet::Application.routes.draw do
   match "createArrange" => "static#createArrange", :via => :get
   match "createInvite" => "static#createInvite", :via => :get
   match "myEvent" => "static#myEvent", :via => :get
+  match "apiTest" => "static#apiTest", :via => :get
 
 
   # meeetlet APIs
