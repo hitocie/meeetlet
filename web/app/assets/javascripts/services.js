@@ -232,28 +232,65 @@ function invite_friends(event_id, friends) {
 }
 
 
-function get_public_events(include_closed, include_history, p) {
+function get_public_events(options, p) {
+	var only_my_owner = options.only_my_owner 
+	if (typeof only_my_owner === 'undefined')
+		only_my_owner = false;
+	var include_closed = options.include_closed
+	if (typeof include_closed === 'undefined')
+		include_closed = false;
+	var include_history = options.include_history
+	if (typeof include_history === 'undefined')
+		include_history = false;
 	async_request({
 			url: root_url + 'events',
-			data: {service: 'public-events', include_closed: include_closed, include_history: include_history},
+			data: {service: 'public-events', 
+				   only_my_owner: only_my_owner,
+				   include_closed: include_closed,
+				   include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
 			}
 	});
 }
-function get_my_events(include_closed, include_history, p) {
+function get_my_events(options, p) {
+	var only_my_owner = options.only_my_owner 
+	if (typeof only_my_owner === 'undefined')
+		only_my_owner = false;
+	var include_closed = options.include_closed
+	if (typeof include_closed === 'undefined')
+		include_closed = false;
+	var include_history = options.include_history
+	if (typeof include_history === 'undefined')
+		include_history = false;
 	async_request({
 			url: root_url + 'events',
-			data: {service: 'my-events', include_closed: include_closed, include_history: include_history},
+			data: {service: 'my-events',
+				   only_my_owner: only_my_owner,
+				   include_closed: include_closed, 
+				   include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
 			}
 	});
 }
-function find_my_events(keyword, include_closed, include_history, p) {
+function find_my_events(keyword, options, p) {
+	var only_my_owner = options.only_my_owner 
+	if (typeof only_my_owner === 'undefined')
+		only_my_owner = false;
+	var include_closed = options.include_closed
+	if (typeof include_closed === 'undefined')
+		include_closed = false;
+	var include_history = options.include_history
+	if (typeof include_history === 'undefined')
+		include_history = false;
 	async_request({
 			url: root_url + 'events',
-			data: {service: 'find-events', keyword: keyword, include_closed: include_closed, include_history: include_history},
+			data: {service: 'find-events',
+				   keyword: keyword, 
+				   only_my_owner: only_my_owner,
+				   include_closed: include_closed, 
+				   include_history: include_history},
 			success_handler: function(data, status) {
 				p(data);
 			}

@@ -169,7 +169,7 @@ $(function() {
 $(function() {
 	$('#test3').click(function() {
 		// get_my_events or find_my_events
-		get_my_events(false, false, function(events) {
+		get_my_events({include_closed: false, include_history: false, only_my_owner: true}, function(events) {
 			for (var i in events) {
 				var e = events[i];
 				get_event(e.id, function(event) {
@@ -185,7 +185,7 @@ $(function() {
 
 $(function() {
 	$('#test4').click(function() {
-		get_my_events(true, true, function(events) {
+		get_my_events({include_closed: true, include_history: true}, function(events) {
 			for (var i in events) {
 				var e = events[i];
 				delete_event(e.id);

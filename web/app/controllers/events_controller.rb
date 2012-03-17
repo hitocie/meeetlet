@@ -144,7 +144,13 @@ class EventsController < ApiController
                           # )
     
     when "public-events"
-      conditions = ["privateOnly = ? AND canceled = ?", false, false]
+      user_id = session[:user][:id]
+      conditions = nil
+      if params[:only_my_owner] == "false" then
+        conditions = ["privateOnly = ? AND canceled = ?", false, false]
+      else
+        conditions = ["events.user_id = ? AND privateOnly = ? AND canceled = ?", user_id, false, false]
+      end
       make_common_conditions(conditions, params[:include_closed], params[:include_history])
       @events = Event.find(:all, 
                            :conditions => conditions,
@@ -154,8 +160,12 @@ class EventsController < ApiController
     
     when "my-events"
       user_id = session[:user][:id]
-      conditions =
-        ["(events.user_id = ? OR participants.user_id = ?) AND canceled = ?", user_id, user_id, false]
+      conditions = nil
+      if params[:only_my_owner] == "false" then
+        conditions = ["(events.user_id = ? OR participants.user_id = ?) AND canceled = ?", user_id, user_id, false]
+      else
+        conditions = ["events.user_id = ? AND canceled = ?", user_id, false]
+      end
       make_common_conditions(conditions, params[:include_closed], params[:include_history])
       @events = Event.find(:all, 
                            :conditions => conditions,
@@ -166,9 +176,13 @@ class EventsController < ApiController
     when "find-events"
       user_id = session[:user][:id]
       query = "%#{params[:keyword]}%"
-      conditions =
-        ["(events.user_id = ? OR participants.user_id = ?) AND canceled = ? AND title LIKE ?", 
-          user_id, user_id, false, query]
+      conditions = nil
+      if params[:only_my_owner] == "false" then
+        conditions = ["(events.user_id = ? OR participants.user_id = ?) AND canceled = ? AND title LIKE ?", 
+                      user_id, user_id, false, query]
+      else
+        conditions = ["events.user_id = ? AND canceled = ? AND title LIKE ?", user_id, false, query]
+      end
       make_common_conditions(conditions, params[:include_closed], params[:include_history])
       @events = Event.find(:all,
                            :conditions => conditions, 
