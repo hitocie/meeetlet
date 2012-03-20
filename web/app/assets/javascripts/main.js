@@ -64,6 +64,11 @@ $(function() {
 	  title: '参加できそうな人',
 	  content: '<img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/><img src="images/friend1.png" width="30px"/>'
   });
+  
+  // back modal
+  $('#back-modal').on('hide', function() {
+	  $('.front-modal').modal({backdrop:false}).modal('hide');
+  });
 
   /// for server api
   // logout
@@ -74,7 +79,7 @@ $(function() {
   });
  
   // get my event list. 
-  get_my_events(true, true, function(data) {
+  get_my_events({include_closed: true, include_history: true, only_my_owner: false}, function(data) {
 	  if (data == null) {
 		  return;
 	  }
@@ -260,6 +265,69 @@ $(function() {
 		  }; 
 	  });
   }
+  
+  // invite attend btn.
+  $('#invite-attend-btn').click(function() {
+	  $('#invite-modal').modal('hide').on('hidden', function() {
+		  $('#reply-attend-event').modal({backdrop:false}).modal('show').on('shown', function() {
+			  $('#invite-modal').off('hidden');
+		  });
+	  });
+  });
+  
+  // reply invite cancel btn.
+  $('#reply-invite-cancel-btn').click(function() {
+	 $('#reply-attend-event').modal('hide').on('hidden', function() {
+		 $('#invite-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			 $('#reply-attend-event').off('hidden');
+		 });
+	 });
+  });
+  
+  // invite attend btn.
+  $('#invite-absent-btn').click(function() {
+	  $('#invite-modal').modal('hide').on('hidden', function() {
+		  $('#reply-absent-event').modal({backdrop:false}).modal('show').on('shown', function() {
+			  $('#invite-modal').off('hidden');
+		  });
+	  });
+  });
+  
+  // reply absent cancel btn.
+  $('#reply-absent-cancel-btn').click(function() {
+	 $('#reply-absent-event').modal('hide').on('hidden', function() {
+		 $('#invite-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			 $('#reply-absent-event').off('hidden');
+		 });
+	 });
+  });
+  
+  // arrange absent btn.
+  $('#arrange-absent-btn').click(function() {
+	  $('#arrange-modal').modal('hide').on('hidden', function() {
+		  $('#reply-arrange-absent').modal({backdrop:false}).modal('show').on('shown', function() {
+			 $('#arrange-modal').off('hidden'); 
+		  });
+	  });
+  });
+  
+  // reply absent cancel btn.
+  $('#reply-arrange-absent-cancel-btn').click(function() {
+	 $('#reply-arrange-absent').modal('hide').on('hidden', function() {
+		 $('#arrange-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			 $('#reply-arrange-absent').off('hidden');
+		 });
+	 });
+  });
+  
+  // recommend friend btn.
+  $('.recommend-friend-btn').click(function() {
+	  $('.friends-modal').modal('hide').on('hidden', function() {
+		  $('#recommend-friends-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			  $('.friends-modal').off('hidden');
+		  });
+	  });
+  });
 });
 
 // private method.
@@ -352,9 +420,9 @@ function setInviteFriendModal(event) {
 		  if (attend == null) {
 			  fstr += '<td><span class="label">未回答</span></td>'
 		  } else if (attend == 0) {
-			  fstr += '<td><span class="label label-success">参加</span></td>';
-		  } else if (attend == 1) {
 			  fstr += '<td><span class="label label-important">欠席</span></td>';
+		  } else if (attend == 1) {
+			  fstr += '<td><span class="label label-success">参加</span></td>';
 		  } else {
 			  return;
 		  }
@@ -373,22 +441,22 @@ function setArrangeFriendModal(event) {
 	for (var i=0; i<parts.length; i++) {
 		var f = parts[i].friend;
 		fstr += '<div class="accordion-group"><div class="accordion-heading">'
-			+ '<a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend'+f.id+'" style="text-decoration:none">'
-			+ '<img src="https://graph.facebook.com/'+f.id+'/picture" />'
+			+ '<a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend'+f.uid+'" style="text-decoration:none">'
+			+ '<img src="https://graph.facebook.com/'+f.uid+'/picture" />'
 			+ '<span class="both-padding">'+f.name+'</span>';
 		var attend = parts[i].attend;
 		if (attend == null) {
 			fstr += '<span class="label">未回答</span>';
 		} else if (attend == 0) {
-			fstr += '<span class="label label-success">参加</span>';
-		} else if (attend == 1) {
 			fstr += '<span class="label label-important">欠席</span>';
+		} else if (attend == 1) {
+			fstr += '<span class="label label-success">参加</span>';
 		} else {
 			return;
 		};
 		fstr += '</a></div>';
 		
-		fstr += '<div id="friend'+f.id+'" class="accordion-body collapse">'
+		fstr += '<div id="friend'+f.uid+'" class="accordion-body collapse">'
 			+ '<div class="accordion-inner">';
 		var prePart = parts[i].preParticipant;
 		if (typeof prePart != 'undefined') {

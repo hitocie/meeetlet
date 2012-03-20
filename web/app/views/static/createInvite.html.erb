@@ -12,9 +12,8 @@
     <![endif]-->
 
     <!-- Le styles -->
-	<!--
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-	-->
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -24,11 +23,9 @@
         padding: 9px 0;
       }
     </style>
-	<!--
-    <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="assets/css/docs.css">
-    <link href="assets/css/jquery-ui-1.8.17.custom.css" rel="stylesheet">
-	-->
+    <link href="assets/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="assets/docs.css">
+    <link href="assets/jquery-ui-1.8.17.custom.css" rel="stylesheet">
     <link href="assets/createInvite.css" rel="stylesheet">
 
     <!-- Le fav and touch icons -->
@@ -182,6 +179,16 @@
             </div>
           </div>
 
+          <div class="alert alert-info">このイベントの締め切りを指定してください。<span class="label label-important">必須</span></div>
+          <div class="form-horizontal">
+            <div id="deadline-control" class="control-group">
+              <label class="control-label" for="event-deadline">締め切り</label>
+              <div class="controls">
+                <input id="event-deadline" type="text" />
+              </div>
+            </div>
+          </div>
+		  
           <div class="alert alert-info">コメント（100文字以内）</div>
           <div class="form-horizontal">
             <div id="comment-control" class="control-group">
@@ -237,20 +244,22 @@
           <dt>タイトル</dt>
 		  <dd id="ctitle"></dd>
 		  <dt>日程</dt>
-		  <dd id="cdate"></dd>
+		  <dd><input type="hidden" id="cdate-val"/><span id="cdate"></span></dd>
 		  <dt>場所</dt>
-		  <dd id="cstation"></dd>
+		  <dd><input type="hidden" id="cpref-val"/><span id="cpref"></span> <input type="hidden" id="ctrain-val"/><span id="ctrain"></span> <input type="hidden" id="cstation-val"/><span id="cstation"></span></dd>
 		  <dt>ジャンル</dt>
-		  <dd id="ccategory"></dd>
+		  <dd><input type="hidden" id="ccategory-val"/><span id="ccategory"></span></dd>
 		  <dt>店</dt>
 		  <dd id="crestaurant"></dd>
 		  <dt>最大人数</dt>
 		  <dd id="cmax"></dd>
+		  <dt>締め切り</dt>
+		  <dd id="cdeadline"></dd>
 		  <dt>コメント</dt>
 		  <dd id="ccomment"></dd>
 		</dl>
 		<label class="radio inline">
-			<input type="radio" name="check-radio" id="check-private" value="private">友人のみ公開
+			<input type="radio" name="check-radio" id="check-private" value="private" checked>友人のみ公開
 		</label>
 		<label class="radio inline">
 			<input type="radio" name="check-radio" id="check-public" value="public">全てのユーザに公開
@@ -258,7 +267,7 @@
       </div>
       <div class="modal-footer">
 	    <a href="#" class="btn" data-dismiss="modal">編集</a>
-	    <a href="#" class="btn btn-primary">作成</a>
+	    <a href="#" class="btn btn-primary" id="commit-event-btn">作成</a>
 	  </div>
 	</div>
 	        
@@ -267,12 +276,10 @@
     <!-- Placed at the end of the document so the pages load faster -->
 	<!--
     <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery-ui-1.8.17.custom.min.js"></script>
 	-->
+    <script src="assets/jquery-ui-1.8.17.custom.min.js"></script>
 	<script src="assets/jquery.ui.datepicker-ja.js"></script>
-	<!--
-    <script src="assets/js/bootstrap.min.js"></script>
-	-->
+    <script src="assets/bootstrap.min.js"></script>
 	<script src="assets/services.js"></script>
 	<script src="assets/initData.js"></script>
     <script src="assets/createInvite.js"></script>

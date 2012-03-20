@@ -12,21 +12,20 @@
     <![endif]-->
 
     <!-- Le styles -->
-	<!--
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-	-->
+
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+
     <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-	<!--
-    <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="assets/css/jquery-ui-1.8.17.custom.css" rel="stylesheet">
-	-->
-    <link href="assets/main.css" rel="stylesheet">
 
+    <link href="assets/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="assets/jquery-ui-1.8.17.custom.css" rel="stylesheet">
+    <link href="assets/main.css" rel="stylesheet">
+	
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
     <link rel="apple-touch-icon" href="assets/ico/apple-touch-icon.png">
@@ -128,7 +127,7 @@
     </div> <!-- /container -->
 
 	<!-- modal -->
-	<div class="modal hide fade" id="invite-modal">
+	<div class="modal hide fade front-modal" id="invite-modal">
 	  <div class="modal-header">
 	    <a class="close close-back" data-dismiss="modal">x</a>
 	    <h3 id="invite-modal-title"></h3>
@@ -146,12 +145,12 @@
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
-	    <a href="#" class="btn btn-danger">欠席する</a>
-	    <a href="#" class="btn btn-primary">参加する</a>
+	    <a href="#" class="btn btn-danger" id="invite-absent-btn">欠席する</a>
+	    <a href="#" class="btn btn-primary" id="invite-attend-btn">参加する</a>
 	  </div>
 	</div>
 	
-	<div class="modal hide fade" id="arrange-modal">
+	<div class="modal hide fade front-modal" id="arrange-modal">
 	  <div class="modal-header">
 	    <a class="close close-back" data-dismiss="modal">x</a>
 	    <h3 id="arrange-modal-title"></h3>
@@ -170,12 +169,12 @@
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
-	    <a href="#" class="btn btn-danger">欠席する</a>
+	    <a href="#" class="btn btn-danger" id="arrange-absent-btn">欠席する</a>
 	    <a href="#" class="btn btn-primary" id="arrange-btn">調整する</a>
 	  </div>
 	</div>
 	
-	<div class="modal hide fade" id="public-modal">
+	<div class="modal hide fade front-modal" id="public-modal">
 	  <div class="modal-header">
 	    <a class="close" data-dismiss="modal">x</a>
 	    <h3>NoSQL勉強会</h3>
@@ -197,7 +196,7 @@
 	  </div>
 	</div>
 	
-	<div class="modal hide fade" id="invite-friends-modal">
+	<div class="modal hide fade front-modal friends-modal" id="invite-friends-modal">
 	  <div class="modal-header">
 	    <a class="close close-back" data-dismiss="modal">x</a>
 	    <h3 id="invite-friends-modal-title">お誘い中の友達</h3>
@@ -210,123 +209,26 @@
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
-	    <a href="#" class="btn btn-warning">招待する</a>
+	    <a href="#" class="btn btn-warning recommend-friend-btn" >招待する</a>
 	  </div>
 	</div>
 	
-	<div class="modal hide fade" id="arrange-friends-modal">
+	<div class="modal hide fade front-modal friends-modal" id="arrange-friends-modal">
 	  <div class="modal-header">
 	    <a class="close close-back" data-dismiss="modal">x</a>
 	    <h3>お誘い中の友達</h3>
 	  </div>
 	  <div class="modal-body">
 	    <div class="accordion" id="arrange-friends-accordion">
-	      <div class="accordion-group">
-	        <div class="accordion-heading">
-	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend1" style="text-decoration:none">
-	            <img src="assets/friend1.png" />
-	            <span class="label">未回答</span>
-	          </a>
-	        </div>
-		    <div id="friend1" class="accordion-body collapse">
-		      <div class="accordion-inner">
-              </div>
-            </div>
-          </div>
-	      <div class="accordion-group">
-	        <div class="accordion-heading">
-	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend2" href="#friends2" style="text-decoration:none">
-	            <img src="assets/friend1.png" />
-	            <span class="label label-success">参加</span>
-	          </a>
-	        </div>
-		    <div id="friend2" class="accordion-body collapse">
-		      <div class="accordion-inner">
-		        <dl>
-		          <dt>日程</dt>
-		          <dd>5月12日, 5月13日, 5月14日</dd>
-		          <dt>場所</dt>
-		          <dd>東京</dd>
-		          <dt>最寄り駅</dt>
-		          <dd>東京</dd>
-		          <dt>店</dt>
-		          <dd>おまかせ</dd>
-		          <dt>コメント</dt>
-		          <dd>東京周辺がいいです。</dd>
-		        </dl>
-              </div>
-            </div>
-          </div>
-	      <div class="accordion-group">
-	        <div class="accordion-heading">
-	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend3" href="#friends3" style="text-decoration:none">
-	            <img src="assets/friend1.png" />
-	            <span class="label label-success">参加</span>
-	          </a>
-	        </div>
-		    <div id="friend3" class="accordion-body collapse">
-		      <div class="accordion-inner">
-		        <dl>
-		          <dt>日程</dt>
-		          <dd>おまかせ</dd>
-		          <dt>場所</dt>
-		          <dd>東京</dd>
-		          <dt>最寄り駅</dt>
-		          <dd>おまかせ</dd>
-		          <dt>店</dt>
-		          <dd>おまかせ</dd>
-		          <dt>コメント</dt>
-		          <dd>とくに予定はないです。よろしくお願いします。</dd>
-		        </dl>
-              </div>
-            </div>
-          </div>
-	      <div class="accordion-group">
-	        <div class="accordion-heading">
-	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend4" href="#friends4" style="text-decoration:none">
-	            <img src="assets/friend1.png" />
-	            <span class="label label-success">参加</span>
-	          </a>
-	        </div>
-		    <div id="friend4" class="accordion-body collapse">
-		      <div class="accordion-inner">
-	            <dl>
-		          <dt>日程</dt>
-		          <dd>5月12日</dd>
-		          <dt>場所</dt>
-		          <dd>東京</dd>
-		          <dt>最寄り駅</dt>
-		          <dd>おまかせ</dd>
-		          <dt>店</dt>
-		          <dd>おまかせ</dd>
-		          <dt>コメント</dt>
-		          <dd>12日以外は不可。</dd>
-		        </dl>
-              </div>
-            </div>
-          </div>
-	      <div class="accordion-group">
-	        <div class="accordion-heading">
-	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend5" href="#friends5" style="text-decoration:none">
-	            <img src="assets/friend1.png" />
-	            <span class="label label-important">欠席</span>
-	          </a>
-	        </div>
-		    <div id="friend5" class="accordion-body collapse">
-		      <div class="accordion-inner">
-		        ごめんなさい、欠席です。
-              </div>
-            </div>
-          </div>
-	    </div>
+		</div>
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
-	    <a href="#" class="btn btn-warning">招待する</a>
+	    <a href="#" class="btn btn-warning recommend-friend-btn">招待する</a>
 	  </div>
 	</div>
 	
-	<div class="modal hide fade" id="public-friends-modal">
+	<div class="modal hide fade front-modal" id="public-friends-modal">
 	  <div class="modal-header">
 	    <a class="close close-back" data-dismiss="modal">x</a>
 	    <h3>参加予定者</h3>
@@ -350,7 +252,7 @@
 	  </div>
 	</div>
 
-	<div class="modal hide fade" id="arrange-reply-modal">
+	<div class="modal hide fade front-modal" id="arrange-reply-modal">
 	  <div class="modal-header">
 	    <a class="close" data-dismiss="modal">x</a>
 	    <h3><span  id="arrange-reply-title"></span>の調整</h3>
@@ -440,7 +342,7 @@
   	          </div>
 	        </div>
 			<div class="tab-pane" id="ccomment">
-				<textarea id="arrange-reply-comment" rows="4" cols="30" maxlength="100" style="resize:none;"></textarea>
+				<textarea id="arrange-reply-comment" class="comment-textarea" rows="4" cols="30" maxlength="100" style="resize:none;"></textarea>
 			</div>
 	      </div>
 	    </div>
@@ -451,15 +353,74 @@
 	  </div>
 	</div>
 
+	<div class="modal hide fade front-modal" id="reply-arrange-absent">
+		<div class="modal-header">
+			<a class="close close-back" data-dismiss="modal">x</a>
+			<h3>欠席コメント</h3>
+		</div>
+		<div class="modal-body">
+			<textarea id="arrange-absent-reply-comment" class="comment-textarea" rows="4" cols="30" maxlength="100" style="resize:none;"></textarea>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" id="reply-arrange-absent-cancel-btn">キャンセル</a>
+			<a id="reply-arrange-absent-btn" href="#" class="btn btn-danger">欠席</a>
+		</div>
+	</div>	
+	
+	<div class="modal hide fade front-modal" id="reply-attend-event">
+		<div class="modal-header">
+			<a class="close close-back" data-dismiss="modal">x</a>
+			<h3>参加コメント</h3>
+		</div>
+		<div class="modal-body">
+			<textarea id="invite-reply-comment" class="comment-textarea" rows="4" cols="30" maxlength="100" style="resize:none;"></textarea>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" id="reply-invite-cancel-btn">キャンセル</a>
+			<a id="reply-invite-btn" href="#" class="btn btn-primary">参加！</a>
+		</div>
+	</div>
+
+	<div class="modal hide fade front-modal" id="reply-absent-event">
+		<div class="modal-header">
+			<a class="close close-back" data-dismiss="modal">x</a>
+			<h3>欠席コメント</h3>
+		</div>
+		<div class="modal-body">
+			<textarea id="absent-reply-comment" class="comment-textarea" rows="4" cols="30" maxlength="100" style="resize:none;"></textarea>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" id="reply-absent-cancel-btn">キャンセル</a>
+			<a id="reply-absent-btn" href="#" class="btn btn-danger">欠席</a>
+		</div>
+	</div>	
+	
+	<div class="modal hide fade front-modal" id="recommend-friends-modal">
+      <div class="modal-header">
+	    <a class="close close-back" data-dismiss="modal">x</a>
+	    <h3>招待する友達を選択してください</h3>
+      </div>
+      <div class="modal-body">
+        <table class="table table-condensed">
+          <tbody id="friends-table">
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+	    <a href="#" class="btn close-back" data-dismiss="modal">キャンセル</a>
+	    <a id="friend-select-btn" href="#" class="btn btn-warning">選択</a>
+	  </div>
+    </div>
+	
 	<div class="modal hide fade" id="back-modal"></div>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	<!--
     <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery-ui-1.8.17.custom.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
 	-->
+    <script src="assets/jquery-ui-1.8.17.custom.min.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
 	<script src="assets/services.js"></script>
 	<script src="assets/initData.js"></script>
     <script src="assets/main.js"></script>
