@@ -66,9 +66,18 @@ function sync_request(args) {
 
 // login
 function is_login(p) {
+	var url = root_url + 'auths/1';
+	var data = {service: 'is-login'};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'auths/1',
-		data: {service: 'is-login'},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -76,9 +85,18 @@ function is_login(p) {
 }
 // logout
 function logout(p) {
+	var url = root_url + 'auths/1';
+	var data = {service: 'logout'};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'auths/1',
-		data: {service: 'logout'},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p();
 		}
@@ -87,18 +105,36 @@ function logout(p) {
 // user
 // NOTE: The way to get picture: https://graph.facebook.com/<uid>/picture 
 function get_me(p) {
+	var url = root_url + 'users/1';
+	var data = {service: 'get-me'};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'users/1',
-		data: {service: 'get-me'},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
 	});
 }
 function get_my_friends(p) {
+	var url = root_url + 'users/1';
+	var data = {service: 'get-my-friends'};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'users/1',
-		data: {service: 'get-my-friends'},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -242,12 +278,22 @@ function get_public_events(options, p) {
 	var include_history = options.include_history
 	if (typeof include_history === 'undefined')
 		include_history = false;
+
+	var url = root_url + 'events';
+	var data = {service: 'public-events', 
+			   only_my_owner: only_my_owner,
+			   include_closed: include_closed,
+			   include_history: include_history};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-			url: root_url + 'events',
-			data: {service: 'public-events', 
-				   only_my_owner: only_my_owner,
-				   include_closed: include_closed,
-				   include_history: include_history},
+			url: url,
+			data: data,
 			success_handler: function(data, status) {
 				p(data);
 			}
@@ -263,12 +309,22 @@ function get_my_events(options, p) {
 	var include_history = options.include_history
 	if (typeof include_history === 'undefined')
 		include_history = false;
+	
+	var url = root_url + 'events';
+	var data = {service: 'my-events',
+			   only_my_owner: only_my_owner,
+			   include_closed: include_closed, 
+			   include_history: include_history};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-			url: root_url + 'events',
-			data: {service: 'my-events',
-				   only_my_owner: only_my_owner,
-				   include_closed: include_closed, 
-				   include_history: include_history},
+			url: url,
+			data: data,
 			success_handler: function(data, status) {
 				p(data);
 			}
@@ -284,21 +340,38 @@ function find_my_events(keyword, options, p) {
 	var include_history = options.include_history
 	if (typeof include_history === 'undefined')
 		include_history = false;
+	
+	var url = root_url + 'events';
+	var data = {service: 'find-events',
+			    keyword: keyword, 
+			    only_my_owner: only_my_owner,
+			    include_closed: include_closed, 
+			    include_history: include_history};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-			url: root_url + 'events',
-			data: {service: 'find-events',
-				   keyword: keyword, 
-				   only_my_owner: only_my_owner,
-				   include_closed: include_closed, 
-				   include_history: include_history},
+			url: url,
+			data: data,
 			success_handler: function(data, status) {
 				p(data);
 			}
 	});
 }
 function get_event(id, p) {
+	var url = root_url + 'events/' + id;
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'events/' + id,
+		url: url,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -307,16 +380,30 @@ function get_event(id, p) {
 
 // -- common services --
 function get_all_genres(p) {
+	var url = root_url + 'genres';
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'genres',
+		url: url,
 		success_handler: function(data, status) {
 			p(data);
 		}
 	});
 }
 function get_all_budgets(p) {
+	var url = root_url + 'budgets';
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'budgets',
+		url: url,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -324,8 +411,15 @@ function get_all_budgets(p) {
 }
 
 function get_all_prefectures(p) {
+	var url = root_url + 'prefectures';
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'prefectures',
+		url: url,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -333,18 +427,36 @@ function get_all_prefectures(p) {
 }
 
 function get_cities(prefecture_id, p) {
+	var url = root_url + 'cities';
+	var data = {service: "get-cities", prefecture_id: prefecture_id};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'cities',
-		data: {service: "get-cities", prefecture_id: prefecture_id},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
 	});
 }
 function find_cities(name, prefecture_id, p) {
+	var url = root_url + 'cities';
+	var data = {service: 'find-cities', name: name, prefecture_id: prefecture_id};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'cities',
-		data: {service: 'find-cities', name: name, prefecture_id: prefecture_id},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -352,9 +464,18 @@ function find_cities(name, prefecture_id, p) {
 }
 
 function get_trains(prefecture_id, p) {
+	var url = root_url + 'trains';
+	var data = {prefecture_id: prefecture_id};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'trains.json',
-		data: {prefecture_id: prefecture_id},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -362,18 +483,36 @@ function get_trains(prefecture_id, p) {
 }
 
 function get_stations(train_id, p) {
+	var url = root_url + 'stations';
+	var data = {service: 'get-stations', train_id: train_id};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'stations',
-		data: {service: 'get-stations', train_id: train_id},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
 	});
 }
 function find_stations(name, p) {
+	var url = root_url + 'stations';
+	var data = {service: 'find-stations', name: name};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'stations',
-		data: {service: 'find-stations', name: name},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -382,14 +521,23 @@ function find_stations(name, p) {
 
 // TODO: Add lat and lng if necessary.
 function find_shops(keyword, prefecture_id, city_id, station_id, genre_id, p) {
+	var url = root_url + 'shops';
+	var data = {service: 'find-shops', 
+			    prefecture_id: prefecture_id, 
+			    city_id: city_id,
+			    station_id: station_id,
+			    genre_id: genre_id,
+			    keyword: keyword};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'shops',
-		data: {service: 'find-shops', 
-			   prefecture_id: prefecture_id, 
-			   city_id: city_id,
-			   station_id: station_id,
-			   genre_id: genre_id,
-			   keyword: keyword},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
@@ -405,9 +553,18 @@ function post_news(date, content) {
 	});
 }
 function get_news(p) {
+	var url = root_url + 'news';
+	var data = {service: 'get-news'};
+	if (typeof p === 'undefined') {
+		var response = sync_request({
+			url: url,
+			data: data
+		});
+		return response;
+	}
 	async_request({
-		url: root_url + 'news',
-		data: {service: 'get-news'},
+		url: url,
+		data: data,
 		success_handler: function(data, status) {
 			p(data);
 		}
