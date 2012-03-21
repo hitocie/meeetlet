@@ -22,24 +22,7 @@ class StationsController < ApiController
       raise "Cannot find Station objects." 
     end
 
-    ret = @stations.collect do |s|
-      {
-        :id => s.id,
-        :name => s.name,
-        :yomi => s.yomi,
-        :lat => s.lat,
-        :lng => s.lng,
-        :train => {
-          :id => s.train.id,
-          :name => s.train.name,
-          :pref => {
-            :id => s.train.prefecture.id,
-            :name => s.train.prefecture.name
-          }
-        }
-      }
-    end.to_json
-    render :json => ret
+    render :json => to_plain_stations(@stations).to_json
   end
   
 end

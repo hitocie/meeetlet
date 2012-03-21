@@ -84,4 +84,54 @@ class ApiController < ActionController::Base
     user.save
     return user
   end
+
+  # format
+  def to_plain_cities(cities)
+    cities.collect do |c|
+      {
+        :id => c.id,
+        :name => c.name,
+        :yomi => c.yomi,
+        :pref => {
+          :id => c.prefecture.id,
+          :name => c.prefecture.name
+        }
+      }
+    end
+  end
+  def to_plain_budgets(budgets)
+    budgets.collect do |b|
+      {
+        :id => b.id,
+        :price => b.price
+      }
+    end
+  end
+  def to_plain_genres(genres)
+    genres.collect do |g|
+      {
+        :id => g.id,
+        :name => g.name
+      }
+    end
+  end
+  def to_plain_stations(stations)
+    stations.collect do |s|
+      {
+        :id => s.id,
+        :name => s.name,
+        :yomi => s.yomi,
+        :lat => s.lat,
+        :lng => s.lng,
+        :train => {
+          :id => s.train.id,
+          :name => s.train.name,
+          :pref => {
+            :id => s.train.prefecture.id,
+            :name => s.train.prefecture.name
+          }
+        }
+      }
+    end
+  end
 end

@@ -273,12 +273,28 @@ class EventsController < ApiController
       
     when "create-pre-event"
       Event.transaction do
+        # Get objects from ids.
+        cities = 
+          to_plain_cities(City.find(:all, 
+                                    :conditions => ["id IN (?)", e[:cities]], 
+                                    :include => :prefecture))
+        stations = 
+          to_plain_stations(Station.find(:all, 
+                                         :conditions => ["id IN (?)", e[:stations]],
+                                         :include => {:train => :prefecture}))
+        budgets =
+          to_plain_budgets(Budget.find(:all,
+                                       :conditions => ["id IN (?)", e[:budgets]]))
+        genres =
+          to_plain_genres(Genre.find(:all,
+                                     :conditions => ["id IN (?)", e[:genres]]))
+        # Create pre event.
         pre_event = PreEvent.new(
           :dates => e[:dates],
-          :cities => e[:cities],
-          :stations => e[:stations],
-          :budgets => e[:budgets],
-          :genres => e[:genres],
+          :cities => cities, 
+          :stations => stations,
+          :budgets => budgets,
+          :genres => genres,
           :shops => e[:shops]
         )
         pre_event.save!
@@ -296,12 +312,12 @@ class EventsController < ApiController
         users = User.where(:uid => participants)
         # own data
         pp = PreParticipant.new(
-          :dates => Array.new(e[:dates].size, 0),
-          :cities => Array.new(e[:cities].size, 0),
-          :stations => Array.new(e[:stations].size, 0),
-          :budgets => Array.new(e[:budgets].size, 0),
-          :genres => Array.new(e[:genres].size, 0),
-          :shops => Array.new(e[:shops].size, 0)
+          :dates => Array.new(e[:dates].size, 1),
+          :cities => Array.new(e[:cities].size, 1),
+          :stations => Array.new(e[:stations].size, 1),
+          :budgets => Array.new(e[:budgets].size, 1),
+          :genres => Array.new(e[:genres].size, 1),
+          :shops => Array.new(e[:shops].size, 1)
         )
         pp.save!
         participant = 

@@ -151,10 +151,10 @@ $(function() {
 		var pe = create_pre_event(
 				'同窓会', // title
 				['2012-09-10 20:00:00', '2012-12-12 20:00:00'], // dates
-				[g_cities[_n(10)], g_cities[_n(10)], g_cities[_n(10)]], // city objects from get/find_cities function.
-				[g_stations[_n(10)], g_stations[_n(10)]], // station objects from get/find_stations function.
-				[g_budgets[_n(15)]], // budget objects from get_all_genres function.
-				[g_genres[_n(11)], g_genres[_n(11)]], // genre objects from get_all_genres
+				[_n(10), _n(10), _n(10)], //[g_cities[_n(10)], g_cities[_n(10)], g_cities[_n(10)]], // city objects from get/find_cities function.
+				[_n(10), _n(10)], // station objects from get/find_stations function.
+				[_n(15)], // budget objects from get_all_genres function.
+				[_n(11), _n(11)], // genre objects from get_all_genres
 				[g_shops[_n(10)], g_shops[_n(10)], g_shops[_n(10)]], // TODO: shops
 				'イベント調整しています。', // comment
 				-1, // max number

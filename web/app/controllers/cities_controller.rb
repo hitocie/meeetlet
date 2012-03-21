@@ -27,34 +27,7 @@ class CitiesController < ApiController
       raise "Not find City objects."
     end
     
-    ret = @cities.collect do |c|
-      {
-        :id => c.id,
-        :name => c.name,
-        :yomi => c.yomi,
-        :pref => {
-          :id => c.prefecture.id,
-          :name => c.prefecture.name
-        }
-      }
-    end.to_json
-    render :json => ret
-  end
-  
-  def show 
-    @prefecture = Prefecture.find(params[:id], :include => :prefecture)
-    ret = @cities.collect do |c|
-      {
-        :id => c.id,
-        :name => c.name,
-        :yomi => c.yomi,
-        :pref => {
-          :id => c.prefecture.id,
-          :name => c.prefecture.name
-        }
-      }
-    end.to_json
-    render :json => ret
+    render :json => to_plain_cities(@cities).to_json
   end
   
 end
