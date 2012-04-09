@@ -97,6 +97,7 @@ $(window).load(function(){
 					g_friends = friends;
 					for (var i in friends) {
 						var f = friends[i];
+						console.log(JSON.stringify(f));
 						$('.friends').append('<img src="https://graph.facebook.com/' + f.uid + '/picture"/>');
 					}
 				});
@@ -116,9 +117,7 @@ function _n(n) {
 // event handlers
 $(function() {
 	$('#test1').click(function() {
-		post_news('2012/09/10', 'News1だよん。');
-		post_news('2012/09/11', 'News2だよん。');
-		post_news('2012/09/12', 'News3だよん。');
+		post_news(new Date(), 'Newsだよん。');
 		get_news(function(news) {
 			for (var i in news) {
 				var v = news[i];
@@ -133,7 +132,7 @@ $(function() {
 
 		var e = create_event(
 				'おもしろイベント開催', // title
-				'2012-12-03 10:10:10', // date
+				'2012-12-12 10:10:10', // date
 				_n(1800), // city
 				_n(10000), // station
 				_n(15), // budget
@@ -141,12 +140,12 @@ $(function() {
 				g_shops[_n(10)].name, // shop
 				'いけているよ〜', // comment
 				_n(10), // max number
-				'2012-04-04 10:10:10', // deadline
+				'2013-04-04 10:10:10', // deadline
 				true, // private?
 				[g_friends[0], g_friends[1]] // participants
 		);
-		reply_event(e.id, 0, '参加したいですね。');
-		invite_friends(e.id, [g_friends[2]]);
+		reply_event(e.id, answer.OK, '参加したいですね。');
+		invite_friends(e.id, [{name:"Hiroaki  Tatani",uid:"100003524392649"}, g_friends[3]]);
 		
 		var pe = create_pre_event(
 				'同窓会', // title
@@ -162,21 +161,19 @@ $(function() {
 				true, // private?
 				[g_friends[3], g_friends[4], g_friends[5]] // participants
 		);
-		reply_pre_event(pe.id, [1,1], [0,0,0], [1, 0], [0], [0,0], [0,0,0], '是非開催しよう！');
+		reply_pre_event(pe.id, [answer.OK, answer.OK], [answer.NG, answer.NG, answer.NG], [answer.OK, answer.NG], [answer.NG], [answer.NG, answer.NG], [answer.NG, answer.NG, answer.NG], '是非開催しよう！');
 	});
 });
 
 $(function() {
 	$('#test3').click(function() {
 		// get_my_events or find_my_events
-		get_my_events({include_closed: false, include_history: false, only_my_owner: true}, function(events) {
+		get_my_events({include_closed: false, include_history: false, only_my_owner: false, is_attend: answer.OK}, function(events) {
 			for (var i in events) {
 				var e = events[i];
 				get_event(e.id, function(event) {
 					console.log('[Event=' + event.id + '] title=' + event.title + ' owner=' + event.owner.name + ' date=' + event.date);
-					//console.log('[Event] ' + JSON.stringify(e));
-					console.log('  +details: comment=' + event.comment + ' shop=' + event.shop + ' private?=' + event.privateOnly);
-					//console.log(' [Event detail] ' + JSON.stringify(event));
+					console.log('  +details: comment=' + event.comment + ' shop=' + event.shop + ' private?=' + event.privateOnly + ' preEvent=' + event.preEvent);
 				});
 			}
 		});

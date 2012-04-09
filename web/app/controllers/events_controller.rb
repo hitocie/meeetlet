@@ -117,7 +117,7 @@ class EventsController < ApiController
     end
   end
   
-  def make_common_conditions(conditions, include_closed, include_history)
+  def make_common_conditions(conditions, include_closed, include_history, is_attend)
     if include_closed == "false" then
       conditions[0] << " AND closed = ?"
       conditions << false
@@ -126,6 +126,11 @@ class EventsController < ApiController
       conditions[0] << " AND (date IS NULL OR date > ?)"
       conditions << DateTime.now
     end
+    if is_attend != "null" then
+      conditions[0] << " AND participants.attend = ?"
+      conditions << is_attend
+    end
+
   end
   
   
@@ -151,7 +156,7 @@ class EventsController < ApiController
       else
         conditions = ["events.user_id = ? AND privateOnly = ? AND canceled = ?", user_id, false, false]
       end
-      make_common_conditions(conditions, params[:include_closed], params[:include_history])
+      make_common_conditions(conditions, params[:include_closed], params[:include_history], params[:is_attend])
       @events = Event.find(:all, 
                            :conditions => conditions,
                            :order => :date,
@@ -166,7 +171,7 @@ class EventsController < ApiController
       else
         conditions = ["events.user_id = ? AND canceled = ?", user_id, false]
       end
-      make_common_conditions(conditions, params[:include_closed], params[:include_history])
+      make_common_conditions(conditions, params[:include_closed], params[:include_history], params[:is_attend])
       @events = Event.find(:all, 
                            :conditions => conditions,
                            :order => :date,
@@ -183,7 +188,7 @@ class EventsController < ApiController
       else
         conditions = ["events.user_id = ? AND canceled = ? AND title LIKE ?", user_id, false, query]
       end
-      make_common_conditions(conditions, params[:include_closed], params[:include_history])
+      make_common_conditions(conditions, params[:include_closed], params[:include_history], params[:is_attend])
       @events = Event.find(:all,
                            :conditions => conditions, 
                            :order => :date,
@@ -259,12 +264,12 @@ class EventsController < ApiController
         participant = 
           @event.participants.build(
             :user_id => session[:user][:id],
-            :attend => true
+            :attend => ANSWER[:pending]
           )
         participant.save!
         # friends data
         for u in users do
-          participant = @event.participants.build(:user_id => u.id)
+          participant = @event.participants.build(:user_id => u.id, :attend => ANSWER[:pending])
           participant.save!
         end
         # put event to Facebook. TODO: should add meeetlet url
@@ -323,13 +328,13 @@ class EventsController < ApiController
         participant = 
           @event.participants.build(
             :user_id => session[:user][:id],
-            :attend => true,
+            :attend => ANSWER[:pending],
             :preParticipant_id => pp.id
           )
         participant.save!
         # friends data
         for u in users do
-          participant = @event.participants.build(:user_id => u.id)
+          participant = @event.participants.build(:user_id => u.id, :attend => ANSWER[:pending])
           participant.save!
         end
       end
@@ -383,7 +388,7 @@ class EventsController < ApiController
     when "invite-event"
       friends = params[:friends]
       max_num = @event.maxNumber
-      if max_num != -1 then
+      if max_num > -1 then
         if max_num - @event.participants.size - friends.size < 0 then
           raise "Could not invite due to overcrowded!"
         end
@@ -398,7 +403,7 @@ class EventsController < ApiController
     
         for id in ids do
           # TODO: if it has already had the same uid, it should return error. or "uniqueness validation"
-          @event.participants.build(:user_id => id)
+          @event.participants.build(:user_id => id, :attend => ANSWER[:pending])
           # TODO: send private message to Facebook.
         end
       end

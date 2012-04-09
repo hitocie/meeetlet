@@ -11,6 +11,8 @@ class ApiController < ActionController::Base
   GNAVI_APP_ID = "5bbd8a15a23d4efb011e8f45fa75ee84"
   GNAVI_SITE_PAGE = "http://api.gnavi.co.jp/ver1/"
 
+  ANSWER = {:pending => -1, :NG => 0, :OK => 1}
+  
   protect_from_forgery
   
   # NOTE: The follows is workaround to use sessions. (CSRF token authenticity)
