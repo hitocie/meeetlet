@@ -74,7 +74,7 @@ $(function() {
   // logout
   $('#logout').click(function() {
 	  logout(function() {
-		  document.location.href="index.html";
+		  document.location.href="/";
 	  })
   });
  
