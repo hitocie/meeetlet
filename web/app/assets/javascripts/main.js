@@ -12,7 +12,6 @@ $(function() {
     }
   } else {
     get_me(function(me) {
-      alert(me.name);
       $('#myname').html(me.name);
     });
   };
@@ -522,15 +521,15 @@ function setInviteFriendModal(event) {
 		  	+ '<td>'+f.name+'</td>'
 		  	+ '<td>'+(parts[i].comment == null ? "" : parts[i].comment)+'</td>';
 		  var attend = parts[i].attend;
-		  if (attend == null) {
-			  fstr += '<td><span class="label">未回答</span></td>'
-		  } else if (attend == 0) {
-			  fstr += '<td><span class="label label-important">欠席</span></td>';
-		  } else if (attend == 1) {
-			  fstr += '<td><span class="label label-success">参加</span></td>';
-		  } else {
-			  return;
-		  }
+	  if (attend == answer.pending) {
+              fstr += '<td><span class="label">未回答</span></td>'
+      } else if (attend == answer.OK) {
+              fstr += '<td><span class="label label-important">参加</span></td>';
+      } else if (attend == answer.NG) {
+              fstr += '<td><span class="label label-success">欠席</span></td>';
+      } else {
+              return;
+      }
 		  fstr += '<input type="hidden" name="ifval" value="'+f.uid+'" />';
 		  fstr += '</tr>';
 	  }	
