@@ -209,7 +209,7 @@
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
-	    <a href="#" class="btn btn-warning recommend-friend-btn" >招待する</a>
+	    <a href="#" class="btn btn-warning recommend-friend-btn" id="invite-recommend-friends-btn" >招待する</a>
 	  </div>
 	</div>
 	
@@ -224,7 +224,7 @@
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn close-back" data-dismiss="modal">閉じる</a>
-	    <a href="#" class="btn btn-warning recommend-friend-btn">招待する</a>
+	    <a href="#" class="btn btn-warning recommend-friend-btn" id="arrange-recommend-friends-btn">招待する</a>
 	  </div>
 	</div>
 	
@@ -395,20 +395,37 @@
 		</div>
 	</div>	
 	
-	<div class="modal hide fade front-modal" id="recommend-friends-modal">
+	<div class="modal hide fade front-modal" id="invite-recommend-friends-modal">
       <div class="modal-header">
 	    <a class="close close-back" data-dismiss="modal">x</a>
 	    <h3>招待する友達を選択してください</h3>
       </div>
       <div class="modal-body">
         <table class="table table-condensed">
-          <tbody id="friends-table">
+          <tbody class="friends-table" id="invite-friends-table">
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
-	    <a href="#" class="btn close-back" data-dismiss="modal">キャンセル</a>
-	    <a id="friend-select-btn" href="#" class="btn btn-warning">選択</a>
+	    <a href="#" class="btn" id="invite-recommend-friends-cancel-btn">キャンセル</a>
+	    <a id="invite-friend-select-btn" href="#" class="btn btn-warning">選択</a>
+	  </div>
+    </div>
+	
+	<div class="modal hide fade front-modal" id="arrange-recommend-friends-modal">
+      <div class="modal-header">
+	    <a class="close close-back" data-dismiss="modal">x</a>
+	    <h3>招待する友達を選択してください</h3>
+      </div>
+      <div class="modal-body">
+        <table class="table table-condensed">
+          <tbody class="friends-table" id="arrange-friends-table">
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+	    <a href="#" class="btn" id="arrange-recommend-friends-cancel-btn">キャンセル</a>
+	    <a id="arrange-friend-select-btn" href="#" class="btn btn-warning">選択</a>
 	  </div>
     </div>
 	

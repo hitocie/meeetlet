@@ -268,9 +268,6 @@ function invite_friends(event_id, friends) {
 }
 
 
-// answer
-var answer = {pending: -1, NG: 0, OK: 1};
-
 function get_public_events(options, p) {
 	var only_my_owner = options.only_my_owner 
 	if (typeof only_my_owner === 'undefined')
@@ -281,16 +278,12 @@ function get_public_events(options, p) {
 	var include_history = options.include_history
 	if (typeof include_history === 'undefined')
 		include_history = false;
-	var is_attend = options.is_attend;
-	if (typeof is_attend === 'undefined')
-		is_attend = null;
 
 	var url = root_url + 'events';
 	var data = {service: 'public-events', 
 			   only_my_owner: only_my_owner,
 			   include_closed: include_closed,
-			   include_history: include_history,
-			   is_attend: is_attend};
+			   include_history: include_history};
 	if (typeof p === 'undefined') {
 		var response = sync_request({
 			url: url,
@@ -316,16 +309,12 @@ function get_my_events(options, p) {
 	var include_history = options.include_history
 	if (typeof include_history === 'undefined')
 		include_history = false;
-	var is_attend = options.is_attend;
-	if (typeof is_attend === 'undefined')
-		is_attend = null;
 	
 	var url = root_url + 'events';
 	var data = {service: 'my-events',
 			   only_my_owner: only_my_owner,
 			   include_closed: include_closed, 
-			   include_history: include_history,
-			   is_attend: is_attend};
+			   include_history: include_history};
 	if (typeof p === 'undefined') {
 		var response = sync_request({
 			url: url,
@@ -351,17 +340,13 @@ function find_my_events(keyword, options, p) {
 	var include_history = options.include_history
 	if (typeof include_history === 'undefined')
 		include_history = false;
-	var is_attend = options.is_attend;
-	if (typeof is_attend === 'undefined')
-		is_attend = null;
-
+	
 	var url = root_url + 'events';
 	var data = {service: 'find-events',
 			    keyword: keyword, 
 			    only_my_owner: only_my_owner,
 			    include_closed: include_closed, 
-			    include_history: include_history,
-			    is_attend: is_attend};
+			    include_history: include_history};
 	if (typeof p === 'undefined') {
 		var response = sync_request({
 			url: url,

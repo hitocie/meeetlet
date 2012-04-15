@@ -92,7 +92,7 @@ $(function() {
 			get_my_friends(function(data) {
 				  for (i in data) {
 			          $('#friends-table').append(
-				        '<tr><td><input type="checkbox friend-cb" class="checkbox" name="invited" value="'+data[i].uid+'"/></td>'
+				        '<tr><td><input type="checkbox" class="checkbox friend-cb" name="invited" value="'+data[i].uid+'"/></td>'
 					    + '<td><img src="https://graph.facebook.com/' + data[i].uid + '/picture" /></td>'
 					    + '<td class="fname">'+data[i].name+'</td></tr>'
 				      );
@@ -244,7 +244,6 @@ $(function() {
 				$('#cdeadline').text(),
 				privateOnly,
 				participants);
-	  alert(e.id);
   });
   
   // tooltip

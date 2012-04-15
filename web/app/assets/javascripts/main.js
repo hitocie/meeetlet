@@ -266,6 +266,42 @@ $(function() {
 	  });
   }
   
+  // get friends list.
+  if (typeof sessionStorage != 'undefined') {
+	  var sstr = sessionStorage;
+	  var friends = JSON.parse(sstr.getItem("friends"));
+	  if (friends != null) {
+		  for (var i in friends) {
+	          $('.friends-table').append(
+				        '<tr><td><input type="checkbox" class="checkbox friend-cb" name="invited" value="'+friends[i].uid+'"/></td>'
+					    + '<td><img src="https://graph.facebook.com/' + friends[i].uid + '/picture" /></td>'
+					    + '<td class="fname">'+friends[i].name+'</td></tr>'
+	          );
+		  }
+	  } else {
+		  get_my_friends(function(data) {
+			  for (var i in data) {
+		          $('.friends-table').append(
+					        '<tr><td><input type="checkbox" class="checkbox friend-cb" name="invited" value="'+data[i].uid+'"/></td>'
+						    + '<td><img src="https://graph.facebook.com/' + data[i].uid + '/picture" /></td>'
+						    + '<td class="fname">'+data[i].name+'</td></tr>'
+		          );
+			  }
+	          sstr.setItem("friends", JSON.stringify(data));
+	      });
+	  }
+  } else {
+	  get_my_friends(function(data) {
+		  for (var i in data) {
+	          $('.friends-table').append(
+				        '<tr><td><input type="checkbox" class="checkbox friend-cb" name="invited" value="'+data[i].uid+'"/></td>'
+					    + '<td><img src="https://graph.facebook.com/' + data[i].uid + '/picture" /></td>'
+					    + '<td class="fname">'+data[i].name+'</td></tr>'
+	          );
+		  }
+      });
+  }
+  
   // invite attend btn.
   $('#invite-attend-btn').click(function() {
 	  $('#invite-modal').modal('hide').on('hidden', function() {
@@ -321,16 +357,85 @@ $(function() {
   });
   
   // recommend friend btn.
-  $('.recommend-friend-btn').click(function() {
-	  $('.friends-modal').modal('hide').on('hidden', function() {
-		  $('#recommend-friends-modal').modal({backdrop:false}).modal('show').on('shown', function() {
-			  $('.friends-modal').off('hidden');
+  $('#invite-recommend-friends-btn').click(function() {
+	  $('#invite-friends-modal').modal('hide').on('hidden', function() {
+		  $('#invite-recommend-friends-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			  $('#invite-friends-modal').off('hidden');
 		  });
 	  });
   });
+  
+  // recommend friend btn.
+  $('#arrange-recommend-friends-btn').click(function() {
+	  $('#arrange-friends-modal').modal('hide').on('hidden', function() {
+		  $('#arrange-recommend-friends-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			  $('#arrange-friends-modal').off('hidden');
+		  });
+	  });
+  });
+  
+  // invite recommend friends cancel btn.
+  $('#invite-recommend-friends-cancel-btn').click(function() {
+	  hideInviteRecommendFriendsModal();
+  });
+  
+  // arrange recommend friends cancel btn.
+  $('#arrange-recommend-friends-cancel-btn').click(function() {
+	 $('#arrange-recommend-friends-modal').modal('hide').on('hidden', function() {
+		 $('#arrange-friends-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			$('#arrange-recommend-friends-modal').off('hidden');
+		 });
+	 });
+  });
+
+  // invite friend select btn.
+  $('#invite-friend-select-btn').click(function() {
+	  var eid = $('input[name="ieid"]').val();
+	  var fvallist = $('input[name="ifval"]');
+	  var fvals = {};
+	  for (var i=0; i<fvallist.length; i++) {
+		  fvals[fvallist[i].value] = 1;
+	  }
+
+	  var newf = new Array();
+	  $.each($('.friend-cb'), function(i) {
+		  if ($(this).attr('checked')) {
+			  var fuid = $(this).val();
+			  if (fvals[fuid] != 1) {
+				  var fname = $(this).parent().parent().find('.fname').text();
+				  newf.push({uid:fuid, name:fname});
+			  }
+		  }
+	  });
+	  if (newf != null) {
+		  alert(JSON.stringify(newf));
+		  alert(eid);
+		  invite_friends(eid, newf);
+		  alert("done");
+		  get_event(eid, function(e) {
+			  if (e.title == null) {
+				  return;
+			  }
+			  setInviteFriendModal(e);
+			  sstr.setItem("event-"+eid, JSON.stringify(e));
+		  });
+		  hideInviteRecommendFriendsModal();
+	  } else {
+		  
+	  }
+  });
+  
 });
 
 // private method.
+function hideInviteRecommendFriendsModal() {
+	 $('#invite-recommend-friends-modal').modal('hide').on('hidden', function() {
+		 $('#invite-friends-modal').modal({backdrop:false}).modal('show').on('shown', function() {
+			$('#invite-recommend-friends-modal').off('hidden');
+		 });
+	 });
+}
+
 function setInviteModal(event) {
 	$('#invite-modal-title').html(event.title);
 	$('#invite-modal-date').html(event.date == null ? "" : event.date);
@@ -426,9 +531,13 @@ function setInviteFriendModal(event) {
 		  } else {
 			  return;
 		  }
+		  fstr += '<input type="hidden" name="ifval" value="'+f.uid+'" />';
 		  fstr += '</tr>';
 	  }	
+	
+	  var eid = '<input type="hidden" name="ieid" value="'+event.id+'" />';
 	  $('#invite-friends-modal-body').append(fstr);
+	  $('#invite-friends-modal-body').append(eid);
 }
 
 function setArrangeFriendModal(event) {
@@ -444,6 +553,7 @@ function setArrangeFriendModal(event) {
 			+ '<a class="accordion-toggle" data-toggle="collapse" data-parent="#arrange-friends-accordion" data-target="#friend'+f.uid+'" style="text-decoration:none">'
 			+ '<img src="https://graph.facebook.com/'+f.uid+'/picture" />'
 			+ '<span class="both-padding">'+f.name+'</span>';
+		fstr += '<input type="hidden" name="afval" value="'+f.uid+'" />';
 		var attend = parts[i].attend;
 		if (attend == null) {
 			fstr += '<span class="label">未回答</span>';
@@ -519,7 +629,10 @@ function setArrangeFriendModal(event) {
 		}
 		fstr += '</div></div></div>';
 	};
+	
+	var eid = '<input type="hidden" name="aeid" value="'+event.id+'" />';
 	$('#arrange-friends-accordion').append(fstr);
+	$('#arrange-friends-accordion').append(eid);
 }
 
 function setArrangeReplyModal(event) {
