@@ -133,7 +133,7 @@ $(function() {
 
 		var e = create_event(
 				'おもしろイベント開催', // title
-				'2012-12-03 10:10:10', // date
+				'2013-12-03 10:10:10', // date
 				_n(1800), // city
 				_n(10000), // station
 				_n(15), // budget
@@ -141,7 +141,7 @@ $(function() {
 				g_shops[_n(10)].name, // shop
 				'いけているよ〜', // comment
 				_n(10), // max number
-				'2012-04-04 10:10:10', // deadline
+				'2013-04-04 10:10:10', // deadline
 				true, // private?
 				[g_friends[0], g_friends[1]] // participants
 		);

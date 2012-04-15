@@ -121,6 +121,8 @@ $(function() {
 	  var this_pref = $('#event-prefecture option:selected').text();
 	  var this_train = $('#event-train option:selected').text();
 	  var this_station = $('#event-station option:selected').text();
+	  var cdeadline = $('#event-deadline').datepicker('getDate');
+	  var deadline_val = cdeadline.getFullYear() + "-" + ((cdeadline.getMonth()+1) < 10 ? "0"+(cdeadline.getMonth()+1) : (cdeadline.getMonth()+1)) + "-" + cdeadline.getDate();
 	  var this_deadline = $('#event-deadline').val();
 	  
 	  // verify all required items.
@@ -164,6 +166,7 @@ $(function() {
 	  $('#ccategory').text($('#event-category option:selected').text());
 	  $('#crestaurant').text($('#event-venue').val());
 	  $('#cmax').text($('#event-max').val());
+	  $('#cdeadline-val').attr('value', deadline_val);
 	  $('#cdeadline').text(this_deadline);
 	  $('#ccomment').text($('#event-comment').val());
 	  
@@ -241,7 +244,7 @@ $(function() {
 				$('#crestaurant').text(),
 				$('#ccomment').text(),
 				$('#cmax').text(),
-				$('#cdeadline').text(),
+				$('#cdeadline-val').attr('value'),
 				privateOnly,
 				participants);
   });
