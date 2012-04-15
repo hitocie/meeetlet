@@ -264,7 +264,7 @@ class EventsController < ApiController
         participant = 
           @event.participants.build(
             :user_id => session[:user][:id],
-            :attend => ANSWER[:pending]
+            :attend => ANSWER[:OK]
           )
         participant.save!
         # friends data
