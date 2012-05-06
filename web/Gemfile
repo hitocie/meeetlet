@@ -33,11 +33,12 @@ gem 'jquery-rails'
 
 
 # Added by hokada
+gem 'therubyracer'
 gem 'mysql2'
 gem 'httpclient'
 gem 'koala' ## for Facebook
 #gem 'memcache-client'
 
 gem 'twitter-bootstrap-rails'
-gem 'jquery-rails'
+
 

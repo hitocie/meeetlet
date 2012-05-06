@@ -15,7 +15,13 @@ class UsersController < ApiController
       :client_secret => FB_APP_SECRET, 
       :code => validate_code 
     }).body
-    access_token.slice!(0, 13) # delete "access_token"
+    # NOTE: delete "access_token="
+    access_token.slice!(0, 13)
+    # NOTE: Facebook would have added "&expires=xxxx" param.(April 2012)
+    s = access_token.index("&expires=")
+    e = access_token.length
+    access_token.slice!(s, e - s)
+    
     logger.info "ACCESS_TOKEN=#{access_token}"
     
     graph = Koala::Facebook::API.new(access_token)
